@@ -4,17 +4,16 @@
 
 int main(int ac, char **av)
 {
-	t_list *list = list_new(5);
-	push_back(list, 8);
-	push_front(&list, 6);
-	print_list(list);
-	// t_list *front = pop_front(&list);
-	// print_list(front);
-	rotate(list);
-	print_list(list);
-	reverse_rotate(list);
-	print_list(list);
-	free_list(list);
-	// free_list(front);
+	t_list *stack_a;
+	t_list *stack_b;
+	push_back(&stack_a, 2);
+	// push_back(&stack_a, 1);
+	// push_back(&stack_a, 3);
+	// push_back(&stack_a, 3);
+	// push_back(&stack_a, 3);
+	// push_back(&stack_a, 8);
+	a(stack_a);
+	// b(stack_b);
+	free_list(stack_a);
 	return (0);
 }

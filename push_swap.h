@@ -31,6 +31,18 @@ void print_list(t_list *list)
 	printf("\n");
 }
 
+void a(t_list *list)
+{
+	printf("%s: ", __func__);
+	print_list(list);
+}
+
+void b(t_list *list)
+{
+	printf("%s: ", __func__);
+	print_list(list);
+}
+
 t_list *list_new(int value)
 {
 	t_list *elem;
@@ -63,21 +75,25 @@ void free_list(t_list *list)
 	}
 }
 
-void push_back(t_list *list, int value)
+void push_back(t_list **list, int value)
 {
 	t_list *elem;
+	t_list *ptr;
 
 	elem = list_new(value);
 	if (!elem)
 		return;
-	if (!list)
-		list = elem;
+	printf("hola\n");
+	if (!list && !*list)
+		*list = elem;
 	else
 	{
-		while (list->next)
-			list = list->next;
-		elem->previous = list;
-		list->next = elem;
+		ptr = *list;
+		printf("hola\n");
+		while (ptr->next)
+			ptr = ptr->next;
+		elem->previous = ptr;
+		(ptr)->next = elem;
 	}
 }
 
