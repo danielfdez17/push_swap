@@ -24,7 +24,8 @@ void print_list(t_list *list)
 {
 	while (list)
 	{
-		print_node(list);
+		// print_node(list);
+		printf("(%d) ", list->value);
 		list = list->next;
 	}
 	printf("\n");
@@ -41,6 +42,13 @@ t_list *list_new(int value)
 	elem->next = NULL;
 	elem->previous = NULL;
 	return (elem);
+}
+
+t_list *list_last(t_list *list)
+{
+	while (list && list->next)
+		list = list->next;
+	return (list);
 }
 
 void free_list(t_list *list)
@@ -141,31 +149,24 @@ int push(t_list *a, t_list *b)
 
 int rotate(t_list *list)
 {
-	t_list *first;
-	t_list *last;
-
 	if (!list)
 		return (0);
-	first = list;
-	last = first->previous;
-	while (first != last)
+	while (list && list->next)
 	{
-		swap_values(&first->value, &first->next->value);
-		first = first->next;
+		swap_values(&list->value, &list->next->value);
+		list = list->next;
 	}
 	return (1);
 }
 
 int reverse_rotate(t_list *list)
 {
-	t_list *first;
 	t_list *last;
 
 	if (!list)
 		return (0);
-	first = list;
-	last = first->previous;
-	while (first != last)
+	last = list_last(list);
+	while (last && last->previous)
 	{
 		swap_values(&last->value, &last->previous->value);
 		last = last->previous;
