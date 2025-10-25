@@ -33,13 +33,13 @@ void print_list(t_list *list)
 
 void a(t_list *list)
 {
-	printf("%s: ", __func__);
+	printf("\n%s: ", __func__);
 	print_list(list);
 }
 
 void b(t_list *list)
 {
-	printf("%s: ", __func__);
+	printf("\n%s: ", __func__);
 	print_list(list);
 }
 
@@ -83,13 +83,11 @@ void push_back(t_list **list, int value)
 	elem = list_new(value);
 	if (!elem)
 		return;
-	printf("hola\n");
-	if (!list && !*list)
+	if (!*list)
 		*list = elem;
 	else
 	{
 		ptr = *list;
-		printf("hola\n");
 		while (ptr->next)
 			ptr = ptr->next;
 		elem->previous = ptr;
@@ -97,14 +95,10 @@ void push_back(t_list **list, int value)
 	}
 }
 
-void push_front(t_list **list, int value)
+void push_front(t_list **list, t_list *elem)
 {
-	t_list *elem;
-
-	elem = list_new(value);
 	if (!elem)
 		return;
-	elem->value = value;
 	if (!*list)
 		*list = elem;
 	else
@@ -151,15 +145,12 @@ int swap_swap(t_list *a, t_list *b)
 	return (swap(a) + swap(b));
 }
 
-int push(t_list *a, t_list *b)
+int push(t_list **a, t_list **b)
 {
-	t_list *tmp;
-
-	if (!b)
+	if (!*b)
 		return (0);
-	tmp = b;
-	push_front(&a, b->value);
-	pop_front(&b);
+	push_front(a, (*b));
+	pop_front(b);
 	return (1);
 }
 
