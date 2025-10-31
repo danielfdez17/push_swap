@@ -2,11 +2,13 @@
 
 #include "../inc/headers/push_swap.h"
 
-int	push(t_list **a, t_list **b)
+int	push_from_to(t_list **a, t_list **b)
 {
-	if (!*b)
+	t_list	*elem;
+
+	if (!*a)
 		return (0);
-	push_front(a, (*b));
-	pop_front(b);
+	elem = pop_front(a);
+	push_front(b, elem);
 	return (1);
 }

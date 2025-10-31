@@ -32,13 +32,15 @@ OBJ_DIR = ./src/obj/
 SRCS_DIR = ./src/
 SRCS = \
 	list.c \
-	push.c \
 	push_swap.c \
+	push.c \
+	radix.c \
 	reveverse_rotate.c \
 	rotate.c \
+	selection.c \
 	swap.c
 
-NUMBERS = 38 27 43 10
+
 
 # Creating object files
 SOURCES = $(addprefix $(SRCS_DIR), $(SRCS))
@@ -75,13 +77,15 @@ fclean: clean
 re: fclean all
 	@echo "Rebuilding $(NAME)"
 
+NUMBERS = ./files/100_5
+
 run: all
 	clear
-	./$(NAME) $(NUMBERS)
+	./$(NAME) $(shell cat $(NUMBERS))
 
 valgrind: all
 	clear
-	valgrind ./$(NAME) $(NUMBERS)
+	valgrind ./$(NAME) $(shell cat $(NUMBERS))
 
 debug: all
 	clear

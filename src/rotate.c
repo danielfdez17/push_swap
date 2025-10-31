@@ -3,20 +3,28 @@
 #include "../inc/headers/push_swap.h"
 
 
-int rotate(t_list *list)
+int rotate(t_list *list, char stack)
 {
-	printf("Rotating list\n");
+	t_list	*ptr;
+
+	(void)stack;
 	if (!list)
 		return (0);
-	while (list && list->next)
+	// printf("Rotating list %c\n", stack);
+	// printf("before: ");
+	// print_list(list, stack);
+	ptr = list;
+	while (ptr && ptr->next)
 	{
-		swap_values(&list->value, &list->next->value);
-		list = list->next;
+		swap_values(&ptr->value, &ptr->next->value);
+		ptr = ptr->next;
 	}
+	// printf("after: ");
+	// print_list(list, stack);
 	return (1);
 }
 
 int	rr(t_list *a, t_list *b)
 {
-	return (rotate(a) + rotate(b));
+	return (rotate(a, A) + rotate(b, B));
 }

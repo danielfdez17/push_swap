@@ -4,10 +4,12 @@
 
 static int	is_asc_sorted(t_list *list)
 {
+	if (!list || !list->next)
+		return (1);
 	while (list && list->next)
 	{
-		if (list >= list->next)
-			return (-1);
+		if (list->value >= list->next->value)
+			return (0);
 		list = list->next;
 	}
 	return (1);
@@ -15,10 +17,12 @@ static int	is_asc_sorted(t_list *list)
 
 static int	is_desc_sorted(t_list *list)
 {
+	if (!list || !list->next)
+		return (1);
 	while (list && list->next)
 	{
-		if (list <= list->next)
-			return (-1);
+		if (list->value <= list->next->value)
+			return (0);
 		list = list->next;
 	}
 	return (1);
@@ -27,16 +31,26 @@ static int	is_desc_sorted(t_list *list)
 static t_value	get_min_value(t_list *list)
 {
 	t_value	min_value;
+	t_list	*ptr;
 
-	min_value.from_begin = 0;
-	min_value.from_begin = 0;
-	min_value.value = list->value;
-	list = list->next;
-	while (list)
+	min_value.front = 0;
+	min_value.back = 0;
+	ptr = list;
+	min_value.value = ptr->value;
+	ptr = ptr->next;
+	while (ptr)
 	{
-		if (list->value < min_value.value)
-			min_value.value = list->value;
-		list = list->next;
+		if (ptr->value < min_value.value)
+			min_value.value = ptr->value;
+		ptr = ptr->next;
+		min_value.back++;
+	}
+	ptr = list;
+	while (ptr->value != min_value.value)
+	{
+		min_value.front++;
+		min_value.back--;
+		ptr = ptr->next;
 	}
 	return (min_value);
 }
@@ -44,7 +58,35 @@ static t_value	get_min_value(t_list *list)
 int	selection_sort(t_list *a, t_list *b)
 {
 	int	movs;
+	int	asc_a;
+	int desc_b;
+	t_value value;
 
-	movs = 1;
+	movs = 0;
+	asc_a = 0;
+	desc_b = 0;
+	while (!asc_a || !desc_b)
+	{
+		if (a)
+		{
+			value = get_min_value(a);
+			while (a->value != value.value)
+			{
+				if (value.front <= value.back)
+				movs += rotate(a, A);
+				else
+				movs += reverse_rotate(a, A);
+			}
+			movs += push_from_to(&a, &b);
+		}
+		// print_list(a, A);
+		// print_list(b, B);
+		// sleep(1);
+		asc_a = is_asc_sorted(a);
+		desc_b = is_desc_sorted(b);
+	}
+	while (b)
+		movs += push_from_to(&b, &a);
+	// printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
 	return (movs);
 }

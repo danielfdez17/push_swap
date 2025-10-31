@@ -14,23 +14,36 @@
  * list
  */
 
+ // ! 80% = 100 en menos de 700 movimientos
+ // ! 80% = 500 en menos de 5500 movimientos
+
 int main(int ac, char **av)
 {
-	(void)ac;
 	(void)av;
 	int i = 1;
 	t_list *a = NULL;
+	t_list *a_copy = NULL;
 	t_list *b = NULL;
 	t_list *elem = NULL;
 	while (i < ac)
 	{
 		elem = list_new(atoi(av[i]));
 		push_back(&a, elem);		
+		// elem = list_new(atoi(av[i]));
+		// push_back(&a_copy, elem);
 		++i;
 	}
-	print_list(a);
-	selection_sort(a, b);
+	// * a_copy = copy_list(a);
+	print_list(a, A);
+	// print_list(a_copy, A);
+	// print_list(b, B);
+	printf("selection_sort: %d\n", selection_sort(a, b));
+	print_list(a, A);
+	// print_list(a_copy, A);
+	print_list(b, B);
 	free_list(a);
+	free_list(a_copy);
+	free_list(b);
 	// t_list *stack_a = NULL;
 	// t_list *stack_b = NULL;
 	// push_back(&stack_a, 2);
