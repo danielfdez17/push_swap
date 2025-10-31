@@ -5,6 +5,7 @@
 
 int rotate(t_list *list)
 {
+	printf("Rotating list\n");
 	if (!list)
 		return (0);
 	while (list && list->next)

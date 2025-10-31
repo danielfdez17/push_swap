@@ -20,7 +20,6 @@ int main(int ac, char **av)
 	(void)av;
 	int i = 1;
 	t_list *list = NULL;
-	t_list *aux = NULL;
 	t_list *elem = NULL;
 	while (i < ac)
 	{
@@ -29,16 +28,11 @@ int main(int ac, char **av)
 		++i;
 	}
 	print_list(list);
-	elem = pop_front(&list);
-	push_back(&aux, elem);
+	swap(list);
 	print_list(list);
-	print_list(aux);
-	elem = pop_front(&list);
-	push_back(&aux, elem);
+	swap(list);
 	print_list(list);
-	print_list(aux);
 	free_list(list);
-	free_list(aux);
 	// t_list *stack_a = NULL;
 	// t_list *stack_b = NULL;
 	// push_back(&stack_a, 2);

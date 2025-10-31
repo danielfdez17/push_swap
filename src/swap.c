@@ -14,8 +14,10 @@ void	swap_values(int *a, int *b)
 
 int	swap(t_list *list)
 {
-	if (list && list->next)
-		swap_values(&list->value, &list->next->value);
+	printf("Swapping values\n");
+	if (!list || !list->next)
+		return (0);
+	swap_values(&list->value, &list->next->value);
 	return (1);
 }
 
