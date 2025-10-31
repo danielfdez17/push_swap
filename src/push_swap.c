@@ -19,20 +19,18 @@ int main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	int i = 1;
-	t_list *list = NULL;
+	t_list *a = NULL;
+	t_list *b = NULL;
 	t_list *elem = NULL;
 	while (i < ac)
 	{
 		elem = list_new(atoi(av[i]));
-		push_back(&list, elem);		
+		push_back(&a, elem);		
 		++i;
 	}
-	print_list(list);
-	swap(list);
-	print_list(list);
-	swap(list);
-	print_list(list);
-	free_list(list);
+	print_list(a);
+	selection_sort(a, b);
+	free_list(a);
 	// t_list *stack_a = NULL;
 	// t_list *stack_b = NULL;
 	// push_back(&stack_a, 2);

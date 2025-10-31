@@ -13,6 +13,16 @@ typedef struct s_list
 	int 	value;
 } t_list;
 
+typedef struct s_value
+{
+	int	from_begin;
+	int	value;
+	int	from_behind;
+} t_value;
+
+// * SORTING ALGORITHMS
+int	selection_sort(t_list *a, t_list *b);
+int	radix_sort(t_list *a, t_list *b);
 
 // * LISTS
 void	print_node(t_list *node);
