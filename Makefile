@@ -12,46 +12,80 @@
 
 
 # Library name
-NAME=push_swap
+NAME = push_swap
 
-# Source files
-SRCS = main.c
-
-# Include files
-# INCS = ft_printf.h
-
-# Object files
-OBJS = $(SRCS:.c=.o)
-
-# Compiler and flags
-CCW = cc -Wall -Wextra -Werror
+# Compilation
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS += -fsanitize=address
 
 # Removal
 RM = rm -f
 
-# Archiver
-# AR = ar -rcs
+# Includes
+INCLUDES = -I ./inc/headers
 
+# Objects dir
+OBJ_DIR = ./src/obj/
+
+# Sources files
+SRCS_DIR = ./src/
+SRCS = \
+	list.c \
+	push.c \
+	push_swap.c \
+	reveverse_rotate.c \
+	rotate.c \
+	swap.c
+
+NUMBERS = 38 27 43 10
+
+# Creating object files
+SOURCES = $(addprefix $(SRCS_DIR), $(SRCS))
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+
+# RULES
 # Links a .c (and .h if needed) to its .o file
-%.o: %.c
-	$(CCW) -c $< -o $@
-
-# Compiles the whole program/library
-all: $(MAKE) -C ./libft/Makefile $(NAME)
+$(OBJ_DIR)%.o: $(SRCS_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CCW) $(SRCS) -o $(NAME)
+	@clear
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@echo "Compiling push_swap"
+
+# Compiles the whole program/library
+all: obj $(NAME)
+
+obj:
+	@mkdir -p $(OBJ_DIR)
 
 # Removes the object files
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	@$(RM) $(OBJS)
+	@echo "Removing .o files"
 
 # Removes both object and executable files
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo "Removing $(NAME)"
 
 # Rebuilds the program/library
 re: fclean all
+	@echo "Rebuilding $(NAME)"
+
+run: all
+	clear
+	./$(NAME) $(NUMBERS)
+
+valgrind: all
+	clear
+	valgrind ./$(NAME) $(NUMBERS)
+
+debug: all
+	clear
+	gdb ./$(NAME)
 
 # Protects all rules from files with same name
-.PHONY: all clean fclean re rebonus bonus
+.PHONY: all obj clean fclean re run valgrind debug
