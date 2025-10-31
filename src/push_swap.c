@@ -15,7 +15,7 @@
  */
 
  // ! 80% = 100 en menos de 700 movimientos
- // ! 80% = 500 en menos de 5500 movimientos
+ // ! 100% = 500 en menos de 5500 movimientos
 
 int main(int ac, char **av)
 {
@@ -33,17 +33,26 @@ int main(int ac, char **av)
 		// push_back(&a_copy, elem);
 		++i;
 	}
-	// * a_copy = copy_list(a);
-	print_list(a, A);
+	a_copy = copy_list(a);
+	// print_list(a, A);
 	// print_list(a_copy, A);
 	// print_list(b, B);
-	printf("selection_sort: %d\n", selection_sort(a, b));
-	print_list(a, A);
-	// print_list(a_copy, A);
-	print_list(b, B);
+	selection_sort(a, b);
+	// printf("selection_sort: %d\n", selection_sort(a, b));
+	// print_list(a, A);
+	// print_list(b, B);
 	free_list(a);
-	free_list(a_copy);
+	// printf("-------------------\n");
+	a = a_copy;
+	// print_list(a, A);
+	// print_list(b, B);
+	// printf("radix_sort: %d\n", radix_sort(&a, &b, ac - 1));
+	// print_list(a, A);
+	// print_list(b, B);
+	free_list(a);
+	// free_list(a_copy);
 	free_list(b);
+	// printf("%lu %lu\n", sizeof('a'), sizeof(int));
 	// t_list *stack_a = NULL;
 	// t_list *stack_b = NULL;
 	// push_back(&stack_a, 2);

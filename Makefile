@@ -40,8 +40,6 @@ SRCS = \
 	selection.c \
 	swap.c
 
-
-
 # Creating object files
 SOURCES = $(addprefix $(SRCS_DIR), $(SRCS))
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
@@ -77,7 +75,7 @@ fclean: clean
 re: fclean all
 	@echo "Rebuilding $(NAME)"
 
-NUMBERS = ./files/100_5
+NUMBERS = ./files/10_1
 
 run: all
 	clear

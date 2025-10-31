@@ -12,7 +12,7 @@ void	swap_values(int *a, int *b)
 	*b = tmp;
 }
 
-int	swap(t_list *list)
+static int	swap(t_list *list)
 {
 	printf("Swapping values\n");
 	if (!list || !list->next)
@@ -21,7 +21,19 @@ int	swap(t_list *list)
 	return (1);
 }
 
-int	ss(t_list *a, t_list *b)
+int	sa(t_list **a)
 {
-	return (swap(a) + swap(b));
+	printf("sa\n");
+	return (swap(*a));
+}
+
+int	sb(t_list **b)
+{
+	printf("sb\n");
+	return (swap(*b));
+}
+
+int	ss(t_list **a, t_list **b)
+{
+	return (sa(a) + sb(b));
 }

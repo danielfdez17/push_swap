@@ -73,11 +73,11 @@ int	selection_sort(t_list *a, t_list *b)
 			while (a->value != value.value)
 			{
 				if (value.front <= value.back)
-				movs += rotate(a, A);
+				movs += ra(&a);
 				else
-				movs += reverse_rotate(a, A);
+				movs += rra(&a);
 			}
-			movs += push_from_to(&a, &b);
+			movs += pb(&a, &b);
 		}
 		// print_list(a, A);
 		// print_list(b, B);
@@ -86,7 +86,7 @@ int	selection_sort(t_list *a, t_list *b)
 		desc_b = is_desc_sorted(b);
 	}
 	while (b)
-		movs += push_from_to(&b, &a);
+		movs += pa(&a, &b);
 	// printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
 	return (movs);
 }

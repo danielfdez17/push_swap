@@ -2,7 +2,7 @@
 
 #include "../inc/headers/push_swap.h"
 
-int reverse_rotate(t_list *list, char stack)
+static int reverse_rotate(t_list *list, char stack)
 {
 	t_list *last;
 
@@ -23,7 +23,18 @@ int reverse_rotate(t_list *list, char stack)
 	return (1);
 }
 
-int rrr(t_list *a, t_list *b)
+int	rrr(t_list **a, t_list **b)
 {
-	return (reverse_rotate(a, A) + reverse_rotate(b, B));
+	return (rra(a) + rrb(b));
+}
+
+int		rra(t_list **a)
+{
+	printf("rra\n");
+	return (reverse_rotate(*a, A));
+}
+int		rrb(t_list **b)
+{
+	printf("rrb\n");
+	return (reverse_rotate(*b, B));
 }

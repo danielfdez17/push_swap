@@ -5,9 +5,7 @@
 
 void print_node(t_list *node)
 {
-	printf("prev: %d ", node->previous ? node->previous->value : -1);
-	printf(" <-> value: %d ", node->value);
-	printf("next: %d\n", node->next ? node->next->value : -1);
+	printf("(%d,%d) ", node->value, node->index);
 }
 
 void print_list(t_list *list, char stack)
@@ -15,8 +13,8 @@ void print_list(t_list *list, char stack)
 	printf("%c: ", stack);
 	while (list)
 	{
-		// print_node(list);
-		printf("(%d) ", list->value);
+		print_node(list);
+		// printf("(%d) ", list->value);
 		list = list->next;
 	}
 	printf("\n");
@@ -31,7 +29,7 @@ t_list *list_new(int value)
 		return (NULL);
 	elem->value = value;
 	elem->next = NULL;
-	// Defensive: ensure the popped node is fully detached from the list
+	elem->index = 0;
 	elem->previous = NULL;
 	return (elem);
 }
@@ -53,6 +51,7 @@ void free_list(t_list *list)
 		list = list->next;
 		free(ptr);
 	}
+	list = NULL;
 }
 
 void	push_front(t_list **list, t_list *elem)
