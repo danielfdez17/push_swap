@@ -17,6 +17,22 @@
  // ! 80% = 100 en menos de 700 movimientos
  // ! 100% = 500 en menos de 5500 movimientos
 
+static int	ft_is_valid(char c)
+{
+	return (ft_isalpha(0) || c == '-' || c == ' ');
+}
+ 
+static int	validate_input(char *input)
+{
+	while (input && *input)
+	{
+		if (!ft_is_valid(*input))
+			return (0);
+		++input;
+	}
+	return (1);
+}
+
 int main(int ac, char **av)
 {
 	(void)av;
