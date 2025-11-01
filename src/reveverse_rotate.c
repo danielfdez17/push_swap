@@ -2,15 +2,15 @@
 
 #include "../inc/headers/push_swap.h"
 
-static int reverse_rotate(t_list *list, char stack)
+static int reverse_rotate(t_stack *list, char stack)
 {
-	t_list *last;
+	t_stack *last;
 
 	(void)stack;
 	if (!list)
 		return (0);
-	// printf("Reverse rotating list %c\n", stack);
-	// printf("before: ");
+	// ft_printf("Reverse rotating list %c\n", stack);
+	// ft_printf("before: ");
 	// print_list(list, stack);
 	last = list_last(list);
 	while (last && last->previous)
@@ -18,23 +18,23 @@ static int reverse_rotate(t_list *list, char stack)
 		swap_values(&last->value, &last->previous->value);
 		last = last->previous;
 	}
-	// printf("after: ");
+	// ft_printf("after: ");
 	// print_list(list, stack);
 	return (1);
 }
 
-int	rrr(t_list **a, t_list **b)
+int	rrr(t_stack **a, t_stack **b)
 {
 	return (rra(a) + rrb(b));
 }
 
-int		rra(t_list **a)
+int		rra(t_stack **a)
 {
-	printf("rra\n");
+	ft_printf("rra\n");
 	return (reverse_rotate(*a, A));
 }
-int		rrb(t_list **b)
+int		rrb(t_stack **b)
 {
-	printf("rrb\n");
+	ft_printf("rrb\n");
 	return (reverse_rotate(*b, B));
 }

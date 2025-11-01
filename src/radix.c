@@ -2,11 +2,11 @@
 
 #include "../inc/headers/push_swap.h"
 
-t_list	*assign_indexes(t_list *a, int size)
+t_stack	*assign_indexes(t_stack *a, int size)
 {
-	t_list	*ptr;
-	t_list	*copy;
-	t_list	*ptr_copy;
+	t_stack	*ptr;
+	t_stack	*copy;
+	t_stack	*ptr_copy;
 	int	i;
 
 	(void)size;
@@ -37,7 +37,7 @@ t_list	*assign_indexes(t_list *a, int size)
 	return (a);
 }
 
-int	radix_sort(t_list **a, t_list **b, int size)
+int	radix_sort(t_stack **a, t_stack **b, int size)
 {
 	int	max_bits;
 	int	max_num;

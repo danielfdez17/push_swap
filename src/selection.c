@@ -2,7 +2,7 @@
 
 #include "../inc/headers/push_swap.h"
 
-static int	is_asc_sorted(t_list *list)
+static int	is_asc_sorted(t_stack *list)
 {
 	if (!list || !list->next)
 		return (1);
@@ -15,7 +15,7 @@ static int	is_asc_sorted(t_list *list)
 	return (1);
 }
 
-static int	is_desc_sorted(t_list *list)
+static int	is_desc_sorted(t_stack *list)
 {
 	if (!list || !list->next)
 		return (1);
@@ -28,10 +28,10 @@ static int	is_desc_sorted(t_list *list)
 	return (1);
 }
 
-static t_value	get_min_value(t_list *list)
+static t_value	get_min_value(t_stack *list)
 {
 	t_value	min_value;
-	t_list	*ptr;
+	t_stack	*ptr;
 
 	min_value.front = 0;
 	min_value.back = 0;
@@ -55,7 +55,7 @@ static t_value	get_min_value(t_list *list)
 	return (min_value);
 }
 
-int	selection_sort(t_list *a, t_list *b)
+int	selection_sort(t_stack *a, t_stack *b)
 {
 	int	movs;
 	int	asc_a;
@@ -87,6 +87,6 @@ int	selection_sort(t_list *a, t_list *b)
 	}
 	while (b)
 		movs += pa(&a, &b);
-	// printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
+	// ft_printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
 	return (movs);
 }

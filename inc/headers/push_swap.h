@@ -3,17 +3,16 @@
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
+# include "../libft/inc/headers/libft.h"
+# include "../libft/inc/headers/ft_printf.h"
 
-typedef struct s_list
+typedef struct s_stack
 {
-	struct 	s_list *previous;
-	struct 	s_list *next;
+	struct 	s_stack *previous;
+	struct 	s_stack *next;
 	int 	value;
 	int		index;
-} t_list;
+} t_stack;
 
 typedef struct s_value
 {
@@ -26,42 +25,42 @@ typedef struct s_value
 #define B 'b'
 
 // * SORTING ALGORITHMS
-int	selection_sort(t_list *a, t_list *b);
-int	radix_sort(t_list **a, t_list **b, int size);
+int	selection_sort(t_stack *a, t_stack *b);
+int	radix_sort(t_stack **a, t_stack **b, int size);
 
 // * LISTS
-t_list	*copy_list(t_list *list);
-void	print_node(t_list *node);
-void	print_list(t_list *list, char stack);
-t_list	*list_new(int value);
-t_list	*list_last(t_list *list);
-void	free_list(t_list *list);
-void	push_back(t_list **list, t_list *elem);
-void	push_front(t_list **list, t_list *elem);
-t_list	*pop_front(t_list **list);
+t_stack	*copy_list(t_stack *list);
+void	print_node(t_stack *node);
+void	print_list(t_stack *list, char stack);
+t_stack	*list_new(int value);
+t_stack	*list_last(t_stack *list);
+void	free_list(t_stack *list);
+void	push_back(t_stack **list, t_stack *elem);
+void	push_front(t_stack **list, t_stack *elem);
+t_stack	*pop_front(t_stack **list);
 
 // * SWAP
 void	swap_values(int *a, int *b);
-// int		swap(t_list *list);
-int		sa(t_list **a);
-int		sb(t_list **b);
-int		ss(t_list **a, t_list **b);
+// int		swap(t_stack *list);
+int		sa(t_stack **a);
+int		sb(t_stack **b);
+int		ss(t_stack **a, t_stack **b);
 
 // * PUSH
-// int		push_from_to(t_list **a, t_list **b);
-int		pa(t_list **a, t_list **b);
-int		pb(t_list **a, t_list **b);
+// int		push_from_to(t_stack **a, t_stack **b);
+int		pa(t_stack **a, t_stack **b);
+int		pb(t_stack **a, t_stack **b);
 
 // * ROTATE
-// int 	rotate(t_list *list, char stack);
-int		ra(t_list **a);
-int		rb(t_list **b);
-int		rr(t_list **a, t_list **b);
+// int 	rotate(t_stack *list, char stack);
+int		ra(t_stack **a);
+int		rb(t_stack **b);
+int		rr(t_stack **a, t_stack **b);
 
 // * REVERSE ROTATE
-// int		reverse_rotate(t_list *list, char stack);
-int		rrr(t_list **a, t_list **b);
-int 	rra(t_list **a);
-int 	rrb(t_list **b);
+// int		reverse_rotate(t_stack *list, char stack);
+int		rrr(t_stack **a, t_stack **b);
+int 	rra(t_stack **a);
+int 	rrb(t_stack **b);
 
 #endif

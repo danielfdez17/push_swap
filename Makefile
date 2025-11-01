@@ -23,37 +23,41 @@ CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
 # Includes
-INCLUDES = -I ./inc/headers
+INCLUDES = -I ./inc/headers -I ./inc/libft/inc/headers/
 
 # Objects dir
 OBJ_DIR = ./src/obj/
 
 # Sources files
-SRCS_DIR = ./src/
-SRCS = \
-	list.c \
-	push_swap.c \
-	push.c \
-	radix.c \
-	reveverse_rotate.c \
-	rotate.c \
-	selection.c \
-	swap.c
+PUSH_SWAP_DIR = ./src/
+PUSH_SWAP_SRCS = $(shell ls $(PUSH_SWAP_DIR) | grep -E ".+\.c")
+SRCS = $(PUSH_SWAP_SRCS)
 
 # Creating object files
-SOURCES = $(addprefix $(SRCS_DIR), $(SRCS))
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+OBJS = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_SRCS:.c=.o))
+
+# LIBFT
+LIBFT_DIR = ./inc/libft/
+LIBFT = ./inc/libft/libft.a
 
 # RULES
 # Links a .c (and .h if needed) to its .o file
-$(OBJ_DIR)%.o: $(SRCS_DIR)%.c
+$(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	@clear
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME)
 	@echo "Compiling push_swap"
+
+test:
+# 	@echo ls $(SRCS)
+	@echo ls $(OBJS)
+
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR) all
+	@echo "Compiling libft"
 
 # Compiles the whole program/library
 all: obj $(NAME)
@@ -69,10 +73,13 @@ clean:
 # Removes both object and executable files
 fclean: clean
 	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "Removing $(NAME)"
 
 # Rebuilds the program/library
 re: fclean all
+	@echo "Rebuilding $(LIBFT)"
+	@$(MAKE) -C $(LIBFT_DIR) re
 	@echo "Rebuilding $(NAME)"
 
 NUMBERS = ./files/10_1

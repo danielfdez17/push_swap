@@ -3,28 +3,28 @@
 #include "../inc/headers/push_swap.h"
 
 
-void print_node(t_list *node)
+void print_node(t_stack *node)
 {
-	printf("(%d,%d) ", node->value, node->index);
+	ft_printf("(%d,%d) ", node->value, node->index);
 }
 
-void print_list(t_list *list, char stack)
+void print_list(t_stack *list, char stack)
 {
-	printf("%c: ", stack);
+	ft_printf("%c: ", stack);
 	while (list)
 	{
 		print_node(list);
-		// printf("(%d) ", list->value);
+		// ft_printf("(%d) ", list->value);
 		list = list->next;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
-t_list *list_new(int value)
+t_stack *list_new(int value)
 {
-	t_list *elem;
+	t_stack *elem;
 
-	elem = (t_list *)malloc(sizeof(t_list));
+	elem = (t_stack *)malloc(sizeof(t_stack));
 	if (!elem)
 		return (NULL);
 	elem->value = value;
@@ -34,16 +34,16 @@ t_list *list_new(int value)
 	return (elem);
 }
 
-t_list *list_last(t_list *list)
+t_stack *list_last(t_stack *list)
 {
 	while (list && list->next)
 		list = list->next;
 	return (list);
 }
 
-void free_list(t_list *list)
+void free_list(t_stack *list)
 {
-	t_list *ptr;
+	t_stack *ptr;
 
 	while (list)
 	{
@@ -54,7 +54,7 @@ void free_list(t_list *list)
 	list = NULL;
 }
 
-void	push_front(t_list **list, t_list *elem)
+void	push_front(t_stack **list, t_stack *elem)
 {
 	if (!elem)
 		return ;
@@ -76,9 +76,9 @@ void	push_front(t_list **list, t_list *elem)
 	}
 }
 
-t_list	*pop_front(t_list **list)
+t_stack	*pop_front(t_stack **list)
 {
-	t_list 	*elem;
+	t_stack 	*elem;
 
 	if (!list || !*list)
 		return (NULL);
@@ -91,9 +91,9 @@ t_list	*pop_front(t_list **list)
 	return (elem);
 }
 
-void push_back(t_list **list, t_list *elem)
+void push_back(t_stack **list, t_stack *elem)
 {
-	t_list *ptr;
+	t_stack *ptr;
 
 	ptr = list_last(*list);
 	if (!ptr)
@@ -105,10 +105,10 @@ void push_back(t_list **list, t_list *elem)
 	}
 }
 
-t_list	*copy_list(t_list *list)
+t_stack	*copy_list(t_stack *list)
 {
-	t_list *new_elem;
-	t_list *new_list;
+	t_stack *new_elem;
+	t_stack *new_list;
 
 	new_list = NULL;
 	while (list)
