@@ -82,7 +82,7 @@ re: fclean all
 	@$(MAKE) -C $(LIBFT_DIR) re
 	@echo "Rebuilding $(NAME)"
 
-NUMBERS = ./files/10_1
+NUMBERS = ./files/500_1
 
 run: all
 	clear

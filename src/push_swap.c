@@ -2,96 +2,27 @@
 
 #include "../inc/headers/push_swap.h"
 
-/** usefull gdb commands
- * break <line_number>
- * info break
- * delete <breakpoint_number>
- * lay next
- * shell clear
- * call <function>
- * print <var> // print <param>
- * gdb -tui to see the Text User Interface
- * list
- */
-
- // ! 80% = 100 en menos de 700 movimientos
- // ! 100% = 500 en menos de 5500 movimientos
-
-// static int	ft_is_valid(char c)
-// {
-// 	return (ft_isalpha(0) || c == '-' || c == ' ');
-// }
- 
-// static int	ft_validate_input(char *input)
-// {
-// 	while (input && *input)
-// 	{
-// 		if (!ft_is_valid(*input))
-// 			return (0);
-// 		++input;
-// 	}
-// 	return (1);
-// }
-
-int main(int ac, char **av)
+int	main(int argc, char **argv) //Define a program that takes in a random input if numbers and sorts them in ascending order
 {
-	(void)av;
-	int i = 1;
-	t_stack *a = NULL;
-	t_stack *a_copy = NULL;
-	t_stack *b = NULL;
-	t_stack *elem = NULL;
-	while (i < ac)
+	t_stack_node	*a; //To store a pointer to stack `a`
+	t_stack_node	*b; //To store a pointer to stack `b`
+
+	a = NULL; //Set both pointers to NULL to avoid undefined behaviour
+	b = NULL;
+	if (argc == 1 || (argc == 2 && !argv[1][0])) //Check for incorrect argument counts or if the 2 argument is `0`
+		return (1);
+	else if (argc == 2) //Check if the argument count is 2 and the 2nd is not empty, this implies a string
+		argv = ft_split(argv[1], ' '); //Call ``split()` to extract each substring
+	init_stack_a(&a, argv + 1); //Initiate stack `a`, which also handles errors
+	if (!stack_sorted(a)) //Check if the stack is not sorted
 	{
-		elem = list_new(atoi(av[i]));
-		push_back(&a, elem);		
-		// elem = list_new(atoi(av[i]));
-		// push_back(&a_copy, elem);
-		++i;
+		if (stack_len(a) == 2) //If not, and there are two numbers, swap the first two nodes
+			sa(&a, 0);
+		else if (stack_len(a) == 3) //If not, and there are three numbers, call the sort three algorithm
+			sort_three(&a);
+		else
+			sort_stacks(&a, &b); //If not, and there are more than three numbers, call the sort stacks algorithm
 	}
-	a_copy = copy_list(a);
-	// print_list(a, A);
-	// print_list(a_copy, A);
-	// print_list(b, B);
-	selection_sort(a, b);
-	// ft_printf("selection_sort: %d\n", selection_sort(a, b));
-	// print_list(a, A);
-	// print_list(b, B);
-	free_list(a);
-	// ft_printf("-------------------\n");
-	a = a_copy;
-	// print_list(a, A);
-	// print_list(b, B);
-	// ft_printf("radix_sort: %d\n", radix_sort(&a, &b, ac - 1));
-	// print_list(a, A);
-	// print_list(b, B);
-	free_list(a);
-	// free_list(a_copy);
-	free_list(b);
-	// ft_printf("%lu %lu\n", sizeof('a'), sizeof(int));
-	// t_stack *stack_a = NULL;
-	// t_stack *stack_b = NULL;
-	// push_back(&stack_a, 2);
-	// push_back(&stack_a, 1);
-	// push_back(&stack_a, 3);
-	// push_back(&stack_a, 6);
-	// push_back(&stack_a, 5);
-	// push_back(&stack_a, 8);
-	// ft_printf("\n---Init a and b\n");
-	// print(stack_a, stack_b);
-	// ft_printf("\n---Exec sa\n");
-	// swap(stack_a);
-	// print(stack_a, stack_b);
-	// ft_printf("\n---Exec pb\n");
-	// push(&stack_b, &stack_a);
-	// print(stack_a, stack_b);
-	// ft_printf("\n---Exec pb\n");
-	// push(&stack_b, &stack_a);
-	// print(stack_a, stack_b);
-	// // ft_printf("---Exec pb\n");
-	// // push(&stack_b, &stack_a);
-	// // print(stack_a, stack_b);
-	// free_list(stack_a);
-	// free_list(stack_b);
+	free_stack(&a); //Clean up the stack
 	return (0);
 }

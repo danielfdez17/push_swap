@@ -2,40 +2,38 @@
 
 #include "../inc/headers/push_swap.h"
 
-
-static int rotate(t_stack *list, char stack)
+static void	rotate(t_stack_node **stack) //Define a function that rotates the stack's top node to the bottom of the stack
 {
-	t_stack	*ptr;
+	t_stack_node	*last_node; //To store a pointer to the last node of a stack
 
-	(void)stack;
-	if (!list)
-		return (0);
-	// ft_printf("Rotating list %c\n", stack);
-	// ft_printf("before: ");
-	// print_list(list, stack);
-	ptr = list;
-	while (ptr && ptr->next)
-	{
-		swap_values(&ptr->value, &ptr->next->value);
-		ptr = ptr->next;
-	}
-	// ft_printf("after: ");
-	// print_list(list, stack);
-	return (1);
+	if (!*stack || !(*stack)->next) //Check if the stack is empty, or if there's one node
+		return ;
+	last_node = find_last(*stack); 
+	last_node->next = *stack; //Assign to the last node, its `next` attribute as the top node, effectively setting the current top node as the last node
+	*stack = (*stack)->next; //Assign to the pointer of the top node, the node after it (second from the top)
+	(*stack)->prev = NULL; //Complete setting the current top node by detaching it from its previous top node
+	last_node->next->prev = last_node; //Reconnect the second node's prev pointer to point to what was previously the last node in the stack
+	last_node->next->next = NULL; //Assign to the `next` attribute of the current last node, `NULL` effectively setting it as the current last node, and properly null terminating the stack
+}		
+
+void	ra(t_stack_node **a, t_bool print) //Rotate the top `a` node to the bottom of the stack, and print the instruction
+{
+	rotate(a);
+	if (!print)
+		ft_printf("ra\n");
 }
 
-int	rr(t_stack **a, t_stack **b)
+void	rb(t_stack_node **b, t_bool print) //Rotate the top `b` node to the bottom of the stack, and print the instruction
 {
-	return (ra(a) + rb(b));
+	rotate(b);
+	if (!print)
+		ft_printf("rb\n");
 }
 
-int		ra(t_stack **a)
+void	rr(t_stack_node **a, t_stack_node **b, t_bool print) //Stimultaneously rotate both the top `a` and `b` nodes to the bottom of the stack, and print the instruction
 {
-	ft_printf("ra\n");
-	return (rotate(*a, A));
-}
-int		rb(t_stack **b)
-{
-	ft_printf("rb\n");
-	return (rotate(*b, B));
+	rotate(a);
+	rotate(b);
+	if (!print)
+		ft_printf("rr\n");
 }

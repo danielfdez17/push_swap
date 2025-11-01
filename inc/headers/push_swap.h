@@ -3,64 +3,63 @@
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 
+# include <limits.h>
 # include "../libft/inc/headers/libft.h"
 # include "../libft/inc/headers/ft_printf.h"
 
-typedef struct s_stack
+typedef int t_bool;
+
+typedef struct s_stack_node
 {
-	struct 	s_stack *previous;
-	struct 	s_stack *next;
-	int 	value;
+	int		number;
 	int		index;
-} t_stack;
+	int		push_cost;
+	t_bool	above_median;
+	t_bool	cheapest;
+	struct s_stack_node	*target_node;
+	struct s_stack_node	*next;
+	struct s_stack_node	*prev;
+} t_stack_node;
 
-typedef struct s_value
-{
-	int	front;
-	int	value;
-	int	back;
-} t_value;
+//***Handle errors
+int				error_syntax(char *str_n); 
+int				error_duplicate(t_stack_node *a, int n);
+void			free_stack(t_stack_node **stack);
+void			free_errors(t_stack_node **a);
 
-#define A 'a'
-#define B 'b'
+//***Stack initiation
+void			init_stack_a(t_stack_node **a, char **argv); //Initiate stack `a` before processing
 
-// * SORTING ALGORITHMS
-int	selection_sort(t_stack *a, t_stack *b);
-int	radix_sort(t_stack **a, t_stack **b, int size);
+//***Nodes initiation
+void			init_nodes_a(t_stack_node *a, t_stack_node *b); //To prep all nodes for pushing `a` to `b`
+void			init_nodes_b(t_stack_node *a, t_stack_node *b); //To prep all nodes for pushing `b` back to `a`
+void			current_index(t_stack_node *stack); //Set the node's current index
+void			set_cheapest(t_stack_node *stack); //Set the stack's cheapest node
+t_stack_node	*get_cheapest(t_stack_node *stack); //Get the cheapest node of a stack
+void			prep_for_push(t_stack_node **s, t_stack_node *n, char c); //Prep the required nodes on top for pushing
 
-// * LISTS
-t_stack	*copy_list(t_stack *list);
-void	print_node(t_stack *node);
-void	print_list(t_stack *list, char stack);
-t_stack	*list_new(int value);
-t_stack	*list_last(t_stack *list);
-void	free_list(t_stack *list);
-void	push_back(t_stack **list, t_stack *elem);
-void	push_front(t_stack **list, t_stack *elem);
-t_stack	*pop_front(t_stack **list);
+//***Stack utils
+int				stack_len(t_stack_node *stack); //Calculate the length of a stack
+t_stack_node	*find_last(t_stack_node *stack); //Find the last node of a stack
+t_bool			stack_sorted(t_stack_node *stack); //To check whether a stack is sorted
+t_stack_node	*find_min(t_stack_node *stack); //Find the smallest number
+t_stack_node	*find_max(t_stack_node *stack); //Find the biggest number
 
-// * SWAP
-void	swap_values(int *a, int *b);
-// int		swap(t_stack *list);
-int		sa(t_stack **a);
-int		sb(t_stack **b);
-int		ss(t_stack **a, t_stack **b);
+//***Commands
+void			sa(t_stack_node **a, t_bool print);
+void			sb(t_stack_node **b, t_bool print);
+void			ss(t_stack_node **a, t_stack_node **b, t_bool print);
+void			ra(t_stack_node **a, t_bool print);
+void			rb(t_stack_node **b, t_bool print);
+void			rr(t_stack_node **a, t_stack_node **b, t_bool print);
+void			rra(t_stack_node **a, t_bool print);
+void			rrb(t_stack_node **b, t_bool print);
+void			rrr(t_stack_node **a, t_stack_node **b, t_bool print);
+void			pa(t_stack_node **a, t_stack_node **b, t_bool print);
+void			pb(t_stack_node **b, t_stack_node **a, t_bool print);
 
-// * PUSH
-// int		push_from_to(t_stack **a, t_stack **b);
-int		pa(t_stack **a, t_stack **b);
-int		pb(t_stack **a, t_stack **b);
-
-// * ROTATE
-// int 	rotate(t_stack *list, char stack);
-int		ra(t_stack **a);
-int		rb(t_stack **b);
-int		rr(t_stack **a, t_stack **b);
-
-// * REVERSE ROTATE
-// int		reverse_rotate(t_stack *list, char stack);
-int		rrr(t_stack **a, t_stack **b);
-int 	rra(t_stack **a);
-int 	rrb(t_stack **b);
+//***Algorithm
+void			sort_three(t_stack_node **a);
+void			sort_stacks(t_stack_node **a, t_stack_node **b); //Turk algorithm
 
 #endif
