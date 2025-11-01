@@ -2,38 +2,34 @@
 
 #include "../inc/headers/push_swap.h"
 
-t_stack	*assign_indexes(t_stack *a, int size)
+t_stack	*assign_indexes(t_stack *a)
 {
 	t_stack	*ptr;
-	t_stack	*copy;
-	t_stack	*ptr_copy;
+	t_stack	*a_copy;
+	t_stack	*b_aux;
 	int	i;
 
-	(void)size;
-	ptr_copy = NULL;
-	copy = copy_list(a);
-	selection_sort(copy, ptr_copy);
-
+	b_aux = NULL;
+	a_copy = copy_list(a);
+	selection_sort(a_copy, b_aux);
 	ptr = a;
 	while (ptr)
 	{
 		i = 0;
-		ptr_copy = copy;
-		while (ptr_copy)
+		b_aux = a_copy;
+		while (b_aux)
 		{
-			if (ptr_copy->value == ptr->value)
+			if (b_aux->value == ptr->value)
 			{
 				ptr->index = i;
 				break ;
 			}
-			ptr_copy = ptr_copy->next;
+			b_aux = b_aux->next;
 			++i;
 		}
 		ptr = ptr->next;
 	}
-	// print_list(a, 'a');
-	// print_list(copy, 'c');
-	free_list(copy);
+	free_list(a_copy);
 	return (a);
 }
 
@@ -46,7 +42,7 @@ int	radix_sort(t_stack **a, t_stack **b, int size)
 	movs = 0;
 	max_bits = 0;
 	max_num = size - 1;
-	*a = assign_indexes(*a, size);
+	*a = assign_indexes(*a);
 	while (max_num >> max_bits)
 		++max_bits;
 	int i = 0;
@@ -58,15 +54,14 @@ int	radix_sort(t_stack **a, t_stack **b, int size)
 		{
 			int num = (*a)->index;
 			if (((num >> i) & 1) == 0)
-				movs += pb(a, b);
+				movs += pb(a, b, 1);
 			else
-				movs += ra(a);
+				movs += ra(a, 1);
 			++j;
 		}
 		while (*b)
-			movs += pa(a, b);
+			movs += pa(a, b, 1);
 		++i;
 	}
-	// print_list(copy, 'i');
 	return (movs);
 }

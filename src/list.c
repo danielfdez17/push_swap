@@ -8,13 +8,11 @@ void print_node(t_stack *node)
 	ft_printf("(%d,%d) ", node->value, node->index);
 }
 
-void print_list(t_stack *list, char stack)
+void print_list(t_stack *list)
 {
-	ft_printf("%c: ", stack);
 	while (list)
 	{
 		print_node(list);
-		// ft_printf("(%d) ", list->value);
 		list = list->next;
 	}
 	ft_printf("\n");

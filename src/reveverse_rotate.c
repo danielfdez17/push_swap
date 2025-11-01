@@ -2,39 +2,46 @@
 
 #include "../inc/headers/push_swap.h"
 
-static int reverse_rotate(t_stack *list, char stack)
+static int reverse_rotate(t_stack *list)
 {
 	t_stack *last;
 
-	(void)stack;
 	if (!list)
 		return (0);
-	// ft_printf("Reverse rotating list %c\n", stack);
-	// ft_printf("before: ");
-	// print_list(list, stack);
 	last = list_last(list);
 	while (last && last->previous)
 	{
 		swap_values(&last->value, &last->previous->value);
 		last = last->previous;
 	}
-	// ft_printf("after: ");
-	// print_list(list, stack);
 	return (1);
 }
 
-int	rrr(t_stack **a, t_stack **b)
+int	rrr(t_stack **a, t_stack **b, t_bool print)
 {
-	return (rra(a) + rrb(b));
+	int movs;
+
+	movs = rra(a, 0) + rrb(b, 0);
+	if (movs > 0 && print)
+		ft_printf("rrr\n");
+	return (movs);
 }
 
-int		rra(t_stack **a)
+int		rra(t_stack **a, t_bool print)
 {
-	ft_printf("rra\n");
-	return (reverse_rotate(*a, A));
+	int	movs;
+
+	movs = reverse_rotate(*a);
+	if (movs && print)
+		ft_printf("rra\n");
+	return (movs);
 }
-int		rrb(t_stack **b)
+int		rrb(t_stack **b, t_bool print)
 {
-	ft_printf("rrb\n");
-	return (reverse_rotate(*b, B));
+	int movs;
+
+	movs = reverse_rotate(*b);
+	if (movs && print)
+		ft_printf("rrb\n");
+	return (movs);
 }

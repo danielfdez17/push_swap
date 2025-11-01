@@ -21,19 +21,32 @@ static int	swap(t_stack *list)
 	return (1);
 }
 
-int	sa(t_stack **a)
+int	sa(t_stack **a, t_bool print)
 {
-	ft_printf("sa\n");
-	return (swap(*a));
+	int	movs;
+
+	movs = swap(*a);
+	if (movs && print)
+		ft_printf("sa\n");
+	return (movs);
 }
 
-int	sb(t_stack **b)
+int	sb(t_stack **b, t_bool print)
 {
-	ft_printf("sb\n");
+	int	movs;
+
+	movs = swap(*b);
+	if (movs && print)
+		ft_printf("sb\n");
 	return (swap(*b));
 }
 
-int	ss(t_stack **a, t_stack **b)
+int	ss(t_stack **a, t_stack **b, t_bool print)
 {
-	return (sa(a) + sb(b));
+	int	movs;
+
+	movs = sa(a, 0) + sb(b, 0);
+	if (movs > 0 && print)
+		ft_printf("ss\n");
+	return (movs);
 }
