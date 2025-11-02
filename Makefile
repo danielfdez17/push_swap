@@ -82,11 +82,13 @@ re: fclean all
 	@$(MAKE) -C $(LIBFT_DIR) re
 	@echo "Rebuilding $(NAME)"
 
-NUMBERS = ./files/10_1
+NUMBERS = ./files/500_1
 
 run: all
 	clear
-	./$(NAME) $(shell cat $(NUMBERS))
+# 	./$(NAME) $(NUMBERS)
+# 	./$(NAME) $(shell cat $(NUMBERS))
+	./$(NAME) $(shell cat $(NUMBERS)) | wc -l
 
 valgrind: all
 	clear

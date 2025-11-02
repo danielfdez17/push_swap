@@ -14,7 +14,7 @@ void	swap_values(int *a, int *b)
 
 static int	swap(t_stack *list)
 {
-	ft_printf("Swapping values\n");
+	// ft_printf("Swapping values\n");
 	if (!list || !list->next)
 		return (0);
 	swap_values(&list->value, &list->next->value);

@@ -33,27 +33,58 @@
 // 	return (1);
 // }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	int i = 1;
-	t_stack *a = NULL;
-	t_stack *b = NULL;
-	t_stack *elem = NULL;
-	while (i < ac)
+	t_stack	*a;
+	t_stack	*b;
+	int		size;
+
+	a = NULL;
+	b = NULL;
+	if (ac == 1 || (ac == 2 && !av[1][0]))
+		return (1);
+	if (ac == 2)
+		av = ft_split(av[1], ' ');
+	init_stack(&a, av + 1);
+	size = get_size(a);
+	if (!is_stack_sorted(a))
 	{
-		elem = list_new(ft_atoi(av[i]));
-		if (!elem)
-		{
-			free_list(a);
-			ft_printf("Error in malloc\n");
-			return (0);
-		}
-		push_back(&a, elem);		
-		++i;
+		if (size == 2)
+			sa(&a, 1);
+		else if (size == 3)
+			sort_three(&a);
+		else if (size < 200)
+			turk_sort(&a, &b);
+		else
+			radix_sort(&a, &b, size);
+		// turk_sort(&a, &b);
 	}
-	ft_printf("selection_sort: %d\n", selection_sort(a, b));
-	// ft_printf("radix_sort: %d\n", radix_sort(&a, &b, ac - 1));
-	free_list(a);
-	free_list(b);
-	return (0);
+	free_stack(a);
+	free_stack(b);
 }
+// int main(int ac, char **av)
+// {
+// 	int i = 1;
+// 	t_stack *a = NULL;
+// 	t_stack *b = NULL;
+// 	t_stack *elem = NULL;
+// 	while (i < ac)
+// 	{
+// 		elem = list_new(ft_atoi(av[i]));
+// 		if (!elem)
+// 		{
+// 			free_stack(a);
+// 			ft_printf("Error in malloc\n");
+// 			return (0);
+// 		}
+// 		push_back(&a, elem);		
+// 		++i;
+// 	}
+// 	// ft_printf("selection_sort: %d\n", selection_sort(a, b));
+// 	// ft_printf("radix_sort: %d\n", radix_sort(&a, &b, ac - 1));
+// 	// radix_sort(&a, &b, ac - 1);
+// 	turk_sort(&a, &b);
+// 	free_stack(a);
+// 	free_stack(b);
+// 	return (0);
+// }

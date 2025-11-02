@@ -11,6 +11,7 @@ t_stack	*assign_indexes(t_stack *a)
 
 	b_aux = NULL;
 	a_copy = copy_list(a);
+	// turk_sort(&a_copy, &b_aux);
 	selection_sort(a_copy, b_aux);
 	ptr = a;
 	while (ptr)
@@ -29,7 +30,7 @@ t_stack	*assign_indexes(t_stack *a)
 		}
 		ptr = ptr->next;
 	}
-	free_list(a_copy);
+	free_stack(a_copy);
 	return (a);
 }
 

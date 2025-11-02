@@ -3,18 +3,18 @@
 #include "../inc/headers/push_swap.h"
 
 
-static int rotate(t_stack *list)
+static int rotate(t_stack **list)
 {
-	t_stack	*ptr;
+	t_stack	*last;
 
-	if (!list)
+	if (!*list || !(*list)->next)
 		return (0);
-	ptr = list;
-	while (ptr && ptr->next)
-	{
-		swap_values(&ptr->value, &ptr->next->value);
-		ptr = ptr->next;
-	}
+	last = stack_last(*list);
+	last->next = *list;
+	*list = (*list)->next;
+	(*list)->previous = NULL;
+	last->next->previous = last;
+	last->next->next = NULL;
 	return (1);
 }
 
@@ -32,7 +32,7 @@ int		ra(t_stack **a, t_bool print)
 {
 	int	movs;
 
-	movs = rotate(*a);
+	movs = rotate(a);
 	if (movs && print)
 		ft_printf("ra\n");
 	return (movs);
@@ -41,7 +41,7 @@ int		rb(t_stack **b, t_bool print)
 {
 	int	movs;
 
-	movs = rotate(*b);
+	movs = rotate(b);
 	if (movs && print)
 		ft_printf("rb\n");
 	return (movs);
