@@ -11,8 +11,8 @@ t_stack	*assign_indexes(t_stack *a)
 
 	b_aux = NULL;
 	a_copy = copy_list(a);
-	// turk_sort(&a_copy, &b_aux);
-	selection_sort(a_copy, b_aux);
+	turk_sort(&a_copy, &b_aux, 0);
+	// selection_sort(a_copy, b_aux, 0);
 	ptr = a;
 	while (ptr)
 	{
@@ -34,7 +34,7 @@ t_stack	*assign_indexes(t_stack *a)
 	return (a);
 }
 
-int	radix_sort(t_stack **a, t_stack **b, int size)
+int	radix_sort(t_stack **a, t_stack **b, int size, t_bool print)
 {
 	int	max_bits;
 	int	max_num;
@@ -55,13 +55,13 @@ int	radix_sort(t_stack **a, t_stack **b, int size)
 		{
 			int num = (*a)->index;
 			if (((num >> i) & 1) == 0)
-				movs += pb(a, b, 1);
+				movs += pb(a, b, print);
 			else
-				movs += ra(a, 1);
+				movs += ra(a, print);
 			++j;
 		}
 		while (*b)
-			movs += pa(a, b, 1);
+			movs += pa(a, b, print);
 		++i;
 	}
 	return (movs);

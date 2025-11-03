@@ -37,23 +37,23 @@ t_stack	*get_cheapest(t_stack *stack)
 	return (NULL);
 }
 
-void	prep_for_push(t_stack **stack, t_stack *node, char stack_name)
+void	prep_for_push(t_stack **stack, t_stack *node, char stack_name, t_bool print)
 {
 	while (stack && *stack != node)
 	{
 		if (stack_name == A)
 		{
 			if (node->above_median)
-				ra(stack, 1);
+				ra(stack, print);
 			else
-				rra(stack, 1);
+				rra(stack, print);
 		}
 		else if (stack_name == B)
 		{
 			if (node->above_median)
-				rb(stack, 1);
+				rb(stack, print);
 			else
-				rrb(stack, 1);
+				rrb(stack, print);
 		}
 	}
 }

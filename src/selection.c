@@ -42,7 +42,7 @@ static t_value	get_min_value(t_stack *list)
 	return (min_value);
 }
 
-int	selection_sort(t_stack *a, t_stack *b)
+int	selection_sort(t_stack *a, t_stack *b, t_bool print)
 {
 	int	movs;
 	t_value value;
@@ -56,15 +56,15 @@ int	selection_sort(t_stack *a, t_stack *b)
 			while (a->value != value.value)
 			{
 				if (value.front <= value.back)
-				movs += ra(&a, 0);
+				movs += ra(&a, print);
 				else
-				movs += rra(&a, 0);
+				movs += rra(&a, print);
 			}
-			movs += pb(&a, &b, 0);
+			movs += pb(&a, &b, print);
 		}
 	}
 	while (b)
-		movs += pa(&a, &b, 0);
+		movs += pa(&a, &b, print);
 	// ft_printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
 	return (movs);
 }

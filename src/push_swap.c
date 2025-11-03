@@ -52,13 +52,14 @@ int	main(int ac, char **av)
 		if (size == 2)
 			sa(&a, 1);
 		else if (size == 3)
-			sort_three(&a);
-		else if (size < 200)
-			turk_sort(&a, &b);
+			sort_three(&a, 1);
+		// else if (size < 200)
+		// 	turk_sort(&a, &b, 1);
 		else
-			radix_sort(&a, &b, size);
-		// turk_sort(&a, &b);
+			// turk_sort(&a, &b, 1);
+			size = radix_sort(&a, &b, size, 1);
 	}
+	// ft_printf("movs number: %d\n", size);
 	free_stack(a);
 	free_stack(b);
 }

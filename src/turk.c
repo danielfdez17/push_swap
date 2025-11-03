@@ -2,40 +2,40 @@
 
 #include "../inc/headers/push_swap.h"
 
-static void rotate_both(t_stack **a, t_stack **b, t_stack *cheapest, int which_rotation)
+static void rotate_both(t_stack **a, t_stack **b, t_stack *cheapest, int which_rotation, t_bool print)
 {
 	while (*b != cheapest->target && *a != cheapest->target)
 	{
 		if (which_rotation == RR)
-			rr(a, b, 1);
+			rr(a, b, print);
 		else if (which_rotation == RRR)
-			rrr(a, b, 1);
+			rrr(a, b, print);
 	}
 	set_indexes(*a);
 	set_indexes(*b);
 }
 
-static void	move_a_to_b(t_stack **a, t_stack **b)
+static void	move_a_to_b(t_stack **a, t_stack **b, t_bool print)
 {
 	t_stack	*cheapest;
 
 	cheapest = get_cheapest(*a);
 	if (cheapest->above_median && cheapest->target->above_median)
-		rotate_both(a, b, cheapest, RR);
+		rotate_both(a, b, cheapest, RR, print);
 	else if (!cheapest->above_median && !cheapest->target->above_median)
-		rotate_both(a, b, cheapest, RRR);
-	prep_for_push(a, cheapest, A);
-	prep_for_push(b, cheapest->target, B);
-	pb(a, b, 1);
+		rotate_both(a, b, cheapest, RRR, print);
+	prep_for_push(a, cheapest, A, print);
+	prep_for_push(b, cheapest->target, B, print);
+	pb(a, b, print);
 }
 
-static void	move_b_to_a(t_stack **a, t_stack **b)
+static void	move_b_to_a(t_stack **a, t_stack **b, t_bool print)
 {
-	prep_for_push(a, (*b)->target, A);
-	pa(a, b, 1);
+	prep_for_push(a, (*b)->target, A, print);
+	pa(a, b, print);
 }
 
-static void	min_on_top(t_stack **stack)
+static void	min_on_top(t_stack **stack, t_bool print)
 {
 	t_stack	*min_node;
 
@@ -43,33 +43,33 @@ static void	min_on_top(t_stack **stack)
 	while ((*stack)->value != min_node->value)
 	{
 		if (min_node->above_median)
-			ra(stack, 1);
+			ra(stack, print);
 		else
-			rra(stack, 1);
+			rra(stack, print);
 		min_node = get_min(*stack);
 	}
 }
 
-void	turk_sort(t_stack **a, t_stack **b)
+void	turk_sort(t_stack **a, t_stack **b, t_bool print)
 {
 	int	size;
 
 	size = get_size(*a);
 	if (size-- > 3 && !is_stack_sorted(*a))
-		pb(a, b, 1);
+		pb(a, b, print);
 	if (size-- > 3 && !is_stack_sorted(*a))
-		pb(a, b, 1);
+		pb(a, b, print);
 	while (size-- > 3 && !is_stack_sorted(*a))
 	{
 		init_a(*a, *b);
-		move_a_to_b(a, b);
+		move_a_to_b(a, b, print);
 	}
-	sort_three(a);
+	sort_three(a, print);
 	while (*b)
 	{
 		init_b(*a, *b);
-		move_b_to_a(a, b);
+		move_b_to_a(a, b, print);
 	}
 	set_indexes(*a);
-	min_on_top(a);
+	min_on_top(a, print);
 }

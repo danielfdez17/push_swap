@@ -2,15 +2,15 @@
 
 #include "../inc/headers/push_swap.h"
 
-void	sort_three(t_stack **stack)
+void	sort_three(t_stack **stack, t_bool print)
 {
 	t_stack	*max_node;
 
 	max_node = get_max(*stack);
 	if (max_node == *stack)
-		ra(stack, 1);
+		ra(stack, print);
 	else if ((*stack)->next == max_node)
-		rra(stack, 1);
+		rra(stack, print);
 	if ((*stack)->value > (*stack)->next->value)
-		sa(stack, 1);
+		sa(stack, print);
 }
