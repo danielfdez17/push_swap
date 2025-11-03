@@ -49,15 +49,16 @@ int	main(int ac, char **av)
 	size = get_size(a);
 	if (!is_stack_sorted(a))
 	{
-		if (size == 2)
-			sa(&a, 1);
-		else if (size == 3)
-			sort_three(&a, 1);
-		// else if (size < 200)
-		// 	turk_sort(&a, &b, 1);
-		else
-			// turk_sort(&a, &b, 1);
-			size = radix_sort(&a, &b, size, 1);
+		counting_sort(&a, &b);
+		// if (size == 2)
+		// 	sa(&a, 1);
+		// else if (size == 3)
+		// 	sort_three(&a, 1);
+		// // else if (size < 200)
+		// // 	turk_sort(&a, &b, 1);
+		// else
+		// 	// turk_sort(&a, &b, 1);
+		// 	size = radix_sort(&a, &b, size, 1);
 	}
 	// ft_printf("movs number: %d\n", size);
 	free_stack(a);

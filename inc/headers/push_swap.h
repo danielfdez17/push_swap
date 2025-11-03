@@ -11,6 +11,12 @@
 # define B 'b'
 # define RR 1
 # define RRR -1
+# ifndef false
+#  define false 0
+# endif
+# ifndef true
+#  define true 1
+# endif
 
 typedef int t_bool;
 
@@ -43,6 +49,7 @@ int		selection_sort(t_stack *a, t_stack *b, t_bool print);
 int		radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
 void	turk_sort(t_stack **a, t_stack **b, t_bool print);
 void	sort_three(t_stack **stack, t_bool print);
+void	counting_sort(t_stack **a, t_stack **b);
 
 // * STACKS
 void	init_stack(t_stack **a, char **av);

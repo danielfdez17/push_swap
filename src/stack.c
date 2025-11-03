@@ -5,7 +5,8 @@
 
 void	print_node(t_stack *node)
 {
-	ft_printf("(%d,%d) ", node->value, node->index);
+	ft_printf("(%d) ", node->value);
+	// ft_printf("(%d,%d) ", node->value, node->index);
 }
 
 void print_list(t_stack *stack)
