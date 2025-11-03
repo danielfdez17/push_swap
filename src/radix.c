@@ -13,6 +13,7 @@ t_stack	*assign_indexes(t_stack *a)
 	a_copy = copy_list(a);
 	turk_sort(&a_copy, &b_aux, 0);
 	// selection_sort(a_copy, b_aux, 0);
+	// counting_sort(&a_copy, &b_aux);
 	ptr = a;
 	while (ptr)
 	{
@@ -44,6 +45,9 @@ int	radix_sort(t_stack **a, t_stack **b, int size, t_bool print)
 	max_bits = 0;
 	max_num = size - 1;
 	*a = assign_indexes(*a);
+	// t_limits lim = ft_get_limits(*a);
+	// if (lim.min < 0)
+	// 	clean_stack(a, lim.min);
 	while (max_num >> max_bits)
 		++max_bits;
 	int i = 0;

@@ -6,12 +6,6 @@
 // * 2. For every element, have a structure that indicates if it's better to do a rotate or a reverse_rotate
 // * 3. Push every element from a to b to achieve ascending order
 
-typedef struct s_limits
-{
-	long	min;
-	long	max;
-} t_limits;
-
 t_limits	ft_get_limits(t_stack *a)
 {
 	t_limits	lim;

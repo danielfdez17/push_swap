@@ -39,6 +39,13 @@ typedef struct s_value
 	int	back;
 } t_value;
 
+typedef struct s_limits
+{
+	long	min;
+	long	max;
+} t_limits;
+
+
 // * ERROR HANDLING
 t_bool	syntax_error(char *s);
 t_bool	duplicate_error(t_stack *stack, int n);
@@ -64,6 +71,8 @@ int		get_size(t_stack *stack);
 t_bool	is_stack_sorted(t_stack *stack);
 t_stack	*get_min(t_stack *stack);
 t_stack	*get_max(t_stack *stack);
+void	clean_stack(t_stack **a, long min_value);
+t_limits	ft_get_limits(t_stack *a);
 
 t_stack	*copy_list(t_stack *list);
 void	print_node(t_stack *node);
