@@ -3,7 +3,7 @@
 #include "../inc/headers/push_swap.h"
 
 
-void	swap_values(int *a, int *b)
+static void	swap_values(int *a, int *b)
 {
 	int tmp;
 
@@ -14,7 +14,6 @@ void	swap_values(int *a, int *b)
 
 static int	swap(t_stack *list)
 {
-	// ft_printf("Swapping values\n");
 	if (!list || !list->next)
 		return (0);
 	swap_values(&list->value, &list->next->value);
@@ -31,22 +30,22 @@ int	sa(t_stack **a, t_bool print)
 	return (movs);
 }
 
-int	sb(t_stack **b, t_bool print)
-{
-	int	movs;
+// int	sb(t_stack **b, t_bool print)
+// {
+// 	int	movs;
 
-	movs = swap(*b);
-	if (movs && print)
-		ft_printf("sb\n");
-	return (swap(*b));
-}
+// 	movs = swap(*b);
+// 	if (movs && print)
+// 		ft_printf("sb\n");
+// 	return (swap(*b));
+// }
 
-int	ss(t_stack **a, t_stack **b, t_bool print)
-{
-	int	movs;
+// int	ss(t_stack **a, t_stack **b, t_bool print)
+// {
+// 	int	movs;
 
-	movs = sa(a, 0) + sb(b, 0);
-	if (movs > 0 && print)
-		ft_printf("ss\n");
-	return (movs);
-}
+// 	movs = sa(a, 0) + sb(b, 0);
+// 	if (movs > 0 && print)
+// 		ft_printf("ss\n");
+// 	return (movs);
+// }

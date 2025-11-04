@@ -24,37 +24,3 @@ t_bool	init_stack(t_stack **a, char **av)
 	}
 	return (true);
 }
-
-t_stack	*get_cheapest(t_stack *stack)
-{
-	if (!stack)
-		return (NULL);
-	while (stack)
-	{
-		if (stack->cheapest)
-			return (stack);
-		stack = stack->next;
-	}
-	return (NULL);
-}
-
-void	prep_for_push(t_stack **stack, t_stack *node, char stack_name, t_bool print)
-{
-	while (stack && *stack != node)
-	{
-		if (stack_name == A)
-		{
-			if (node->above_median)
-				ra(stack, print);
-			else
-				rra(stack, print);
-		}
-		else if (stack_name == B)
-		{
-			if (node->above_median)
-				rb(stack, print);
-			else
-				rrb(stack, print);
-		}
-	}
-}

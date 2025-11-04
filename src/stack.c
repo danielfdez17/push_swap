@@ -2,23 +2,6 @@
 
 #include "../inc/headers/push_swap.h"
 
-
-void	print_node(t_stack *node)
-{
-	ft_printf("(%d) ", node->value);
-	// ft_printf("(%d,%d) ", node->value, node->index);
-}
-
-void print_list(t_stack *stack)
-{
-	while (stack)
-	{
-		print_node(stack);
-		stack = stack->next;
-	}
-	ft_printf("\n");
-}
-
 int	get_size(t_stack *stack)
 {
 	int	size;

@@ -2,8 +2,15 @@
 
 #include "../inc/headers/push_swap.h"
 
- // ! 80% = 100 en menos de 700 movimientos
- // ! 100% = 500 en menos de 5500 movimientos
+// static void	print_stack(t_stack *stack)
+// {
+// 	while (stack)
+// 	{
+// 		ft_printf("%d ", stack->value);
+// 		stack = stack->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
 int	main(int ac, char **av)
 {
@@ -17,7 +24,9 @@ int	main(int ac, char **av)
 		return (1);
 	if (ac == 2)
 		av = ft_split(av[1], ' ');
-	if (!init_stack(&a, av + 1))
+	else
+		++av;
+	if (!init_stack(&a, av))
 		return (0);
 	size = get_size(a);
 	if (!is_stack_sorted(a))
@@ -32,7 +41,19 @@ int	main(int ac, char **av)
 			radix_sort(&a, &b, size, true);
 	}
 	if (!is_stack_sorted(a))
-		ft_printf("Not sorted!\n");
+		ft_printf("Not sorted\n");
+	while (a)
+	{
+		ft_printf("%d ", a->value);
+		a = a->next;
+	}
+	while (b)
+	{
+		ft_printf("%d ", b->value);
+		b = b->next;
+	}
+	ft_printf("\n");
+	ft_printf("\n");
 	free_stack(a);
 	free_stack(b);
 }
