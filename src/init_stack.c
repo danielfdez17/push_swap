@@ -2,7 +2,7 @@
 
 #include "../inc/headers/push_swap.h"
 
-void	init_stack(t_stack **a, char **av)
+t_bool	init_stack(t_stack **a, char **av)
 {
 	long	n;
 	int		i;
@@ -12,16 +12,17 @@ void	init_stack(t_stack **a, char **av)
 	while (av && av[i])
 	{
 		if (syntax_error(av[i]))
-			free_error(a);
+			return (free_error(a));
 		n = ft_atol(av[i]);
 		if (n > INT_MAX || n < INT_MIN)
-			free_error(a);
+			return (free_error(a));
 		if (duplicate_error(*a, (int)n))
-			free_error(a);
+			return (free_error(a));
 		elem = list_new((int)n);
 		push_back(a, elem);
 		++i;
 	}
+	return (true);
 }
 
 t_stack	*get_cheapest(t_stack *stack)

@@ -2,19 +2,6 @@
 
 #include "../inc/headers/push_swap.h"
 
-static int	is_asc_sorted(t_stack *list)
-{
-	if (!list || !list->next)
-		return (1);
-	while (list && list->next)
-	{
-		if (list->value >= list->next->value)
-			return (0);
-		list = list->next;
-	}
-	return (1);
-}
-
 static t_value	get_min_value(t_stack *list)
 {
 	t_value	min_value;
@@ -42,13 +29,11 @@ static t_value	get_min_value(t_stack *list)
 	return (min_value);
 }
 
-int	selection_sort(t_stack *a, t_stack *b, t_bool print)
+void	selection_sort(t_stack *a, t_stack *b, t_bool print)
 {
-	int	movs;
 	t_value value;
 
-	movs = 0;
-	while (!is_asc_sorted(a))
+	while (!is_stack_sorted(a))
 	{
 		if (a)
 		{
@@ -56,15 +41,13 @@ int	selection_sort(t_stack *a, t_stack *b, t_bool print)
 			while (a->value != value.value)
 			{
 				if (value.front <= value.back)
-				movs += ra(&a, print);
+					ra(&a, print);
 				else
-				movs += rra(&a, print);
+					rra(&a, print);
 			}
-			movs += pb(&a, &b, print);
+			pb(&a, &b, print);
 		}
 	}
 	while (b)
-		movs += pa(&a, &b, print);
-	// ft_printf("front: %d, value: %d, behind: %d\n", value.front, value.value, value.back);
-	return (movs);
+		pa(&a, &b, print);
 }

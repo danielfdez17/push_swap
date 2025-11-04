@@ -2,36 +2,8 @@
 
 #include "../inc/headers/push_swap.h"
 
-/** usefull gdb commands
- * break <line_number>
- * info break
- * delete <breakpoint_number>
- * lay next
- * shell clear
- * call <function>
- * print <var> // print <param>
- * gdb -tui to see the Text User Interface
- * list
- */
-
  // ! 80% = 100 en menos de 700 movimientos
  // ! 100% = 500 en menos de 5500 movimientos
-
-// static int	ft_is_valid(char c)
-// {
-// 	return (ft_isalpha(0) || c == '-' || c == ' ');
-// }
- 
-// static int	ft_validate_input(char *input)
-// {
-// 	while (input && *input)
-// 	{
-// 		if (!ft_is_valid(*input))
-// 			return (0);
-// 		++input;
-// 	}
-// 	return (1);
-// }
 
 int	main(int ac, char **av)
 {
@@ -45,7 +17,8 @@ int	main(int ac, char **av)
 		return (1);
 	if (ac == 2)
 		av = ft_split(av[1], ' ');
-	init_stack(&a, av + 1);
+	if (!init_stack(&a, av + 1))
+		return (0);
 	size = get_size(a);
 	if (!is_stack_sorted(a))
 	{
@@ -53,41 +26,13 @@ int	main(int ac, char **av)
 			sa(&a, 1);
 		else if (size == 3)
 			sort_three(&a, true);
-		// else if (size < 200)
-		// 	turk_sort(&a, &b, 1);
+		else if (size <= 50)
+			selection_sort(a, b, true);
 		else
-			// turk_sort(&a, &b, true);
-			size = radix_sort(&a, &b, size, true);
-		// counting_sort(&a, &b);
-		
+			radix_sort(&a, &b, size, true);
 	}
-	// ft_printf("movs number: %d\n", size);
+	if (!is_stack_sorted(a))
+		ft_printf("Not sorted!\n");
 	free_stack(a);
 	free_stack(b);
 }
-// int main(int ac, char **av)
-// {
-// 	int i = 1;
-// 	t_stack *a = NULL;
-// 	t_stack *b = NULL;
-// 	t_stack *elem = NULL;
-// 	while (i < ac)
-// 	{
-// 		elem = list_new(ft_atoi(av[i]));
-// 		if (!elem)
-// 		{
-// 			free_stack(a);
-// 			ft_printf("Error in malloc\n");
-// 			return (0);
-// 		}
-// 		push_back(&a, elem);		
-// 		++i;
-// 	}
-// 	// ft_printf("selection_sort: %d\n", selection_sort(a, b));
-// 	// ft_printf("radix_sort: %d\n", radix_sort(&a, &b, ac - 1));
-// 	// radix_sort(&a, &b, ac - 1);
-// 	turk_sort(&a, &b);
-// 	free_stack(a);
-// 	free_stack(b);
-// 	return (0);
-// }

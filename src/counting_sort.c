@@ -112,7 +112,6 @@ void	counting_sort(t_stack **a, t_stack **b)
 	t_limits	lim;
 	int		*count_array;
 
-	(void)b;
 	lim = ft_get_limits(*a);
 	count_array = malloc(sizeof(int) * (lim.max - lim.min + 1));
 	if (!count_array)

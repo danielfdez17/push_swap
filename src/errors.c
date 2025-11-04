@@ -38,9 +38,9 @@ t_bool	duplicate_error(t_stack *stack, int n)
 	return (0);
 }
 
-void	free_error(t_stack **stack)
+t_bool	free_error(t_stack **stack)
 {
 	free_stack(*stack);
 	ft_printf("Error\n");
-	exit(1);
+	return (false);
 }

@@ -45,32 +45,33 @@ typedef struct s_limits
 	long	max;
 } t_limits;
 
-
 // * ERROR HANDLING
 t_bool	syntax_error(char *s);
 t_bool	duplicate_error(t_stack *stack, int n);
-void	free_error(t_stack **stack);
+t_bool	free_error(t_stack **stack);
 
 // * SORTING ALGORITHMS
-int		selection_sort(t_stack *a, t_stack *b, t_bool print);
-int		radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
-void	turk_sort(t_stack **a, t_stack **b, t_bool print);
 void	sort_three(t_stack **stack, t_bool print);
-void	counting_sort(t_stack **a, t_stack **b);
+void		selection_sort(t_stack *a, t_stack *b, t_bool print);
+void	radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
 
 // * STACKS
-void	init_stack(t_stack **a, char **av);
+t_bool	init_stack(t_stack **a, char **av);
+int		get_size(t_stack *stack);
+t_bool	is_stack_sorted(t_stack *stack);
+t_stack	*get_max(t_stack *stack);
+
+
+
+
 void	init_a(t_stack *a, t_stack *b);
 void	init_b(t_stack *a, t_stack *b);
 void	set_indexes(t_stack *stack);
 void	set_cheapest(t_stack *stack);
 t_stack	*get_cheapest(t_stack *stack);
 void	prep_for_push(t_stack **stack, t_stack *node, char stack_name, t_bool print);
-int		get_size(t_stack *stack);
 // t_stack	*stack_last(t_stack *stack);
-t_bool	is_stack_sorted(t_stack *stack);
 t_stack	*get_min(t_stack *stack);
-t_stack	*get_max(t_stack *stack);
 void	clean_stack(t_stack **a, long min_value);
 t_limits	ft_get_limits(t_stack *a);
 
