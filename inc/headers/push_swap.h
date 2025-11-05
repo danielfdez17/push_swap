@@ -54,6 +54,7 @@ t_bool	free_error(t_stack **stack);
 void	sort_three(t_stack **stack, t_bool print);
 void	selection_sort(t_stack **a, t_stack **b, t_bool print);
 void	radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
+int	*counting_sort(t_stack *stack);
 
 // * STACKS
 t_bool	init_stack(t_stack **a, char **av);
