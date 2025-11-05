@@ -2,36 +2,32 @@
 
 #include "../inc/headers/push_swap.h"
 
-// static int reverse_rotate(t_stack **list)
+// static int reverse_rotate(t_stack **stack)
 // {
 // 	t_stack *last;
 
-// 	if (!*list)
+// 	if (!*stack)
 // 		return (0);
-// 	last = stack_last(*list);
-// 	if (last == *list) // Only one element in the list
+// 	last = stack_last(*stack);
+// 	if (last == *stack) // Only one element in the stack
 // 		return (0);
 // 	last->previous->next = NULL;
-// 	last->next = *list;
+// 	last->next = *stack;
 // 	last->previous = NULL;
-// 	*list = last;
+// 	*stack = last;
 // 	if (last->next)
 // 		last->next->previous = last;
 // 	return (1);
 // }
 
-static int reverse_rotate(t_stack **list)
+static int reverse_rotate(t_stack **stack)
 {
 	t_stack *last;
 
-	if (!*list)
+	last = pop_back(stack);
+	if (!last)
 		return (0);
-	last = stack_last(*list);
-	last->previous->next = NULL;
-	last->next = *list;
-	last->previous = NULL;
-	*list = last;
-	last->next->previous = last;
+	push_front(stack, last);
 	return (1);
 }
 

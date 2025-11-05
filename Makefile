@@ -87,8 +87,8 @@ NUMBERS = ./files/10_1
 run: all
 	clear
 # 	./$(NAME) $(NUMBERS)
-	./$(NAME) $(shell cat $(NUMBERS))
-# 	./$(NAME) $(shell cat $(NUMBERS)) | wc -l
+# 	./$(NAME) $(shell cat $(NUMBERS))
+	./$(NAME) $(shell cat $(NUMBERS)) | wc -l
 
 valgrind: all
 	clear

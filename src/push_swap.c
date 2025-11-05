@@ -36,24 +36,23 @@ int	main(int ac, char **av)
 		else if (size == 3)
 			sort_three(&a, true);
 		else if (size <= 50)
-			selection_sort(a, b, true);
+			selection_sort(&a, &b, true);
 		else
 			radix_sort(&a, &b, size, true);
 	}
 	if (!is_stack_sorted(a))
 		ft_printf("Not sorted\n");
-	while (a)
-	{
-		ft_printf("%d ", a->value);
-		a = a->next;
-	}
-	while (b)
-	{
-		ft_printf("%d ", b->value);
-		b = b->next;
-	}
-	ft_printf("\n");
-	ft_printf("\n");
+	// while (a)
+	// {
+	// 	ft_printf("%d ", a->value);
+	// 	a = a->next;
+	// }
+	// while (b)
+	// {
+	// 	ft_printf("%d ", b->value);
+	// 	b = b->next;
+	// }
+	// ft_printf("\n");
 	free_stack(a);
 	free_stack(b);
 }

@@ -17,7 +17,7 @@ int	get_size(t_stack *stack)
 	return (size);
 }
 
-t_stack *list_new(int value)
+t_stack *stack_new(int value)
 {
 	t_stack *elem;
 
@@ -120,6 +120,13 @@ void	push_front(t_stack **stack, t_stack *elem)
 	}
 }
 
+/*
+ * Removes and returns the first element from the stack.
+ * Parameters:
+ *   stack - double pointer to the head of the stack.
+ * Returns:
+ *   Pointer to the removed element, or NULL if the stack is empty.
+ */
 t_stack	*pop_front(t_stack **stack)
 {
 	t_stack 	*elem;
@@ -135,21 +142,43 @@ t_stack	*pop_front(t_stack **stack)
 	return (elem);
 }
 
+/*
+ * Adds an element to the end of the stack.
+ * Parameters:
+ *   stack - double pointer to the head of the stack.
+ *   elem  - pointer to the element to be added.
+ * Returns:
+ *   None.
+ */
 void push_back(t_stack **stack, t_stack *elem)
 {
-	t_stack *ptr;
+	t_stack *last;
 
-	ptr = stack_last(*stack);
-	if (!ptr)
+	last = stack_last(*stack);
+	if (!last)
 		*stack = elem;
 	else
 	{
-		elem->previous = ptr;
-		ptr->next = elem;
+		elem->previous = last;
+		elem->next = NULL;
+		last->next = elem;
 	}
 }
 
-t_stack	*copy_list(t_stack *stack)
+t_stack	*pop_back(t_stack **stack)
+{
+	t_stack	*last;
+
+	last = stack_last(*stack);
+	if (!last)
+		return (NULL);
+	if (last->previous)		
+		last->previous->next = NULL;
+	last->previous = NULL;
+	return (last);
+}
+
+t_stack	*copy_stack(t_stack *stack)
 {
 	t_stack *new_elem;
 	t_stack *new_list;
@@ -157,7 +186,7 @@ t_stack	*copy_list(t_stack *stack)
 	new_list = NULL;
 	while (stack)
 	{
-		new_elem = list_new(stack->value);
+		new_elem = stack_new(stack->value);
 		if (!new_elem)
 		{
 			free_stack(new_list);

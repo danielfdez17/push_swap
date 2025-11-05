@@ -41,7 +41,7 @@ static t_stack	*assign_indexes(t_stack *a)
 	int	i;
 
 	b_aux = NULL;
-	a_copy = copy_list(a);
+	a_copy = copy_stack(a);
 	radix_aux(&a_copy, &b_aux, get_size(a));
 	ptr = a;
 	while (ptr)

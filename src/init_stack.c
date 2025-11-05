@@ -18,7 +18,7 @@ t_bool	init_stack(t_stack **a, char **av)
 			return (free_error(a));
 		if (duplicate_error(*a, (int)n))
 			return (free_error(a));
-		elem = list_new((int)n);
+		elem = stack_new((int)n);
 		push_back(a, elem);
 		++i;
 	}

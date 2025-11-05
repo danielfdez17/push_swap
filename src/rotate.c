@@ -20,18 +20,14 @@
 // 	return (1);
 // }
 
-static int rotate(t_stack **list)
+static int rotate(t_stack **stack)
 {
-	t_stack	*last;
+	t_stack	*first;
 
-	if (!*list || !(*list)->next)
+	if (!*stack || !(*stack)->next)
 		return (0);
-	last = stack_last(*list);
-	last->next = *list;
-	*list = (*list)->next;
-	(*list)->previous = NULL;
-	last->next->previous = last;
-	last->next->next = NULL;
+	first = pop_front(stack);
+	push_back(stack, first);
 	return (1);
 }
 

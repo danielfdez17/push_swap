@@ -29,25 +29,25 @@ static t_value	get_min_value(t_stack *list)
 	return (min_value);
 }
 
-void	selection_sort(t_stack *a, t_stack *b, t_bool print)
+void	selection_sort(t_stack **a, t_stack **b, t_bool print)
 {
 	t_value value;
 
-	while (!is_stack_sorted(a))
+	while (!is_stack_sorted(*a))
 	{
-		if (a)
+		if (*a)
 		{
-			value = get_min_value(a);
-			while (a->value != value.value)
+			value = get_min_value(*a);
+			while ((*a)->value != value.value)
 			{
 				if (value.front <= value.back)
-					ra(&a, print);
+					ra(a, print);
 				else
-					rra(&a, print);
+					rra(a, print);
 			}
-			pb(&a, &b, print);
+			pb(a, b, print);
 		}
 	}
-	while (b)
-		pa(&a, &b, print);
+	while (*b)
+		pa(a, b, print);
 }

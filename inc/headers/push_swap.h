@@ -52,7 +52,7 @@ t_bool	free_error(t_stack **stack);
 
 // * SORTING ALGORITHMS
 void	sort_three(t_stack **stack, t_bool print);
-void		selection_sort(t_stack *a, t_stack *b, t_bool print);
+void	selection_sort(t_stack **a, t_stack **b, t_bool print);
 void	radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
 
 // * STACKS
@@ -60,14 +60,15 @@ t_bool	init_stack(t_stack **a, char **av);
 int		get_size(t_stack *stack);
 t_bool	is_stack_sorted(t_stack *stack);
 t_stack	*get_max(t_stack *stack);
-t_stack	*copy_list(t_stack *list);
+t_stack	*copy_stack(t_stack *stack);
 
-t_stack	*list_new(int value);
-t_stack	*stack_last(t_stack *list);
-void	free_stack(t_stack *list);
-void	push_back(t_stack **list, t_stack *elem);
-void	push_front(t_stack **list, t_stack *elem);
-t_stack	*pop_front(t_stack **list);
+t_stack	*stack_new(int value);
+t_stack	*stack_last(t_stack *stack);
+void	free_stack(t_stack *stack);
+void	push_back(t_stack **stack, t_stack *elem);
+void	push_front(t_stack **stack, t_stack *elem);
+t_stack	*pop_front(t_stack **stack);
+t_stack	*pop_back(t_stack **stack);
 
 // * SWAP
 int		sa(t_stack **a, t_bool print);
