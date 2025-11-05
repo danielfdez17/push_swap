@@ -40,8 +40,8 @@ int	main(int ac, char **av)
 		else
 			radix_sort(&a, &b, size, true);
 	}
-	if (!is_stack_sorted(a))
-		ft_printf("Not sorted\n");
+	// if (!is_stack_sorted(a))
+	// 	ft_printf("Not sorted\n");
 	// while (a)
 	// {
 	// 	ft_printf("%d ", a->value);

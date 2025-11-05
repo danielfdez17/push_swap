@@ -38,6 +38,11 @@ void	selection_sort(t_stack **a, t_stack **b, t_bool print)
 		if (*a)
 		{
 			value = get_min_value(*a);
+			if (value.front == 1)
+			{
+				sa(a, print);
+				continue ;
+			}
 			while ((*a)->value != value.value)
 			{
 				if (value.front <= value.back)
