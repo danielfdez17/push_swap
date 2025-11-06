@@ -2,14 +2,18 @@
 
 #include "../inc/headers/push_swap.h"
 
-static t_value	get_min_value(t_stack *list)
+/**
+ * @returns the minimum value of the @param stack 
+ * with its distance to both first and last element of @param stack
+ */
+static t_value	get_min_value(t_stack *stack)
 {
 	t_value	min_value;
 	t_stack	*ptr;
 
 	min_value.front = 0;
 	min_value.back = 0;
-	ptr = list;
+	ptr = stack;
 	min_value.value = ptr->value;
 	ptr = ptr->next;
 	while (ptr)
@@ -19,7 +23,7 @@ static t_value	get_min_value(t_stack *list)
 		ptr = ptr->next;
 		min_value.back++;
 	}
-	ptr = list;
+	ptr = stack;
 	while (ptr->value != min_value.value)
 	{
 		min_value.front++;
@@ -29,6 +33,9 @@ static t_value	get_min_value(t_stack *list)
 	return (min_value);
 }
 
+/**
+ * Selection sorting algorithm
+ */
 void	selection_sort(t_stack **a, t_stack **b, t_bool print)
 {
 	t_value value;

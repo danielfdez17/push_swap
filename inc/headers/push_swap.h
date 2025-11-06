@@ -7,15 +7,14 @@
 # include "../libft/inc/headers/libft.h"
 # include "../libft/inc/headers/ft_printf.h"
 
-# define A 'a'
-# define B 'b'
-# define RR 1
-# define RRR -1
 # ifndef false
 #  define false 0
 # endif
 # ifndef true
 #  define true 1
+# endif
+# ifndef MAX_SELECTION_NUMBER
+#  define MAX_SELECTION_NUMBER 50
 # endif
 
 typedef int t_bool;
@@ -24,12 +23,8 @@ typedef struct s_stack
 {
 	struct 	s_stack *previous;
 	struct 	s_stack *next;
-	struct 	s_stack *target;
 	int 	value;
 	int		index;
-	int		push_cost;
-	t_bool	above_median;
-	t_bool	cheapest;
 } t_stack;
 
 typedef struct s_value
@@ -54,14 +49,13 @@ t_bool	free_error(t_stack **stack);
 void	sort_three(t_stack **stack, t_bool print);
 void	selection_sort(t_stack **a, t_stack **b, t_bool print);
 void	radix_sort(t_stack **a, t_stack **b, int size, t_bool print);
-int	*counting_sort(t_stack *stack);
+int		*counting_sort(t_stack *stack);
 
 // * STACKS
 t_bool	init_stack(t_stack **a, char **av);
 int		get_size(t_stack *stack);
 t_bool	is_stack_sorted(t_stack *stack);
 t_stack	*get_max(t_stack *stack);
-t_stack	*copy_stack(t_stack *stack);
 
 t_stack	*stack_new(int value);
 t_stack	*stack_last(t_stack *stack);

@@ -2,6 +2,10 @@
 
 #include "../inc/headers/push_swap.h"
 
+/**
+ * Tries to initialize the stack @param a with the values stored in @param av.
+ * If @param av has a syntax error, @param a will be freed and program will be stopped.
+ */
 t_bool	init_stack(t_stack **a, char **av)
 {
 	long	n;

@@ -2,24 +2,6 @@
 
 #include "../inc/headers/push_swap.h"
 
-// static int reverse_rotate(t_stack **stack)
-// {
-// 	t_stack *last;
-
-// 	if (!*stack)
-// 		return (0);
-// 	last = stack_last(*stack);
-// 	if (last == *stack) // Only one element in the stack
-// 		return (0);
-// 	last->previous->next = NULL;
-// 	last->next = *stack;
-// 	last->previous = NULL;
-// 	*stack = last;
-// 	if (last->next)
-// 		last->next->previous = last;
-// 	return (1);
-// }
-
 static int reverse_rotate(t_stack **stack)
 {
 	t_stack *last;

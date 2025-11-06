@@ -2,24 +2,6 @@
 
 #include "../inc/headers/push_swap.h"
 
-
-// static int rotate(t_stack **list)
-// {
-// 	t_stack	*last;
-// 	t_stack *first;
-
-// 	if (!*list || !(*list)->next)
-// 		return (0);
-// 	first = *list;
-// 	last = stack_last(*list);
-// 	*list = first->next;
-// 	(*list)->previous = NULL;
-// 	last->next = first;
-// 	first->previous = last;
-// 	first->next = NULL;
-// 	return (1);
-// }
-
 static int rotate(t_stack **stack)
 {
 	t_stack	*first;
