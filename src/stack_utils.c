@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:37:49 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:50:03 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
@@ -17,9 +27,9 @@ int	get_size(t_stack *stack)
 	return (size);
 }
 
-t_stack *stack_new(int value)
+t_stack	*stack_new(int value)
 {
-	t_stack *elem;
+	t_stack	*elem;
 
 	elem = (t_stack *)malloc(sizeof(t_stack));
 	if (!elem)
@@ -31,7 +41,7 @@ t_stack *stack_new(int value)
 	return (elem);
 }
 
-t_stack *stack_last(t_stack *stack)
+t_stack	*stack_last(t_stack *stack)
 {
 	while (stack && stack->next)
 		stack = stack->next;
@@ -41,14 +51,14 @@ t_stack *stack_last(t_stack *stack)
 t_bool	is_stack_sorted(t_stack *stack)
 {
 	if (!stack)
-		return (true);
+		return (TRUE);
 	while (stack->next)
 	{
 		if (stack->value > stack->next->value)
-			return (false);
+			return (FALSE);
 		stack = stack->next;
 	}
-	return (true);
+	return (TRUE);
 }
 
 t_stack	*get_max(t_stack *stack)

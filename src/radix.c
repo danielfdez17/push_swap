@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   radix.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:36:52 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:54:36 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
@@ -8,9 +18,9 @@
  */
 static t_stack	*set_indexes(t_stack *stack)
 {
-	int	*sorted;
-	int	size;
-	int	i;
+	int		*sorted;
+	int		size;
+	int		i;
 	t_stack	*ptr;
 
 	i = 0;
@@ -42,7 +52,7 @@ static void	radix_aux(t_stack **a, t_stack **b, int i, t_bool print)
 	int	index;
 
 	index = (*a)->index;
-	if (((index >> i) & 1) == 0)
+	if (((index >> i) & 1) == 1)
 		pb(a, b, print);
 	else
 		ra(a, print);

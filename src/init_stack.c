@@ -1,10 +1,21 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:37:14 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:50:17 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
 /**
  * Tries to initialize the stack @param a with the values stored in @param av.
- * If @param av has a syntax error, @param a will be freed and program will be stopped.
+ * If @param av has a syntax error, @param a will be freed and
+ * program will be stopped.
  */
 t_bool	init_stack(t_stack **a, char **av)
 {
@@ -26,5 +37,5 @@ t_bool	init_stack(t_stack **a, char **av)
 		push_back(a, elem);
 		++i;
 	}
-	return (true);
+	return (TRUE);
 }

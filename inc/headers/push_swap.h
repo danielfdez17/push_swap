@@ -1,44 +1,54 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:36:31 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:49:22 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 # include <limits.h>
 # include "../libft/inc/headers/libft.h"
 # include "../libft/inc/headers/ft_printf.h"
 
-# ifndef false
-#  define false 0
+# ifndef FALSE
+#  define FALSE 0
 # endif
-# ifndef true
-#  define true 1
+# ifndef TRUE
+#  define TRUE 1
 # endif
 # ifndef MAX_SELECTION_NUMBER
 #  define MAX_SELECTION_NUMBER 50
 # endif
 
-typedef int t_bool;
+typedef int	t_bool;
 
 typedef struct s_stack
 {
-	struct 	s_stack *previous;
-	struct 	s_stack *next;
-	int 	value;
-	int		index;
-} t_stack;
+	struct s_stack	*previous;
+	struct s_stack	*next;
+	int				value;
+	int				index;
+}	t_stack;
 
 typedef struct s_value
 {
 	int	front;
 	int	value;
 	int	back;
-} t_value;
+}	t_value;
 
 typedef struct s_limits
 {
 	long	min;
 	long	max;
-} t_limits;
+}	t_limits;
 
 // * ERROR HANDLING
 t_bool	syntax_error(char *s);
@@ -80,8 +90,8 @@ int		ra(t_stack **a, t_bool print);
 // int		rr(t_stack **a, t_stack **b, t_bool print);
 
 // * REVERSE ROTATE
-int 	rra(t_stack **a, t_bool print);
-// int 	rrb(t_stack **b, t_bool print);
+int		rra(t_stack **a, t_bool print);
+// int		rrb(t_stack **b, t_bool print);
 // int		rrr(t_stack **a, t_stack **b, t_bool print);
 
 #endif

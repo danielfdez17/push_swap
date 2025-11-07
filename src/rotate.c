@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:36:59 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:44:20 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
-static int rotate(t_stack **stack)
+static int	rotate(t_stack **stack)
 {
 	t_stack	*first;
 
@@ -13,7 +23,7 @@ static int rotate(t_stack **stack)
 	return (1);
 }
 
-int		ra(t_stack **a, t_bool print)
+int	ra(t_stack **a, t_bool print)
 {
 	int	movs;
 
@@ -22,6 +32,7 @@ int		ra(t_stack **a, t_bool print)
 		ft_printf("ra\n");
 	return (movs);
 }
+
 // int		rb(t_stack **b, t_bool print)
 // {
 // 	int	movs;

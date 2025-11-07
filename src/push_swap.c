@@ -1,17 +1,27 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:36:22 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:50:23 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
-static void sort(t_stack **a, t_stack **b, int size)
+static void	sort(t_stack **a, t_stack **b, int size)
 {
 	if (size == 2)
-		sa(a, true);
+		sa(a, TRUE);
 	else if (size == 3)
-		sort_three(a, true);
+		sort_three(a, TRUE);
 	else if (size <= MAX_SELECTION_NUMBER)
-		selection_sort(a, b, true);
+		selection_sort(a, b, TRUE);
 	else
-		radix_sort(a, b, size, true);
+		radix_sort(a, b, size, TRUE);
 }
 
 int	main(int ac, char **av)
@@ -35,5 +45,5 @@ int	main(int ac, char **av)
 	free_stack(b);
 	return (0);
 }
-// ! checker_linux usage: ARG="9 8 7 6 5 4 3 2 1"; ./push_swap $ARG | ./checker_linux $ARG
-
+// ! checker_linux usage: ARG="9 8 7 6 5 4 3 2 1";
+// ./push_swap $ARG | ./checker_linux $ARG

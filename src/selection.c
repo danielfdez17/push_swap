@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   selection.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:37:24 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:44:48 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
@@ -38,7 +48,7 @@ static t_value	get_min_value(t_stack *stack)
  */
 void	selection_sort(t_stack **a, t_stack **b, t_bool print)
 {
-	t_value value;
+	t_value	value;
 
 	while (!is_stack_sorted(*a))
 	{

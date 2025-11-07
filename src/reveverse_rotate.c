@@ -1,10 +1,20 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reveverse_rotate.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/07 07:37:32 by danfern3          #+#    #+#             */
+/*   Updated: 2025/11/07 07:44:31 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/headers/push_swap.h"
 
-static int reverse_rotate(t_stack **stack)
+static int	reverse_rotate(t_stack **stack)
 {
-	t_stack *last;
+	t_stack	*last;
 
 	last = pop_back(stack);
 	if (!last)
@@ -13,7 +23,7 @@ static int reverse_rotate(t_stack **stack)
 	return (1);
 }
 
-int		rra(t_stack **a, t_bool print)
+int	rra(t_stack **a, t_bool print)
 {
 	int	movs;
 
@@ -22,6 +32,7 @@ int		rra(t_stack **a, t_bool print)
 		ft_printf("rra\n");
 	return (movs);
 }
+
 // int		rrb(t_stack **b, t_bool print)
 // {
 // 	int movs;
