@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:52 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:54:36 by danfern3         ###   ########.fr       */
+/*   Updated: 2025/11/07 08:52:48 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	radix_aux(t_stack **a, t_stack **b, int i, t_bool print)
 	int	index;
 
 	index = (*a)->index;
-	if (((index >> i) & 1) == 1)
+	if (((index >> i) & 1) == 0)
 		pb(a, b, print);
 	else
 		ra(a, print);

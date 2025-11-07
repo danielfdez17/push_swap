@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:22 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:50:23 by danfern3         ###   ########.fr       */
+/*   Updated: 2025/11/07 08:52:29 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ int	main(int ac, char **av)
 		return (0);
 	if (!is_stack_sorted(a))
 		sort(&a, &b, get_size(a));
+	if (!is_stack_sorted(a))
+		ft_printf("haha\n");
+	// while (a)
+	// {
+	// 	// ft_printf("(%d,%d) ", a->value, a->index);
+	// 	ft_printf("%d ", a->index);
+	// 	a = a->next;
+	// }
+	// ft_printf("\n");
 	free_stack(a);
 	free_stack(b);
 	return (0);
