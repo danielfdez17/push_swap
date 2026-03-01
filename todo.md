@@ -1,1 +1,2 @@
 - [ ] Script to test and benchmark my push_swap
+- [ ] Update the Makefile as transcendence/mini-baas/Dylan's Makefiles
