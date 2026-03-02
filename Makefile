@@ -10,77 +10,82 @@
 #                                                                              #
 # **************************************************************************** #
 
+# * Utils
+GREEN = \033[0;32m
+RED = \033[0;31m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+RESET = \033[0m
+OK = $(GREEN)[OK]$(RESET)
 
-# Library name
+# * Program name
 NAME = push_swap
 
-# Compilation
+# * Compilation
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-# CFLAGS += -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
-# Removal
+# * Removal
 RM = rm -f
 
-# Includes
+# * Includes
 INCLUDES = -I ./inc/headers -I ./inc/libft/inc/headers/
 
-# Objects dir
+# * Objects dir
 OBJ_DIR = ./src/obj/
 
-# Sources files
+# * Sources files
 PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS = $(shell ls $(PUSH_SWAP_DIR) | grep -E ".+\.c")
 SRCS = $(PUSH_SWAP_SRCS)
 
-# Creating object files
+# * Creating object files
 OBJS = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_SRCS:.c=.o))
 
-# LIBFT
+# * LIBFT
 LIBFT_DIR = ./inc/libft/
 LIBFT = ./inc/libft/libft.a
 
-# RULES
-# Links a .c (and .h if needed) to its .o file
+MAKEFLAGS += --no-print-directory
+
+# ! RULES
+# ? Links a .c (and .h if needed) to its .o file
 $(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT)
-	@clear
 	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME)
-	@echo "Compiling push_swap"
+	@echo "$(OK) push_swap $(RESET)"
 
-test:
-# 	@echo ls $(SRCS)
-	@echo ls $(OBJS)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
-	@echo "Compiling libft"
+	@echo "$(OK) libft $(RESET)"
 
-# Compiles the whole program/library
+# ? Compiles the whole program/library
 all: obj $(NAME)
 
+# ? Creates the objects directory if it doesn't exist
 obj:
 	@mkdir -p $(OBJ_DIR)
 
-# Removes the object files
+# ? Removes the object files
 clean:
 	@$(RM) $(OBJS)
-	@echo "Removing .o files"
+	@$(MAKE) -C $(LIBFT_DIR) clean $(MAKEFLAGS)
+	@echo "$(OK) $(RED) Removing .o files $(RESET)"
 
-# Removes both object and executable files
+# ? Removes both object and executable files
 fclean: clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@echo "Removing $(NAME)"
+	@$(MAKE) -C $(LIBFT_DIR) fclean $(MAKEFLAGS)
+	@echo "$(OK) $(RED) Removing $(NAME) $(RESET)"
 
-# Rebuilds the program/library
+# ? Rebuilds the program/library
 re: fclean all
-	@echo "Rebuilding $(LIBFT)"
-	@$(MAKE) -C $(LIBFT_DIR) re
-	@echo "Rebuilding $(NAME)"
+	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
+	@echo "$(OK) $(NAME)"
 
 NUMBERS = ./files/10_1
 
