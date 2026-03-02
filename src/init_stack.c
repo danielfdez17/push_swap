@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 /**
  * Tries to initialize the stack @param a with the values stored in @param av.

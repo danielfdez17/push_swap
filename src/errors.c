@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 /**
  * @returns TRUE if @param c is either + or -. Otherwise @returns FALSE

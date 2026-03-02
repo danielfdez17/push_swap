@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 static void	sort(t_stack **a, t_stack **b, int size)
 {
@@ -43,13 +43,6 @@ int	main(int ac, char **av)
 		sort(&a, &b, get_size(a));
 	if (!is_stack_sorted(a))
 		ft_printf("haha\n");
-	// while (a)
-	// {
-	// 	// ft_printf("(%d,%d) ", a->value, a->index);
-	// 	ft_printf("%d ", a->index);
-	// 	a = a->next;
-	// }
-	// ft_printf("\n");
 	free_stack(a);
 	free_stack(b);
 	return (0);

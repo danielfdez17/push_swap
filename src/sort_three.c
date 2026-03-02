@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 /**
  * Algorithm to sort only 3 elements

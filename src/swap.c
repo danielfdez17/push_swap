@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 static void	swap_values(int *a, int *b)
 {

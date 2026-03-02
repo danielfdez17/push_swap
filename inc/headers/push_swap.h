@@ -14,8 +14,8 @@
 # define PUSH_SWAP_H
 
 # include <limits.h>
-# include "../libft/inc/headers/libft.h"
-# include "../libft/inc/headers/ft_printf.h"
+# include "libft.h"
+# include "ft_printf.h"
 
 # ifndef FALSE
 #  define FALSE 0

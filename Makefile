@@ -10,37 +10,55 @@
 #                                                                              #
 # **************************************************************************** #
 
-# * Utils
-GREEN = \033[0;32m
-RED = \033[0;31m
-YELLOW = \033[0;33m
-BLUE = \033[0;34m
-RESET = \033[0m
-OK = $(GREEN)[OK]$(RESET)
-
 # * Program name
 NAME = push_swap
 
-# * Compilation
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+# * Utils
+RED = \033[0;31m
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+MAGENTA = \033[0;35m
+RESET = \033[0m
+PUSH_SWAP = $(MAGENTA)[$(NAME)]$(RESET)
+BUILT = $(GREEN)Built$(RESET)
+OBJS_REMOVED = $(RED)Object files removed $(RESET)
+REMOVED = $(RED)Removed $(RESET)
+REBUILT = $(YELLOW)Rebuilt $(RESET)
 
-# * Removal
-RM = rm -f
-
-# * Includes
-INCLUDES = -I ./inc/headers -I ./inc/libft/inc/headers/
+# * Sources files
+PUSH_SWAP_DIR = ./src/
+PUSH_SWAP_SRCS =	counting.c \
+					errors.c \
+					init_stack.c \
+					push.c \
+					push_swap.c \
+					radix.c \
+					reveverse_rotate.c \
+					rotate.c \
+					selection.c \
+					sort_three.c \
+					stack_utils.c \
+					stack_utils2.c \
+					swap.c
 
 # * Objects dir
 OBJ_DIR = ./src/obj/
 
-# * Sources files
-PUSH_SWAP_DIR = ./src/
-PUSH_SWAP_SRCS = $(shell ls $(PUSH_SWAP_DIR) | grep -E ".+\.c")
 SRCS = $(PUSH_SWAP_SRCS)
+
+# * Includes
+HEADERS = -I ./inc/headers -I ./inc/libft/inc/headers/
 
 # * Creating object files
 OBJS = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_SRCS:.c=.o))
+
+# * Compilation
+MYCC = cc
+MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+
+# * Removal
+RM = rm -f
 
 # * LIBFT
 LIBFT_DIR = ./inc/libft/
@@ -51,57 +69,59 @@ MAKEFLAGS += --no-print-directory
 # ! RULES
 # ? Links a .c (and .h if needed) to its .o file
 $(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) -o $(NAME)
-	@echo "$(OK) push_swap $(RESET)"
-
+	@$(MYCC) $(MYCFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
-	@echo "$(OK) libft $(RESET)"
-
-# ? Compiles the whole program/library
-all: obj $(NAME)
+# 	@echo "$(OK) libft $(RESET)"
 
 # ? Creates the objects directory if it doesn't exist
 obj:
 	@mkdir -p $(OBJ_DIR)
 
+# ? Updates the submodules
+update:
+	@git submodule update --init --recursive
+
+# ? Compiles the whole program/library
+all: update obj $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
+	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME)
+	@echo "$(PUSH_SWAP) $(BUILT)"
+
 # ? Removes the object files
 clean:
 	@$(RM) $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean $(MAKEFLAGS)
-	@echo "$(OK) $(RED) Removing .o files $(RESET)"
+	@echo "$(PUSH_SWAP) $(OBJS_REMOVED)"
 
 # ? Removes both object and executable files
 fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean $(MAKEFLAGS)
-	@echo "$(OK) $(RED) Removing $(NAME) $(RESET)"
+	@echo "$(PUSH_SWAP) $(REMOVED)"
 
 # ? Rebuilds the program/library
 re: fclean all
 	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
-	@echo "$(OK) $(NAME)"
+	@echo "$(PUSH_SWAP) $(REBUILT)"
 
-NUMBERS = ./files/10_1
+norminette:
+	@clear
+	@$(MAKE) -C $(LIBFT_DIR) norminette $(MAKEFLAGS)
+	@norminette $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"
 
-run: all
-	clear
-# 	./$(NAME) $(NUMBERS)
-# 	./$(NAME) $(shell cat $(NUMBERS))
-	./$(NAME) $(shell cat $(NUMBERS)) | wc -l
+help:
+	@echo "Usage: make [target]"
+	@echo "Targets:"
+	@echo "  all         - Compiles the whole program"
+	@echo "  obj         - Creates the objects directory if it doesn't exist"
+	@echo "  clean       - Removes the object files"
+	@echo "  fclean      - Removes both object and executable files"
+	@echo "  re          - Rebuilds the program"
+	@echo "  update       - Updates the submodules"
+	@echo "  norminette   - Checks the code with norminette"
+	@echo "  help         - Displays this help message"
 
-valgrind: all
-	clear
-	valgrind ./$(NAME) $(shell cat $(NUMBERS))
-
-debug: all
-	clear
-	gdb ./$(NAME)
-
-# Protects all rules from files with same name
-.PHONY: all obj clean fclean re run valgrind debug
+.PHONY: obj update all clean fclean re help

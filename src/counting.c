@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/headers/push_swap.h"
+#include "push_swap.h"
 
 /**
  * Receives a @param stack and @returns a structure containing
@@ -80,7 +80,7 @@ static void	accumulate(int *accumulates, int size)
  * @example: stack = [1, -1], accumulates = [1, 1, 2], min_value = -1
  * --> sorted = [-1, 1]
  */
-static void	sort_values(t_stack *stack, int *sorted, \
+static void	sort_values(t_stack *stack, int *sorted,
 	int *accumulates, long min_value)
 {
 	while (stack)
