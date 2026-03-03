@@ -46,7 +46,7 @@ static t_value	get_min_value(t_stack *stack)
 /**
  * Selection sorting algorithm
  */
-void	selection_sort(t_stack **a, t_stack **b, t_bool print)
+void	selection_sort(t_stack **a, t_stack **b, bool print)
 {
 	t_value	value;
 

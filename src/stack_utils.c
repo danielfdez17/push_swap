@@ -48,17 +48,17 @@ t_stack	*stack_last(t_stack *stack)
 	return (stack);
 }
 
-t_bool	is_stack_sorted(t_stack *stack)
+bool	is_stack_sorted(t_stack *stack)
 {
 	if (!stack)
-		return (TRUE);
+		return (true);
 	while (stack->next)
 	{
 		if (stack->value > stack->next->value)
-			return (FALSE);
+			return (false);
 		stack = stack->next;
 	}
-	return (TRUE);
+	return (true);
 }
 
 t_stack	*get_max(t_stack *stack)

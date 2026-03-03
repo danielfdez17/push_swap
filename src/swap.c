@@ -29,7 +29,7 @@ static int	swap(t_stack *list)
 	return (1);
 }
 
-int	sa(t_stack **a, t_bool print)
+int	sa(t_stack **a, bool print)
 {
 	int	movs;
 
@@ -39,7 +39,7 @@ int	sa(t_stack **a, t_bool print)
 	return (movs);
 }
 
-// int	sb(t_stack **b, t_bool print)
+// int	sb(t_stack **b, bool print)
 // {
 // 	int	movs;
 
@@ -49,7 +49,7 @@ int	sa(t_stack **a, t_bool print)
 // 	return (swap(*b));
 // }
 
-// int	ss(t_stack **a, t_stack **b, t_bool print)
+// int	ss(t_stack **a, t_stack **b, bool print)
 // {
 // 	int	movs;
 

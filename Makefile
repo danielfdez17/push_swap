@@ -31,8 +31,8 @@ PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS =	counting.c \
 					errors.c \
 					init_stack.c \
+					main.c \
 					push.c \
-					push_swap.c \
 					radix.c \
 					reveverse_rotate.c \
 					rotate.c \
@@ -67,13 +67,15 @@ LIBFT = ./inc/libft/libft.a
 MAKEFLAGS += --no-print-directory
 
 # ! RULES
+# ? Compiles the whole program/library
+all: update obj $(NAME)
+
 # ? Links a .c (and .h if needed) to its .o file
 $(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
 	@$(MYCC) $(MYCFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
-# 	@echo "$(OK) libft $(RESET)"
 
 # ? Creates the objects directory if it doesn't exist
 obj:
@@ -82,9 +84,6 @@ obj:
 # ? Updates the submodules
 update:
 	@git submodule update --init --recursive
-
-# ? Compiles the whole program/library
-all: update obj $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME)
@@ -125,3 +124,5 @@ help:
 	@echo "  help         - Displays this help message"
 
 .PHONY: obj update all clean fclean re help
+
+.DEFAULT: all

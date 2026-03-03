@@ -15,13 +15,13 @@
 static void	sort(t_stack **a, t_stack **b, int size)
 {
 	if (size == 2)
-		sa(a, TRUE);
+		sa(a, true);
 	else if (size == 3)
-		sort_three(a, TRUE);
+		sort_three(a, true);
 	else if (size <= MAX_SELECTION_NUMBER)
-		selection_sort(a, b, TRUE);
+		selection_sort(a, b, true);
 	else
-		radix_sort(a, b, size, TRUE);
+		radix_sort(a, b, size, true);
 }
 
 int	main(int ac, char **av)

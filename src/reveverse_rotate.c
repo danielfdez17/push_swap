@@ -23,7 +23,7 @@ static int	reverse_rotate(t_stack **stack)
 	return (1);
 }
 
-int	rra(t_stack **a, t_bool print)
+int	rra(t_stack **a, bool print)
 {
 	int	movs;
 
@@ -33,7 +33,7 @@ int	rra(t_stack **a, t_bool print)
 	return (movs);
 }
 
-// int		rrb(t_stack **b, t_bool print)
+// int		rrb(t_stack **b, bool print)
 // {
 // 	int movs;
 
@@ -43,7 +43,7 @@ int	rra(t_stack **a, t_bool print)
 // 	return (movs);
 // }
 
-// int	rrr(t_stack **a, t_stack **b, t_bool print)
+// int	rrr(t_stack **a, t_stack **b, bool print)
 // {
 // 	int movs;
 

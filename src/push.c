@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	pa(t_stack **a, t_stack **b, t_bool print)
+int	pa(t_stack **a, t_stack **b, bool print)
 {
 	t_stack	*elem;
 
@@ -25,7 +25,7 @@ int	pa(t_stack **a, t_stack **b, t_bool print)
 	return (1);
 }
 
-int	pb(t_stack **a, t_stack **b, t_bool print)
+int	pb(t_stack **a, t_stack **b, bool print)
 {
 	t_stack	*elem;
 

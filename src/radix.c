@@ -47,7 +47,7 @@ static t_stack	*set_indexes(t_stack *stack)
 /**
  * Auxiliary function to reduce number of lines
  */
-static void	radix_aux(t_stack **a, t_stack **b, int i, t_bool print)
+static void	radix_aux(t_stack **a, t_stack **b, int i, bool print)
 {
 	int	index;
 
@@ -61,7 +61,7 @@ static void	radix_aux(t_stack **a, t_stack **b, int i, t_bool print)
 /**
  * Binary radix sort implementation
  */
-void	radix_sort(t_stack **a, t_stack **b, int size, t_bool print)
+void	radix_sort(t_stack **a, t_stack **b, int size, bool print)
 {
 	int	max_bits;
 	int	max_num;

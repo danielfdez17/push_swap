@@ -15,7 +15,7 @@
 /**
  * Algorithm to sort only 3 elements
  */
-void	sort_three(t_stack **stack, t_bool print)
+void	sort_three(t_stack **stack, bool print)
 {
 	t_stack	*max_node;
 

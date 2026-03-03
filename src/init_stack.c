@@ -17,7 +17,7 @@
  * If @param av has a syntax error, @param a will be freed and
  * program will be stopped.
  */
-t_bool	init_stack(t_stack **a, char **av)
+bool	init_stack(t_stack **a, char **av)
 {
 	long	n;
 	int		i;
@@ -28,7 +28,7 @@ t_bool	init_stack(t_stack **a, char **av)
 	{
 		if (syntax_error(av[i]))
 			return (free_error(a));
-		n = ft_atol(av[i]);
+		n = ft_atol((const char *)av[i]);
 		if (n > INT_MAX || n < INT_MIN)
 			return (free_error(a));
 		if (duplicate_error(*a, (int)n))
@@ -37,5 +37,5 @@ t_bool	init_stack(t_stack **a, char **av)
 		push_back(a, elem);
 		++i;
 	}
-	return (TRUE);
+	return (true);
 }
