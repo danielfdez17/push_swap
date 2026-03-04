@@ -37,48 +37,43 @@ static void	free_split(char **split)
 	free(split);
 }
 
-int	main(int ac, char **av)
+bool	read_input(int ac, char **av, t_stack **a)
 {
-	t_stack	*a;
-	t_stack	*b;
-	char 	**numbers;
+	char	**numbers;
+	int		i;
+	int		j;
 
-	a = NULL;
-	b = NULL;
-	if (ac == 1 || (ac == 2 && !av[1][0]))
-		return (0);
-	int i = 0;
+	i = 0;
 	while (++i < ac)
 	{
 		numbers = ft_split(av[i], ' ');
 		if (!numbers)
-			continue;
-		int j = -1;
+			continue ;
+		j = -1;
 		while (numbers[++j])
 		{
 			if (input_error(numbers[j]))
 			{
 				ft_putendl_fd("Error: invalid input", STDERR_FILENO);
-				break ;
+				free_split(numbers);
+				free_stack(a);
+				return (false);
 			}
-			push_back(&a, stack_new(ft_atoi(numbers[j])));
-		}
-		if (numbers[j])
-		{
-			free_split(numbers);
-			free_stack(&a);
-			break ;
+			push_back(a, stack_new(ft_atoi(numbers[j])));
 		}
 		free_split(numbers);
 	}
-	free_stack(&a);
-	return (0);
-	// todo: update input handler logic
-	if (ac == 2)
-		av = ft_split(av[1], ' ');
-	else
-		++av;
-	if (!init_stack(&a, av))
+	return (true);
+}
+
+int	main(int ac, char **av)
+{
+	t_stack	*a;
+	t_stack	*b;
+
+	a = NULL;
+	b = NULL;
+	if (ac == 1 || (ac == 2 && !av[1][0]) || !read_input(ac, av, &a))
 		return (0);
 	if (!is_stack_sorted(a))
 		sort(&a, &b, get_size(a));
