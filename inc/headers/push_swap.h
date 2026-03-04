@@ -43,7 +43,7 @@ typedef struct s_limits
 }	t_limits;
 
 // * ERROR HANDLING
-bool	syntax_error(char *s);
+bool	input_error(char *s);
 bool	duplicate_error(t_stack *stack, int n);
 bool	free_error(t_stack **stack);
 
@@ -61,7 +61,7 @@ t_stack	*get_max(t_stack *stack);
 
 t_stack	*stack_new(int value);
 t_stack	*stack_last(t_stack *stack);
-void	free_stack(t_stack *stack);
+void	free_stack(t_stack **stack);
 void	push_back(t_stack **stack, t_stack *elem);
 void	push_front(t_stack **stack, t_stack *elem);
 t_stack	*pop_front(t_stack **stack);
@@ -85,5 +85,25 @@ int		ra(t_stack **a, bool print);
 int		rra(t_stack **a, bool print);
 // int		rrb(t_stack **b, bool print);
 // int		rrr(t_stack **a, t_stack **b, bool print);
+
+static inline bool	ft_is_sign(char c)
+{
+	return (c == '+' || c == '-');
+}
+
+static inline bool	is_valid_char(char c)
+{
+	return (ft_isdigit(c) || ft_is_sign(c));
+}
+
+static inline bool	ft_is_integer(const char *s)
+{
+	long	n;
+
+	if (!s || !*s)
+		return (false);
+	n = ft_atol(s);
+	return (n >= INT_MIN && n <= INT_MAX);
+}
 
 #endif

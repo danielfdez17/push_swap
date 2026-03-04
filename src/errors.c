@@ -13,25 +13,17 @@
 #include "push_swap.h"
 
 /**
- * @returns true if @param c is either + or -. Otherwise @returns false
- */
-static bool	is_plus_minus(char c)
-{
-	return (c == '+' || c == '-');
-}
-
-/**
  * Checks if the string @param s contains syntax errors.
  * If no error are found, @returns false. Otherwise @returns true
  */
-bool	syntax_error(char *s)
+bool	input_error(char *s)
 {
 	int	i;
 
 	i = 0;
-	if (!(is_plus_minus(s[i]) || ft_isdigit(s[i])))
+	if (!is_valid_char(s[i]))
 		return (true);
-	if (is_plus_minus(s[i++]) && !ft_isdigit(s[i]))
+	if (ft_is_sign(s[i++]) && !ft_isdigit(s[i]))
 		return (true);
 	while (s[i])
 	{
@@ -39,6 +31,8 @@ bool	syntax_error(char *s)
 			return (true);
 		++i;
 	}
+	if (!ft_is_integer(s))
+		return (true);
 	return (false);
 }
 
@@ -65,7 +59,7 @@ bool	duplicate_error(t_stack *stack, int n)
  */
 bool	free_error(t_stack **stack)
 {
-	free_stack(*stack);
+	free_stack(stack);
 	ft_printf("Error\n");
 	return (false);
 }

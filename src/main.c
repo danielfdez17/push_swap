@@ -24,15 +24,56 @@ static void	sort(t_stack **a, t_stack **b, int size)
 		radix_sort(a, b, size, true);
 }
 
+static void	free_split(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		++i;
+	}
+	free(split);
+}
+
 int	main(int ac, char **av)
 {
 	t_stack	*a;
 	t_stack	*b;
+	char 	**numbers;
 
 	a = NULL;
 	b = NULL;
 	if (ac == 1 || (ac == 2 && !av[1][0]))
 		return (0);
+	int i = 0;
+	while (++i < ac)
+	{
+		numbers = ft_split(av[i], ' ');
+		if (!numbers)
+			continue;
+		int j = -1;
+		while (numbers[++j])
+		{
+			if (input_error(numbers[j]))
+			{
+				ft_putendl_fd("Error: invalid input", STDERR_FILENO);
+				break ;
+			}
+			push_back(&a, stack_new(ft_atoi(numbers[j])));
+		}
+		if (numbers[j])
+		{
+			free_split(numbers);
+			free_stack(&a);
+			break ;
+		}
+		free_split(numbers);
+	}
+	free_stack(&a);
+	return (0);
+	// todo: update input handler logic
 	if (ac == 2)
 		av = ft_split(av[1], ' ');
 	else
@@ -43,8 +84,8 @@ int	main(int ac, char **av)
 		sort(&a, &b, get_size(a));
 	if (!is_stack_sorted(a))
 		ft_printf("haha\n");
-	free_stack(a);
-	free_stack(b);
+	free_stack(&a);
+	free_stack(&b);
 	return (0);
 }
 // ! checker_linux usage: ARG="9 8 7 6 5 4 3 2 1";

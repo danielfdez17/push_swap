@@ -26,7 +26,7 @@ bool	init_stack(t_stack **a, char **av)
 	i = 0;
 	while (av && av[i])
 	{
-		if (syntax_error(av[i]))
+		if (input_error(av[i]))
 			return (free_error(a));
 		n = ft_atol((const char *)av[i]);
 		if (n > INT_MAX || n < INT_MIN)

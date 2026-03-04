@@ -12,17 +12,19 @@
 
 #include "push_swap.h"
 
-void	free_stack(t_stack *stack)
+void	free_stack(t_stack **stack)
 {
 	t_stack	*ptr;
 
-	while (stack)
+	if (!stack || !*stack)
+		return ;
+	while (*stack)
 	{
-		ptr = stack;
-		stack = stack->next;
+		ptr = *stack;
+		*stack = (*stack)->next;
 		free(ptr);
 	}
-	stack = NULL;
+	*stack = NULL;
 }
 
 void	push_front(t_stack **stack, t_stack *elem)
