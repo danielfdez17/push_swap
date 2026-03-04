@@ -37,7 +37,7 @@ PUSH_SWAP_SRCS =	counting.c \
 					reveverse_rotate.c \
 					rotate.c \
 					selection.c \
-					sort_three.c \
+					sort.c \
 					stack_utils.c \
 					stack_utils2.c \
 					swap.c

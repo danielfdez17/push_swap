@@ -12,18 +12,6 @@
 
 #include "push_swap.h"
 
-static void	sort(t_stack **a, t_stack **b, int size)
-{
-	if (size == 2)
-		sa(a, true);
-	else if (size == 3)
-		sort_three(a, true);
-	else if (size <= MAX_SELECTION_NUMBER)
-		selection_sort(a, b, true);
-	else
-		radix_sort(a, b, size, true);
-}
-
 static void	free_split(char **split)
 {
 	size_t	i;

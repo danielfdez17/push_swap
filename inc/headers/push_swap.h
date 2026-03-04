@@ -48,7 +48,7 @@ bool	duplicate_error(t_stack *stack, int n);
 bool	free_error(t_stack **stack);
 
 // * SORTING ALGORITHMS
-void	sort_three(t_stack **stack, bool print);
+void	sort(t_stack **a, t_stack **b, int size);
 void	selection_sort(t_stack **a, t_stack **b, bool print);
 void	radix_sort(t_stack **a, t_stack **b, int size, bool print);
 int		*counting_sort(t_stack *stack);
@@ -58,6 +58,7 @@ bool	init_stack(t_stack **a, char **av);
 int		get_size(t_stack *stack);
 bool	is_stack_sorted(t_stack *stack);
 t_stack	*get_max(t_stack *stack);
+t_stack	*get_min(t_stack *stack);
 
 t_stack	*stack_new(int value);
 t_stack	*stack_last(t_stack *stack);

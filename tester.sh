@@ -75,7 +75,10 @@ test_n() {
 			ok_iterations=$((ok_iterations + 1))
 		fi
 	done
-	log_info "Summary for $n numbers: $GREEN$ok_iterations OK$NC, $RED$bad_iterations KO$BLUE out of $total_iterations iterations."
+	percentage_ok=$(awk "BEGIN {printf \"%.2f\", ($ok_iterations/$iterations)*100}")
+	percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($bad_iterations/$iterations)*100}")
+	# log_info "Summary for $n numbers: $GREEN$ok_iterations OK$NC, $RED$bad_iterations KO$BLUE out of $iterations iterations."
+	log_info "Summary for $n numbers: $GREEN$percentage_ok% OK$NC, $RED$percentage_ko% KO$BLUE out of $iterations iterations."
 }
 
 start() {
@@ -111,5 +114,4 @@ else
 	n=$2
 fi
 
-log_info "Starting tests with $iterations iterations and $n numbers..."
 start

@@ -77,3 +77,20 @@ t_stack	*get_max(t_stack *stack)
 	}
 	return (max_node);
 }
+
+t_stack	*get_min(t_stack *stack)
+{
+	t_stack	*min_node;
+
+	if (!stack)
+		return (NULL);
+	min_node = stack;
+	stack = stack->next;
+	while (stack)
+	{
+		if (stack->value < min_node->value)
+			min_node = stack;
+		stack = stack->next;
+	}
+	return (min_node);
+}
