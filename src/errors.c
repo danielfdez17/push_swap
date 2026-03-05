@@ -40,18 +40,18 @@ bool	input_error(char *s)
  * Checks if the value of @param n is already stored in the @param stack.
  * If so, @returns true. Otherwisre @returns false
  */
-bool	duplicate_error(t_stack *stack, int n)
-{
-	if (!stack)
-		return (false);
-	while (stack)
-	{
-		if (stack->value == n)
-			return (true);
-		stack = stack->next;
-	}
-	return (false);
-}
+// bool	duplicate_error(t_stack *stack, int n)
+// {
+// 	if (!stack)
+// 		return (false);
+// 	while (stack)
+// 	{
+// 		if (stack->value == n)
+// 			return (true);
+// 		stack = stack->next;
+// 	}
+// 	return (false);
+// }
 
 /**
  * It frees the @param stack, prints the string "Error\n" and @returns false 

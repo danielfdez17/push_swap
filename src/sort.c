@@ -15,30 +15,30 @@
 /**
  * Algorithm to sort only 3 elements
  */
-static void	sort_three(t_stack **stack, bool print)
-{
-	t_stack	*max_node;
+// static void	sort_three(t_stack **stack, bool print)
+// {
+// 	t_elem	*max_node;
 
-	max_node = get_max(*stack);
-	if (max_node == *stack)
-		ra(stack, print);
-	else if ((*stack)->next == max_node)
-		rra(stack, print);
-	if ((*stack)->value > (*stack)->next->value)
-		sa(stack, print);
-}
+// 	max_node = stack_get_max(*stack);
+// 	if (max_node == *stack)
+// 		ra(stack, print);
+// 	else if ((*stack)->next == max_node)
+// 		rra(stack, print);
+// 	if ((*stack)->value > (*stack)->next->value)
+// 		sa(stack, print);
+// }
 
-static void	sort_four(t_stack **a, t_stack **b, bool print)
-{
-	t_stack	*min_node;
+// static void	sort_four(t_stack **a, t_stack **b, bool print)
+// {
+// 	t_elem	*min_node;
 
-	min_node = get_min(*a);
-	while (*a != min_node)
-		ra(a, print);
-	pb(a, b, print);
-	sort_three(a, print);
-	pa(a, b, print);
-}
+// 	min_node = stack_get_min(*a);
+// 	while (*a != min_node)
+// 		ra(a, print);
+// 	pb(a, b, print);
+// 	sort_three(a, print);
+// 	pa(a, b, print);
+// }
 
 // static void	sort_five(t_stack **a, t_stack **b, bool print)
 // {
@@ -52,18 +52,18 @@ static void	sort_four(t_stack **a, t_stack **b, bool print)
 // 	pa(a, b, print);
 // }
 
-void	sort(t_stack **a, t_stack **b, int size)
-{
-	if (size == 2)
-		sa(a, true);
-	else if (size == 3)
-		sort_three(a, true);
-	else if (size == 4)
-		sort_four(a, b, true);
-	// else if (size == 5)
-	// 	sort_five(a, b, true);
-	else if (size <= MAX_SELECTION_NUMBER)
-		selection_sort(a, b, true);
-	else
-		radix_sort(a, b, size, true);
-}
+// void	sort(t_stack **a, t_stack **b, int size)
+// {
+// 	if (size == 2)
+// 		sa(a, true);
+// 	else if (size == 3)
+// 		sort_three(a, true);
+// 	else if (size == 4)
+// 		sort_four(a, b, true);
+// 	else if (size == 5)
+// 		sort_five(a, b, true);
+// 	else if (size <= MAX_SELECTION_NUMBER)
+// 		selection_sort(a, b, true);
+// 	else
+// 		radix_sort(a, b, size, true);
+// }

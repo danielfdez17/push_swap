@@ -14,12 +14,12 @@
 
 static int	reverse_rotate(t_stack **stack)
 {
-	t_stack	*last;
+	t_elem	*last;
 
-	last = pop_back(stack);
+	last = pop_bottom(stack);
 	if (!last)
 		return (0);
-	push_front(stack, last);
+	push_top(stack, last);
 	return (1);
 }
 

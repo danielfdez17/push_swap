@@ -16,31 +16,32 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
+# include "stack.h"
 
 # ifndef MAX_SELECTION_NUMBER
 #  define MAX_SELECTION_NUMBER 50
 # endif
 
-typedef struct s_stack
-{
-	struct s_stack	*previous;
-	struct s_stack	*next;
-	int				value;
-	int				index;
-}	t_stack;
+// typedef struct s_stack
+// {
+// 	struct s_stack	*previous;
+// 	struct s_stack	*next;
+// 	int				value;
+// 	int				index;
+// }	t_stack;
 
-typedef struct s_value
-{
-	int	front;
-	int	value;
-	int	back;
-}	t_value;
+// typedef struct s_value
+// {
+// 	int	front;
+// 	int	value;
+// 	int	back;
+// }	t_value;
 
-typedef struct s_limits
-{
-	long	min;
-	long	max;
-}	t_limits;
+// typedef struct s_limits
+// {
+// 	long	min;
+// 	long	max;
+// }	t_limits;
 
 // * ERROR HANDLING
 bool	input_error(char *s);
@@ -52,21 +53,6 @@ void	sort(t_stack **a, t_stack **b, int size);
 void	selection_sort(t_stack **a, t_stack **b, bool print);
 void	radix_sort(t_stack **a, t_stack **b, int size, bool print);
 int		*counting_sort(t_stack *stack);
-
-// * STACKS
-bool	init_stack(t_stack **a, char **av);
-int		get_size(t_stack *stack);
-bool	is_stack_sorted(t_stack *stack);
-t_stack	*get_max(t_stack *stack);
-t_stack	*get_min(t_stack *stack);
-
-t_stack	*stack_new(int value);
-t_stack	*stack_last(t_stack *stack);
-void	free_stack(t_stack **stack);
-void	push_back(t_stack **stack, t_stack *elem);
-void	push_front(t_stack **stack, t_stack *elem);
-t_stack	*pop_front(t_stack **stack);
-t_stack	*pop_back(t_stack **stack);
 
 // * SWAP
 int		sa(t_stack **a, bool print);

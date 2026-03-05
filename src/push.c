@@ -12,28 +12,28 @@
 
 #include "push_swap.h"
 
-int	pa(t_stack **a, t_stack **b, bool print)
-{
-	t_stack	*elem;
+// int	pa(t_stack **a, t_stack **b, bool print)
+// {
+// 	t_elem	*elem;
 
-	if (!*b)
-		return (0);
-	elem = pop_front(b);
-	push_front(a, elem);
-	if (print)
-		ft_printf("pa\n");
-	return (1);
-}
+// 	if (!*b)
+// 		return (0);
+// 	elem = pop_top(b);
+// 	push_top(a, elem);
+// 	if (print)
+// 		ft_printf("pa\n");
+// 	return (1);
+// }
 
-int	pb(t_stack **a, t_stack **b, bool print)
-{
-	t_stack	*elem;
+// int	pb(t_stack **a, t_stack **b, bool print)
+// {
+// 	t_elem	*elem;
 
-	if (!*a)
-		return (0);
-	elem = pop_front(a);
-	push_front(b, elem);
-	if (print)
-		ft_printf("pb\n");
-	return (1);
-}
+// 	if (!*a)
+// 		return (0);
+// 	elem = pop_top(a);
+// 	push_top(b, elem);
+// 	if (print)
+// 		ft_printf("pb\n");
+// 	return (1);
+// }

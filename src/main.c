@@ -47,7 +47,7 @@ bool	read_input(int ac, char **av, t_stack **a)
 				free_stack(a);
 				return (false);
 			}
-			push_back(a, stack_new(ft_atoi(numbers[j])));
+			push_bottom(a, new_elem(ft_atoi(numbers[j])));
 		}
 		free_split(numbers);
 	}
@@ -63,8 +63,8 @@ int	main(int ac, char **av)
 	b = NULL;
 	if (ac == 1 || (ac == 2 && !av[1][0]) || !read_input(ac, av, &a))
 		return (0);
-	if (!is_stack_sorted(a))
-		sort(&a, &b, get_size(a));
+	// if (!is_stack_sorted(a))
+	// 	sort(&a, &b, a->size);
 	if (!is_stack_sorted(a))
 		ft_printf("haha\n");
 	free_stack(&a);

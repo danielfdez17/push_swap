@@ -30,7 +30,6 @@ REBUILT = $(YELLOW)Rebuilt $(RESET)
 PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS =	counting.c \
 					errors.c \
-					init_stack.c \
 					main.c \
 					push.c \
 					radix.c \
@@ -39,7 +38,7 @@ PUSH_SWAP_SRCS =	counting.c \
 					selection.c \
 					sort.c \
 					stack_utils.c \
-					stack_utils2.c \
+					stack.c \
 					swap.c
 
 # * Objects dir
