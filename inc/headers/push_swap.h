@@ -65,6 +65,7 @@ int		ss(t_stack *a, t_stack *b, bool print);
 // * PUSH
 int		pa(t_stack *a, t_stack *b, bool print);
 int		pb(t_stack *a, t_stack *b, bool print);
+void	push_min_to_b(t_stack *a, t_stack *b, bool print);
 
 // * ROTATE
 int		ra(t_stack *a, bool print);
