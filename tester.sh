@@ -45,7 +45,8 @@ generate_numbers() {
 	else
 		max=$1
 	fi
-	shuf -i 1-$max -n $max | tr "\n" " "
+	seq -$max $max | shuf | head -n $max | tr "\n" " "
+	# shuf -i 1-$max -n $max | tr "\n" " "
 }
 
 push_swap() {
@@ -62,10 +63,12 @@ test_n() {
 	limit=$2
 	ok_iterations=0
 	bad_iterations=0
+	total_moves=0
 	log_info "Running $iterations iterations with $n numbers..."
 	for i in $(seq 1 $iterations); do
 		numbers=$(push_swap $n)
 		moves=$?
+		total_moves=$((total_moves + moves))
 		# Check if the number of moves is greater than 12
 		if [ $moves -gt $limit ]; then
 			log_error "$numbers $moves moves (exceeds $limit)"
@@ -79,6 +82,7 @@ test_n() {
 	percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($bad_iterations/$iterations)*100}")
 	# log_info "Summary for $n numbers: $GREEN$ok_iterations OK$NC, $RED$bad_iterations KO$BLUE out of $iterations iterations."
 	log_info "Summary for $n numbers: $GREEN$percentage_ok% OK$NC, $RED$percentage_ko% KO$BLUE out of $iterations iterations."
+	log_info "Average moves: $(awk "BEGIN {printf \"%.2f\", $total_moves/$iterations}")"
 }
 
 start() {
