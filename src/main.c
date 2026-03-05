@@ -25,7 +25,7 @@ static void	free_split(char **split)
 	free(split);
 }
 
-bool	read_input(int ac, char **av, t_stack **a)
+bool	read_input(int ac, char **av, t_stack *a)
 {
 	char	**numbers;
 	int		i;
@@ -56,20 +56,18 @@ bool	read_input(int ac, char **av, t_stack **a)
 
 int	main(int ac, char **av)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack	a;
+	t_stack	b;
 
-	a = NULL;
-	b = NULL;
+	init_stack(&a);
+	init_stack(&b);
 	if (ac == 1 || (ac == 2 && !av[1][0]) || !read_input(ac, av, &a))
 		return (0);
-	// if (!is_stack_sorted(a))
-	// 	sort(&a, &b, a->size);
-	if (!is_stack_sorted(a))
+	if (!is_stack_sorted(&a))
+		sort(&a, &b);
+	if (!is_stack_sorted(&a))
 		ft_printf("haha\n");
 	free_stack(&a);
 	free_stack(&b);
 	return (0);
 }
-// ! checker_linux usage: ARG="9 8 7 6 5 4 3 2 1";
-// ./push_swap $ARG | ./checker_linux $ARG

@@ -12,90 +12,90 @@
 
 #include "push_swap.h"
 
-void	push_bottom(t_stack **stack, t_elem *elem)
+void	push_bottom(t_stack *stack, t_elem *elem)
 {
 	if (!elem)
 		return ;
-	if (is_stack_empty(*stack))
+	if (is_stack_empty(stack))
 	{
-		(*stack)->top = elem;
-		(*stack)->bottom = elem;
+		(stack)->top = elem;
+		(stack)->bottom = elem;
 	}
 	else
 	{
-		(*stack)->bottom->next = elem;
-		elem->prev = (*stack)->bottom;
-		(*stack)->bottom = elem;
+		(stack)->bottom->next = elem;
+		elem->prev = (stack)->bottom;
+		(stack)->bottom = elem;
 	}
-	(*stack)->size++;
+	(stack)->size++;
 }
 
-void	push_top(t_stack **stack, t_elem *elem)
+void	push_top(t_stack *stack, t_elem *elem)
 {
 	if (!elem)
 		return ;
-	if (is_stack_empty(*stack))
+	if (is_stack_empty(stack))
 	{
-		(*stack)->top = elem;
-		(*stack)->bottom = elem;
+		(stack)->top = elem;
+		(stack)->bottom = elem;
 	}
 	else
 	{
-		(*stack)->top->prev = elem;
-		elem->next = (*stack)->top;
-		(*stack)->top = elem;
+		(stack)->top->prev = elem;
+		elem->next = (stack)->top;
+		(stack)->top = elem;
 	}
-	(*stack)->size++;
+	(stack)->size++;
 }
 
-t_elem	*pop_bottom(t_stack **stack)
+t_elem	*pop_bottom(t_stack *stack)
 {
 	t_elem	*elem;
 
-	if ((*stack)->size <= 0)
+	if ((stack)->size <= 0)
 		return (NULL);
-	if ((*stack)->size == 1)
+	if ((stack)->size == 1)
 	{
-		elem = (*stack)->bottom;
+		elem = (stack)->bottom;
 		elem->next = NULL;
 		elem->prev = NULL;
-		(*stack)->bottom = NULL;
-		(*stack)->top = NULL;
+		(stack)->bottom = NULL;
+		(stack)->top = NULL;
 	}
 	else
 	{
-		elem = (*stack)->bottom;
-		(*stack)->bottom = elem->prev;
-		(*stack)->bottom->next = NULL;
+		elem = (stack)->bottom;
+		(stack)->bottom = elem->prev;
+		(stack)->bottom->next = NULL;
 		elem->next = NULL;
 		elem->prev = NULL;
 	}
-	(*stack)->size--;
+	(stack)->size--;
 	return (elem);
 }
 
-t_elem	*pop_top(t_stack **stack)
+t_elem	*pop_top(t_stack *stack)
 {
 	t_elem	*elem;
 
-	if ((*stack)->size <= 0)
+	if ((stack)->size <= 0)
 		return (NULL);
-	if ((*stack)->size == 1)
+	if ((stack)->size == 1)
 	{
-		elem = (*stack)->top;
+		elem = (stack)->top;
 		elem->next = NULL;
 		elem->prev = NULL;
-		(*stack)->bottom = NULL;
-		(*stack)->top = NULL;
+		(stack)->bottom = NULL;
+		(stack)->top = NULL;
 	}
 	else
 	{
-		elem = (*stack)->top;
-		(*stack)->top = elem->next;
-		(*stack)->top->prev = NULL;
+		elem = (stack)->top;
+		(stack)->top = elem->next;
+		(stack)->top->prev = NULL;
 		elem->next = NULL;
 		elem->prev = NULL;
 	}
-	(*stack)->size--;
+	(stack)->size--;
 	return (elem);
 }

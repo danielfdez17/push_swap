@@ -40,14 +40,14 @@ t_elem	*new_elem(int value)
 	return (elem);
 }
 
-void	free_stack(t_stack **stack)
+void	free_stack(t_stack *stack)
 {
 	t_elem	*ptr;
 	t_elem	*prev_ptr;
 
-	if (!stack || !*stack)
+	if (!stack)
 		return ;
-	ptr = (*stack)->top;
+	ptr = stack->top;
 	prev_ptr = ptr->prev;
 	while (ptr)// && ptr != (*stack)->bottom)
 	{
@@ -57,7 +57,7 @@ void	free_stack(t_stack **stack)
 		ptr = ptr->next;
 		free(prev_ptr);
 	}
-	*stack = NULL;
+	stack = NULL;
 }
 
 t_elem	*stack_get_max(t_stack *stack)

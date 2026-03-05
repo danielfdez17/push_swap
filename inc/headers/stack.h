@@ -20,19 +20,19 @@ typedef struct s_stack
 
 bool	is_stack_sorted(t_stack *stack);
 t_elem	*new_elem(int value);
-void	free_stack(t_stack **stack);
-void	push_bottom(t_stack **stack, t_elem *elem);
-void	push_top(t_stack **stack, t_elem *elem);
-t_elem	*pop_top(t_stack **stack);
-t_elem	*pop_bottom(t_stack **stack);
+void	free_stack(t_stack *stack);
+void	push_bottom(t_stack *stack, t_elem *elem);
+void	push_top(t_stack *stack, t_elem *elem);
+t_elem	*pop_top(t_stack *stack);
+t_elem	*pop_bottom(t_stack *stack);
 t_elem	*stack_get_max(t_stack *stack);
 t_elem	*stack_get_min(t_stack *stack);
 
-static inline void	init_stack(t_stack **stack)
+static inline void	init_stack(t_stack *stack)
 {
-	(*stack)->size = 0;
-	(*stack)->top = NULL;
-	(*stack)->bottom = NULL;
+	stack->size = 0;
+	stack->top = NULL;
+	stack->bottom = NULL;
 }
 
 static inline int	stack_size(t_stack *stack)

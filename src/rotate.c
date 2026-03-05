@@ -12,18 +12,18 @@
 
 #include "push_swap.h"
 
-static int	rotate(t_stack **stack)
+static int	rotate(t_stack *stack)
 {
 	t_elem	*first;
 
-	if (!*stack || (*stack)->size <= 1)
+	if (!stack || stack->size <= 1)
 		return (0);
 	first = pop_top(stack);
 	push_bottom(stack, first);
 	return (1);
 }
 
-int	ra(t_stack **a, bool print)
+int	ra(t_stack *a, bool print)
 {
 	int	movs;
 
@@ -33,7 +33,7 @@ int	ra(t_stack **a, bool print)
 	return (movs);
 }
 
-int		rb(t_stack **b, bool print)
+int		rb(t_stack *b, bool print)
 {
 	int	movs;
 
@@ -43,7 +43,7 @@ int		rb(t_stack **b, bool print)
 	return (movs);
 }
 
-int	rr(t_stack **a, t_stack **b, bool print)
+int	rr(t_stack *a, t_stack *b, bool print)
 {
 	int	movs;
 

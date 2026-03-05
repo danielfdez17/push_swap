@@ -46,30 +46,30 @@
 // * ERROR HANDLING
 bool	input_error(char *s);
 bool	duplicate_error(t_stack *stack, int n);
-bool	free_error(t_stack **stack);
+bool	free_error(t_stack *stack);
 
 // * SORTING ALGORITHMS
-void	sort(t_stack **a, t_stack **b, int size);
+void	sort(t_stack *a, t_stack *b);
 void	selection_sort(t_stack **a, t_stack **b, bool print);
-void	radix_sort(t_stack **a, t_stack **b, int size, bool print);
+void	radix_sort(t_stack **a, t_stack **b, bool print);
 int		*counting_sort(t_stack *stack);
 
 // * SWAP
-int		sa(t_stack **a, bool print);
+int		sa(t_stack *a, bool print);
 // int		sb(t_stack **b, bool print);
 // int		ss(t_stack **a, t_stack **b, bool print);
 
 // * PUSH
-int		pa(t_stack **a, t_stack **b, bool print);
-int		pb(t_stack **a, t_stack **b, bool print);
+int		pa(t_stack *a, t_stack *b, bool print);
+int		pb(t_stack *a, t_stack *b, bool print);
 
 // * ROTATE
-int		ra(t_stack **a, bool print);
+int		ra(t_stack *a, bool print);
 // int		rb(t_stack **b, bool print);
 // int		rr(t_stack **a, t_stack **b, bool print);
 
 // * REVERSE ROTATE
-int		rra(t_stack **a, bool print);
+int		rra(t_stack *a, bool print);
 // int		rrb(t_stack **b, bool print);
 // int		rrr(t_stack **a, t_stack **b, bool print);
 

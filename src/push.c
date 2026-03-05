@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-int	pa(t_stack **a, t_stack **b, bool print)
+int	pa(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*elem;
 
-	if (!*b)
+	if (!b)
 		return (0);
 	elem = pop_top(b);
 	push_top(a, elem);
@@ -25,11 +25,11 @@ int	pa(t_stack **a, t_stack **b, bool print)
 	return (1);
 }
 
-int	pb(t_stack **a, t_stack **b, bool print)
+int	pb(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*elem;
 
-	if (!*a)
+	if (!a)
 		return (0);
 	elem = pop_top(a);
 	push_top(b, elem);

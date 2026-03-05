@@ -57,7 +57,7 @@ bool	input_error(char *s)
  * It frees the @param stack, prints the string "Error\n" and @returns false 
  * to indicate the @param stack could not have been initialized.
  */
-bool	free_error(t_stack **stack)
+bool	free_error(t_stack *stack)
 {
 	free_stack(stack);
 	ft_printf("Error\n");
