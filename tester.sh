@@ -37,8 +37,8 @@ log_todo() {
 }
 
 clear
-log_warning "Making sure ./push_swap is up to date"
-make
+log_warning "Making sure ./push_swap and ./checker are up to date"
+make bonus
 
 generate_numbers() {
 	if [ -z "$1" ]; then
@@ -57,7 +57,16 @@ push_swap() {
 	# log_ok "Number of moves: $movs"
 	return $movs
 }
-
+checker_bonus() {
+	numbers=$(generate_numbers $1)
+	# echo -n $numbers " "
+	# log_info "Testing with $1 numbers..."
+	movements=$(echo $numbers | xargs ./push_swap)
+	echo $numbers | xargs ./push_swap | ./checker $numbers
+	# movs=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
+	# log_ok "Number of moves: $movs"
+	return $movs
+}
 test_n() {
 	n=$1
 	limit=$2
@@ -93,16 +102,17 @@ test_n() {
 }
 
 start() {
+	checker_bonus $n
 	# Check if at least 2 integer arguments were provided
-	if [ $n -le 6 ]; then
-		test_n $n 12
-	elif [ $n -le 100 ]; then
-		test_n $n 700
-	elif [ $n -le 500 ]; then
-		test_n $n 5500
-	else
-		test_n $n $n
-	fi
+	# if [ $n -le 6 ]; then
+	# 	test_n $n 12
+	# elif [ $n -le 100 ]; then
+	# 	test_n $n 700
+	# elif [ $n -le 500 ]; then
+	# 	test_n $n 5500
+	# else
+	# 	test_n $n $n
+	# fi
 }
 
 # Check if ./push_swap exists

@@ -43,6 +43,9 @@
 // 	long	max;
 // }	t_limits;
 
+// * ARGUMENTS PROCESSING
+bool	process_arguments(int ac, char **av, t_stack *a);
+
 // * ERROR HANDLING
 bool	input_error(char *s);
 bool	duplicate_error(t_stack *stack, int n);
@@ -56,8 +59,8 @@ int		*counting_sort(t_stack *stack);
 
 // * SWAP
 int		sa(t_stack *a, bool print);
-// int		sb(t_stack **b, bool print);
-// int		ss(t_stack **a, t_stack **b, bool print);
+int		sb(t_stack *b, bool print);
+int		ss(t_stack *a, t_stack *b, bool print);
 
 // * PUSH
 int		pa(t_stack *a, t_stack *b, bool print);
@@ -65,13 +68,13 @@ int		pb(t_stack *a, t_stack *b, bool print);
 
 // * ROTATE
 int		ra(t_stack *a, bool print);
-// int		rb(t_stack **b, bool print);
-// int		rr(t_stack **a, t_stack **b, bool print);
+int		rb(t_stack *b, bool print);
+int		rr(t_stack *a, t_stack *b, bool print);
 
 // * REVERSE ROTATE
 int		rra(t_stack *a, bool print);
-// int		rrb(t_stack **b, bool print);
-// int		rrr(t_stack **a, t_stack **b, bool print);
+int		rrb(t_stack *b, bool print);
+int		rrr(t_stack *a, t_stack *b, bool print);
 
 static inline bool	ft_is_sign(char c)
 {

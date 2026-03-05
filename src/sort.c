@@ -51,29 +51,29 @@ static void	sort_three(t_stack *stack, bool print)
 	}
 }
 
-// static void	sort_four(t_stack **a, t_stack **b, bool print)
-// {
-// 	t_elem	*min_node;
+static void	sort_four(t_stack *a, t_stack *b, bool print)
+{
+	t_elem	*min_node;
 
-// 	min_node = stack_get_min(*a);
-// 	while (*a != min_node)
-// 		ra(a, print);
-// 	pb(a, b, print);
-// 	sort_three(a, print);
-// 	pa(a, b, print);
-// }
+	min_node = stack_get_min(a);
+	while (a->top != min_node)
+		ra(a, print);
+	pb(a, b, print);
+	sort_three(a, print);
+	pa(a, b, print);
+}
 
-// static void	sort_five(t_stack **a, t_stack **b, bool print)
-// {
-// 	t_stack	*min_node;
+static void	sort_five(t_stack *a, t_stack *b, bool print)
+{
+	t_elem	*min_node;
 
-// 	min_node = get_min(*a);
-// 	while (*a != min_node)
-// 		ra(a, print);
-// 	pb(a, b, print);
-// 	sort_four(a, b, print);
-// 	pa(a, b, print);
-// }
+	min_node = stack_get_min(a);
+	while (a->top != min_node)
+		ra(a, print);
+	pb(a, b, print);
+	sort_four(a, b, print);
+	pa(a, b, print);
+}
 
 void	sort(t_stack *a, t_stack *b)
 {
@@ -82,10 +82,10 @@ void	sort(t_stack *a, t_stack *b)
 		sa(a, true);
 	else if (a->size == 3)
 		sort_three(a, true);
-	// else if (a->size == 4)
-	// 	sort_four(a, b, true);
-	// else if (a->size == 5)
-	// 	sort_five(a, b, true);
+	else if (a->size == 4)
+		sort_four(a, b, true);
+	else if (a->size == 5)
+		sort_five(a, b, true);
 	// else if (a->size <= MAX_SELECTION_NUMBER)
 	// 	selection_sort(a, b, true);
 	// else

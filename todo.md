@@ -4,4 +4,4 @@
 	* ./push_swap 1 2 4 -1 -29
 	* ./push_swap "1 2 4 -1 -29"
 	* ./push_swap "1" "2 4 -1 -29" 0 "23   19"
-- [ ] Update Makefile to show if push_swap is up to date
+- [ ] Refactor tester to use both programs
