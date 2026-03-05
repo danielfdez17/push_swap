@@ -53,26 +53,30 @@ static void	sort_three(t_stack *stack, bool print)
 
 static void	sort_four(t_stack *a, t_stack *b, bool print)
 {
-	t_elem	*min_node;
-
-	min_node = stack_get_min(a);
-	while (a->top != min_node)
-		ra(a, print);
-	pb(a, b, print);
-	sort_three(a, print);
+	while (a->size != 3)
+		push_min_to_b(a, b, print);
+	if (!is_stack_sorted(a))
+		sort_three(a, print);
 	pa(a, b, print);
 }
 
 static void	sort_five(t_stack *a, t_stack *b, bool print)
 {
-	t_elem	*min_node;
-
-	min_node = stack_get_min(a);
-	while (a->top != min_node)
-		ra(a, print);
-	pb(a, b, print);
+	while (a->size != 4)
+		push_min_to_b(a, b, print);
 	sort_four(a, b, print);
 	pa(a, b, print);
+}
+
+void	sort_all(t_stack *a, t_stack *b, bool print)
+{
+	(void)a;
+	(void)b;
+	(void)print;
+	// if (a->size <= MAX_SELECTION_NUMBER)
+	// 	selection_sort(a, b, print);
+	// else
+	// 	radix_sort(a, b, print);
 }
 
 void	sort(t_stack *a, t_stack *b)
@@ -86,6 +90,8 @@ void	sort(t_stack *a, t_stack *b)
 		sort_four(a, b, true);
 	else if (a->size == 5)
 		sort_five(a, b, true);
+	else
+		sort_all(a, b, true);
 	// else if (a->size <= MAX_SELECTION_NUMBER)
 	// 	selection_sort(a, b, true);
 	// else

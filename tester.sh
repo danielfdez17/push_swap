@@ -84,13 +84,18 @@ test_n() {
 		# numbers=$(push_swap $n)
 		max_moves=$((moves > max_moves ? moves : max_moves))
 		min_moves=$((moves < min_moves ? moves : min_moves))
+		if [ $checker_result = "OK" ]; then
+			checker_result="$OK OK $NC"
+		else
+			checker_result="$ERROR KO $NC"
+		fi
 		total_moves=$((total_moves + moves))
 		# Check if the number of moves is greater than the limit
 		if [ $moves -gt $limit ]; then
-			log_error "$numbers $moves moves (exceeds $limit)\t| sorted? $checker_result"
+			log_error "$moves moves (exceeds $limit)\t| $checker_result\t| $BLUE numbers: $numbers $NC"
 			bad_iterations=$((bad_iterations + 1))
 		else
-			log_ok "$moves moves (within $limit)\t| sorted? $checker_result"
+			log_ok "$moves moves (within $limit)\t| $checker_result\t| $BLUE numbers: $numbers $NC"
 			ok_iterations=$((ok_iterations + 1))
 		fi
 	done

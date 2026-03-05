@@ -18,6 +18,10 @@
 # include "ft_printf.h"
 # include "stack.h"
 
+# ifndef DEBUG_MODE
+# define DEBUG_MODE false
+# endif
+
 # ifndef MAX_SELECTION_NUMBER
 #  define MAX_SELECTION_NUMBER 50
 # endif

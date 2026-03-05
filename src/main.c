@@ -16,22 +16,19 @@ int	main(int ac, char **av)
 {
 	t_stack		a;
 	t_stack		b;
-	int			status_code;
 
 	init_stack(&a);
 	init_stack(&b);
-	status_code = 0;
 	if (ac == 1 || (ac == 2 && !av[1][0]) || !process_arguments(ac, av, &a))
 		return (0);
-	// print_stack(&a);
-	// ft_printf("a->size: %d\n", a.size);
 	if (!is_stack_sorted(&a))
 		sort(&a, &b);
-	// print_stack(&a);
-	if (!is_stack_sorted(&a))
-		status_code = 1;
-	// 	ft_printf("Error: stack not sorted\n");
+	if (DEBUG_MODE && !is_stack_sorted(&a))
+	{
+		ft_printf("Error: stack not sorted\n");
+		print_stack(&a);
+	}
 	free_stack(&a);
 	free_stack(&b);
-	return (status_code);
+	return (0);
 }

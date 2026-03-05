@@ -20,9 +20,10 @@ GREEN = \033[0;32m
 YELLOW = \033[0;33m
 BLUE = \033[0;34m
 MAGENTA = \033[0;35m
+CYAN = \033[0;36m
 RESET = \033[0m
 PUSH_SWAP = $(MAGENTA)[$(NAME)]$(RESET)
-BONUS = $(MAGENTA)[$(BONUS_NAME)]$(RESET)
+BONUS = $(CYAN)[$(BONUS_NAME)]$(RESET)
 BUILT = $(GREEN)Built$(RESET)
 OBJS_REMOVED = $(RED)Object files removed $(RESET)
 REMOVED = $(RED)Removed $(RESET)
@@ -72,7 +73,7 @@ BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_SRCS:.c=.o))
 
 # * Compilation
 MYCC = cc
-MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=false
 
 # * Removal
 RM = rm -f
@@ -114,7 +115,7 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
 	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
-	@echo "$(BONUS) $(BUILT) (bonus)"
+	@echo "$(BONUS) $(BUILT)"
 
 # ? Removes the object files
 clean:
@@ -159,11 +160,8 @@ help:
 
 tests: all
 	@echo "Running tests..."
-	./$(NAME) 5 3 1 2 -3
-	@echo "-----------------------------"
-	./$(NAME) 0 2 1 -1 -5
-	@echo "-----------------------------"
-	./$(NAME) 3 2 1 0 -2
+	@$(shell ARG='4 67 3 87 23'; ./$(NAME) $ARG | ./$(BONUS_NAME) $ARG)
+	@$(shell ARG='4 67 3 87 23'; ./push_swap $ARG | ./checker $ARG)
 
 .PHONY: obj update all clean fclean re help
 

@@ -27,6 +27,7 @@ void	push_bottom(t_stack *stack, t_elem *elem)
 		elem->prev = (stack)->bottom;
 		(stack)->bottom = elem;
 	}
+	elem->index = stack->size;
 	(stack)->size++;
 }
 
@@ -105,9 +106,10 @@ void	print_stack(t_stack *stack)
 	t_elem	*ptr;
 
 	ptr = stack->top;
+	ft_printf("(value, index)\n");
 	while (ptr)
 	{
-		ft_printf("%d ", ptr->value);
+		ft_printf("(%d,%d) ", ptr->value, ptr->index);
 		ptr = ptr->next;
 	}
 	ft_printf("\n");
