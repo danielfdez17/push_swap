@@ -33,22 +33,22 @@ int	rra(t_stack **a, bool print)
 	return (movs);
 }
 
-// int		rrb(t_stack **b, bool print)
-// {
-// 	int movs;
+int		rrb(t_stack **b, bool print)
+{
+	int movs;
 
-// 	movs = reverse_rotate(b);
-// 	if (movs && print)
-// 		ft_printf("rrb\n");
-// 	return (movs);
-// }
+	movs = reverse_rotate(b);
+	if (movs && print)
+		ft_printf("rrb\n");
+	return (movs);
+}
 
-// int	rrr(t_stack **a, t_stack **b, bool print)
-// {
-// 	int movs;
+int	rrr(t_stack **a, t_stack **b, bool print)
+{
+	int movs;
 
-// 	movs = rra(a, 0) + rrb(b, 0);
-// 	if (movs > 0 && print)
-// 		ft_printf("rrr\n");
-// 	return (movs);
-// }
+	movs = rra(a, 0) + rrb(b, 0);
+	if (movs > 0 && print)
+		ft_printf("rrr\n");
+	return (movs);
+}

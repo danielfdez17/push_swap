@@ -12,43 +12,43 @@
 
 #include "push_swap.h"
 
-// static int	rotate(t_stack **stack)
-// {
-// 	t_elem	*first;
+static int	rotate(t_stack **stack)
+{
+	t_elem	*first;
 
-// 	if (!*stack || !(*stack)->next)
-// 		return (0);
-// 	first = pop_top(stack);
-// 	push_bottom(stack, first);
-// 	return (1);
-// }
+	if (!*stack || (*stack)->size <= 1)
+		return (0);
+	first = pop_top(stack);
+	push_bottom(stack, first);
+	return (1);
+}
 
-// int	ra(t_stack **a, bool print)
-// {
-// 	int	movs;
+int	ra(t_stack **a, bool print)
+{
+	int	movs;
 
-// 	movs = rotate(a);
-// 	if (movs && print)
-// 		ft_printf("ra\n");
-// 	return (movs);
-// }
+	movs = rotate(a);
+	if (movs && print)
+		ft_printf("ra\n");
+	return (movs);
+}
 
-// int		rb(t_stack **b, bool print)
-// {
-// 	int	movs;
+int		rb(t_stack **b, bool print)
+{
+	int	movs;
 
-// 	movs = rotate(b);
-// 	if (movs && print)
-// 		ft_printf("rb\n");
-// 	return (movs);
-// }
+	movs = rotate(b);
+	if (movs && print)
+		ft_printf("rb\n");
+	return (movs);
+}
 
-// int	rr(t_stack **a, t_stack **b, bool print)
-// {
-// 	int	movs;
+int	rr(t_stack **a, t_stack **b, bool print)
+{
+	int	movs;
 
-// 	movs = ra(a, 0) + rb(b, 0);
-// 	if (movs > 0 && print)
-// 		ft_printf("rr\n");
-// 	return (movs);
-// }
+	movs = ra(a, 0) + rb(b, 0);
+	if (movs > 0 && print)
+		ft_printf("rr\n");
+	return (movs);
+}

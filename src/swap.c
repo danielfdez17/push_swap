@@ -12,49 +12,40 @@
 
 #include "push_swap.h"
 
-// static void	swap_values(int *a, int *b)
-// {
-// 	int	tmp;
+static int	swap(t_stack *stack)
+{
+	if (!stack || stack->size <= 1)
+		return (0);
+	ft_swap_int(&stack->top->value, &stack->top->next->value);
+	return (1);
+}
 
-// 	tmp = *a;
-// 	*a = *b;
-// 	*b = tmp;
-// }
+int	sa(t_stack **a, bool print)
+{
+	int	movs;
 
-// static int	swap(t_stack *list)
-// {
-// 	if (!list || !list->next)
-// 		return (0);
-// 	swap_values(&list->value, &list->next->value);
-// 	return (1);
-// }
+	movs = swap(*a);
+	if (movs && print)
+		ft_printf("sa\n");
+	return (movs);
+}
 
-// int	sa(t_stack **a, bool print)
-// {
-// 	int	movs;
+int	sb(t_stack **b, bool print)
+{
+	int	movs;
 
-// 	movs = swap(*a);
-// 	if (movs && print)
-// 		ft_printf("sa\n");
-// 	return (movs);
-// }
+	movs = swap(*b);
+	if (movs && print)
+		ft_printf("sb\n");
+	return (swap(*b));
+}
 
-// int	sb(t_stack **b, bool print)
-// {
-// 	int	movs;
+int	ss(t_stack **a, t_stack **b, bool print)
+{
+	int	movs;
 
-// 	movs = swap(*b);
-// 	if (movs && print)
-// 		ft_printf("sb\n");
-// 	return (swap(*b));
-// }
-
-// int	ss(t_stack **a, t_stack **b, bool print)
-// {
-// 	int	movs;
-
-// 	movs = sa(a, 0) + sb(b, 0);
-// 	if (movs > 0 && print)
-// 		ft_printf("ss\n");
-// 	return (movs);
-// }
+	movs = sa(a, 0) + sb(b, 0);
+	if (movs > 0 && print)
+		ft_printf("ss\n");
+	return (movs);
+}

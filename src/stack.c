@@ -74,7 +74,7 @@ t_elem	*pop_bottom(t_stack **stack)
 	return (elem);
 }
 
-t_elem	*pop_front(t_stack **stack)
+t_elem	*pop_top(t_stack **stack)
 {
 	t_elem	*elem;
 
