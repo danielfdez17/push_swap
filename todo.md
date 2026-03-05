@@ -4,4 +4,5 @@
 	* ./push_swap 1 2 4 -1 -29
 	* ./push_swap "1 2 4 -1 -29"
 	* ./push_swap "1" "2 4 -1 -29" 0 "23   19"
-- [ ] Refactor tester to use both programs
+- [x] Refactor tester to use both programs
+- [ ] Replace the current tester output with a table

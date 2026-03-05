@@ -49,24 +49,24 @@ generate_numbers() {
 	seq -$max $max | shuf | head -n $max | tr "\n" " "
 	# shuf -i 1-$max -n $max | tr "\n" " "
 }
-push_swap() {
-	numbers=$(generate_numbers $1)
-	echo -n $numbers " "
-	# log_info "Testing with $1 numbers..."
-	movs=$(echo $numbers | xargs ./push_swap | wc -l)
-	# log_ok "Number of moves: $movs"
-	return $movs
-}
-checker_bonus() {
-	numbers=$(generate_numbers $1)
-	# echo -n $numbers " "
-	# log_info "Testing with $1 numbers..."
-	movements=$(echo $numbers | xargs ./push_swap)
-	echo $numbers | xargs ./push_swap | ./checker $numbers
-	# movs=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
-	# log_ok "Number of moves: $movs"
-	return $movs
-}
+# push_swap() {
+# 	numbers=$(generate_numbers $1)
+# 	echo -n $numbers " "
+# 	# log_info "Testing with $1 numbers..."
+# 	movs=$(echo $numbers | xargs ./push_swap | wc -l)
+# 	# log_ok "Number of moves: $movs"
+# 	return $movs
+# }
+# checker_bonus() {
+# 	numbers=$(generate_numbers $1)
+# 	# echo -n $numbers " "
+# 	# log_info "Testing with $1 numbers..."
+# 	movements=$(echo $numbers | xargs ./push_swap)
+# 	echo $numbers | xargs ./push_swap | ./checker $numbers
+# 	# movs=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
+# 	# log_ok "Number of moves: $movs"
+# 	return $movs
+# }
 test_n() {
 	n=$1
 	limit=$2
@@ -77,17 +77,20 @@ test_n() {
 	min_moves=999999
 	log_info "Running $iterations iterations with $n numbers..."
 	for i in $(seq 1 $iterations); do
-		numbers=$(push_swap $n)
-		moves=$?
+		numbers=$(generate_numbers $n)
+		# push_swap_moves=$(echo $numbers | xargs ./push_swap | wc -l)
+		moves=$(echo $numbers | xargs ./push_swap | wc -l)
+		checker_result=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
+		# numbers=$(push_swap $n)
 		max_moves=$((moves > max_moves ? moves : max_moves))
 		min_moves=$((moves < min_moves ? moves : min_moves))
 		total_moves=$((total_moves + moves))
 		# Check if the number of moves is greater than the limit
 		if [ $moves -gt $limit ]; then
-			log_error "$numbers $moves moves (exceeds $limit)"
+			log_error "$numbers $moves moves (exceeds $limit)\t| sorted? $checker_result"
 			bad_iterations=$((bad_iterations + 1))
 		else
-			log_ok "$moves moves (within $limit)"
+			log_ok "$moves moves (within $limit)\t| sorted? $checker_result"
 			ok_iterations=$((ok_iterations + 1))
 		fi
 	done
@@ -102,17 +105,16 @@ test_n() {
 }
 
 start() {
-	checker_bonus $n
 	# Check if at least 2 integer arguments were provided
-	# if [ $n -le 6 ]; then
-	# 	test_n $n 12
-	# elif [ $n -le 100 ]; then
-	# 	test_n $n 700
-	# elif [ $n -le 500 ]; then
-	# 	test_n $n 5500
-	# else
-	# 	test_n $n $n
-	# fi
+	if [ $n -le 6 ]; then
+		test_n $n 12
+	elif [ $n -le 100 ]; then
+		test_n $n 700
+	elif [ $n -le 500 ]; then
+		test_n $n 5500
+	else
+		test_n $n $n
+	fi
 }
 
 # Check if ./push_swap exists
