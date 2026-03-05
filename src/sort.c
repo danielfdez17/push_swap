@@ -31,7 +31,7 @@ static void	sort_three(t_stack *stack, bool print)
 	else if (second == max)
 	{
 		if (first->value > third->value)
-			sa(stack, print);
+			rra(stack, print);
 		else
 		{
 			ra(stack, print);
@@ -42,7 +42,7 @@ static void	sort_three(t_stack *stack, bool print)
 	else
 	{
 		if (second->value < third->value)
-			sa(stack, print);
+			ra(stack, print);
 		else
 		{
 			ra(stack, print);

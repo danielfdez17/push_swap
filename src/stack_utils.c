@@ -17,7 +17,7 @@ bool	is_stack_sorted(t_stack *stack)
 	t_elem	*ptr;
 
 	ptr = stack->top->next;
-	while (ptr && ptr != stack->bottom)
+	while (ptr) // && ptr != stack->bottom)
 	{
 		if (ptr->prev->value > ptr->value)
 			return (false);
@@ -48,7 +48,7 @@ void	free_stack(t_stack *stack)
 	if (!stack)
 		return ;
 	ptr = stack->top;
-	prev_ptr = ptr->prev;
+	// prev_ptr = ptr->prev;
 	while (ptr)// && ptr != (*stack)->bottom)
 	{
 		// ptr = *stack;

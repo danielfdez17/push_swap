@@ -63,10 +63,13 @@ int	main(int ac, char **av)
 	init_stack(&b);
 	if (ac == 1 || (ac == 2 && !av[1][0]) || !read_input(ac, av, &a))
 		return (0);
+	// print_stack(&a);
+	// ft_printf("a->size: %d\n", a.size);
 	if (!is_stack_sorted(&a))
 		sort(&a, &b);
+	// print_stack(&a);
 	if (!is_stack_sorted(&a))
-		ft_printf("haha\n");
+		ft_printf("Error: stack not sorted\n");
 	free_stack(&a);
 	free_stack(&b);
 	return (0);

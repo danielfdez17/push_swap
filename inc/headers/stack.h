@@ -27,6 +27,7 @@ t_elem	*pop_top(t_stack *stack);
 t_elem	*pop_bottom(t_stack *stack);
 t_elem	*stack_get_max(t_stack *stack);
 t_elem	*stack_get_min(t_stack *stack);
+void	print_stack(t_stack *stack);
 
 static inline void	init_stack(t_stack *stack)
 {

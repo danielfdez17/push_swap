@@ -99,3 +99,16 @@ t_elem	*pop_top(t_stack *stack)
 	(stack)->size--;
 	return (elem);
 }
+
+void	print_stack(t_stack *stack)
+{
+	t_elem	*ptr;
+
+	ptr = stack->top;
+	while (ptr)
+	{
+		ft_printf("%d ", ptr->value);
+		ptr = ptr->next;
+	}
+	ft_printf("\n");
+}

@@ -37,7 +37,8 @@ log_todo() {
 }
 
 clear
-log_warning "Make sure ./push_swap is up to date"
+log_warning "Making sure ./push_swap is up to date"
+make
 
 generate_numbers() {
 	if [ -z "$1" ]; then
@@ -48,7 +49,6 @@ generate_numbers() {
 	seq -$max $max | shuf | head -n $max | tr "\n" " "
 	# shuf -i 1-$max -n $max | tr "\n" " "
 }
-
 push_swap() {
 	numbers=$(generate_numbers $1)
 	echo -n $numbers " "
@@ -64,12 +64,16 @@ test_n() {
 	ok_iterations=0
 	bad_iterations=0
 	total_moves=0
+	max_moves=0
+	min_moves=999999
 	log_info "Running $iterations iterations with $n numbers..."
 	for i in $(seq 1 $iterations); do
 		numbers=$(push_swap $n)
 		moves=$?
+		max_moves=$((moves > max_moves ? moves : max_moves))
+		min_moves=$((moves < min_moves ? moves : min_moves))
 		total_moves=$((total_moves + moves))
-		# Check if the number of moves is greater than 12
+		# Check if the number of moves is greater than the limit
 		if [ $moves -gt $limit ]; then
 			log_error "$numbers $moves moves (exceeds $limit)"
 			bad_iterations=$((bad_iterations + 1))
@@ -82,7 +86,10 @@ test_n() {
 	percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($bad_iterations/$iterations)*100}")
 	# log_info "Summary for $n numbers: $GREEN$ok_iterations OK$NC, $RED$bad_iterations KO$BLUE out of $iterations iterations."
 	log_info "Summary for $n numbers: $GREEN$percentage_ok% OK$NC, $RED$percentage_ko% KO$BLUE out of $iterations iterations."
+	log_info "==========STATISTICS=========="
 	log_info "Average moves: $(awk "BEGIN {printf \"%.2f\", $total_moves/$iterations}")"
+	log_info "Max moves: $max_moves"
+	log_info "Min moves: $min_moves"
 }
 
 start() {
