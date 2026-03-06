@@ -30,6 +30,12 @@ t_elem	*pop_top(t_stack *stack);
 t_elem	*pop_bottom(t_stack *stack);
 t_elem	*stack_get_max(t_stack *stack);
 t_elem	*stack_get_min(t_stack *stack);
+
+/**
+ * Prints the elements of the stack
+ * @brief Prints the elements of the stack
+ * @param stack The stack to print
+ */
 void	print_stack(t_stack *stack);
 
 static inline void	init_stack(t_stack *stack)

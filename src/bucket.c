@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 08:55:17 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/06 09:43:14 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:16:55 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,7 @@ void	bucket_sort(t_stack *a, t_stack *b, bool print)
 			ra(a, print);
 	}
 	push_max_to_b(a, b, print);
+	// todo: fix
+	// while (b->top)
+	// 	pa(a, b, print);
 }

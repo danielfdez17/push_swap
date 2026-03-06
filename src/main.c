@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:22 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/06 10:10:11 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:51:02 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	main(int ac, char **av)
 	if (!is_stack_sorted(&a))
 		sort(&a, &b);
 	if (DEBUG_MODE)
+	{
 		print_stack(&a);
+		print_stack(&b);
+	}
 	if (DEBUG_MODE && !is_stack_sorted(&a))
 	{
 		ft_printf("Error: stack not sorted\n");

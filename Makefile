@@ -6,7 +6,7 @@
 #    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2026/03/06 09:31:34 by danfern3         ###   ########.fr        #
+#    Updated: 2026/03/06 19:24:18 by danfern3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_SRCS:.c=.o))
 
 # * Compilation
 MYCC = cc
-MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=false
+MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=true
 
 # * Removal
 RM = rm -f
@@ -152,14 +152,14 @@ norminette:
 help:
 	@echo "Usage: make [target]"
 	@echo "Targets:"
-	@echo "  all         - Compiles the whole program"
-	@echo "  obj         - Creates the objects directory if it doesn't exist"
-	@echo "  clean       - Removes the object files"
-	@echo "  fclean      - Removes both object and executable files"
-	@echo "  re          - Rebuilds the program"
-	@echo "  update       - Updates the submodules"
-	@echo "  norminette   - Checks the code with norminette"
-	@echo "  help         - Displays this help message"
+	@echo "  🧩  all         - Compiles the whole program"
+	@echo "  📁  obj         - Creates the objects directory if it doesn't exist"
+	@echo "  🧹  clean       - Removes the object files"
+	@echo "  🗑️  fclean      - Removes both object and executable files"
+	@echo "  🔁  re          - Rebuilds the program"
+	@echo "  🔄  update      - Updates the submodules"
+	@echo "  🧪  norminette  - Checks the code with norminette"
+	@echo "  ❓  help        - Displays this help message"
 
 tests: all
 	@echo "Running tests..."
@@ -170,6 +170,6 @@ run: bonus
 	@clear
 	./$(NAME) -6 2 4 -3 -5 -1
 
-.PHONY: obj update all clean fclean re help
+.PHONY: obj update all clean fclean re help tests run
 
 .DEFAULT: all
