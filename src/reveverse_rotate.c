@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:32 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:44:31 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:47:24 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	rra(t_stack *a, bool print)
 	return (movs);
 }
 
-int		rrb(t_stack *b, bool print)
+int	rrb(t_stack *b, bool print)
 {
-	int movs;
+	int	movs;
 
 	movs = reverse_rotate(b);
 	if (movs && print)
@@ -45,7 +45,7 @@ int		rrb(t_stack *b, bool print)
 
 int	rrr(t_stack *a, t_stack *b, bool print)
 {
-	int movs;
+	int	movs;
 
 	movs = rra(a, 0) + rrb(b, 0);
 	if (movs > 0 && print)

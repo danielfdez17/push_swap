@@ -9,6 +9,9 @@ typedef struct s_elem
 	int				index;
 	struct s_elem	*next;
 	struct s_elem	*prev;
+	int				position;
+	int				front;
+	int				back;
 }	t_elem;
 
 typedef struct s_stack

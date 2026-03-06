@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_stack.c                                       :+:      :+:    :+:   */
+/*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:14 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:50:17 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:27:51 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	push_bottom(t_stack *stack, t_elem *elem)
 		elem->prev = (stack)->bottom;
 		(stack)->bottom = elem;
 	}
-	elem->index = stack->size;
+	elem->position = stack->size;
+	elem->front = elem->position;
+	elem->back = stack->size - elem->position;
 	(stack)->size++;
 }
 

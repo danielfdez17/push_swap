@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:06 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:38:42 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:35:02 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,31 @@ int	pb(t_stack *a, t_stack *b, bool print)
 	return (1);
 }
 
-// todo: optimize this function by checking if the min node is closer to the top or bottom of the stack and rotate accordingly
 void	push_min_to_b(t_stack *a, t_stack *b, bool print)
 {
-	t_elem	*min_node;
+	t_elem	*min_elem;
 
-	min_node = stack_get_min(a);
-	while (a->top != min_node)
+	min_elem = get_min_value(a);
+	while (a->top != min_elem)
 	{
-		if (min_node->index <= a->size / 2)
+		if (min_elem->front <= min_elem->back)
+			ra(a, print);
+		else
+			rra(a, print);
+	}
+	pb(a, b, print);
+}
+
+void	push_max_to_b(t_stack *a, t_stack *b, bool print)
+{
+	t_elem	*max_elem;
+
+	if (is_stack_empty(a))
+		return ;
+	max_elem = get_max_value(a);
+	while (a->top != max_elem)
+	{
+		if (max_elem->front <= max_elem->back)
 			ra(a, print);
 		else
 			rra(a, print);

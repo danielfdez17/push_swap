@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:59 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:44:20 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:47:02 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ra(t_stack *a, bool print)
 	return (movs);
 }
 
-int		rb(t_stack *b, bool print)
+int	rb(t_stack *b, bool print)
 {
 	int	movs;
 

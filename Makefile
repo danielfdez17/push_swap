@@ -6,7 +6,7 @@
 #    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2025/11/03 13:17:15 by danfern3         ###   ########.fr        #
+#    Updated: 2026/03/06 09:31:34 by danfern3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ REBUILT = $(YELLOW)Rebuilt $(RESET)
 # * Sources files
 PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS =	args_processing.c \
+					bucket.c \
 					counting.c \
 					errors.c \
 					main.c \
@@ -43,9 +44,10 @@ PUSH_SWAP_SRCS =	args_processing.c \
 					sort.c \
 					stack_utils.c \
 					stack.c \
-					swap.c
+					swap.c \
+					utils.c
 
-PUSH_SWAP_BONUS_SRCS = args_processing.c \
+PUSH_SWAP_BONUS_SRCS =	args_processing.c \
 						errors.c \
 						executer_bonus.c \
 						main_bonus.c \
@@ -55,7 +57,8 @@ PUSH_SWAP_BONUS_SRCS = args_processing.c \
 						rotate.c \
 						stack_utils.c \
 						stack.c \
-						swap.c
+						swap.c \
+						utils.c
 
 # * Objects dir
 OBJ_DIR = ./src/obj/
@@ -162,6 +165,10 @@ tests: all
 	@echo "Running tests..."
 	@$(shell ARG='4 67 3 87 23'; ./$(NAME) $ARG | ./$(BONUS_NAME) $ARG)
 	@$(shell ARG='4 67 3 87 23'; ./push_swap $ARG | ./checker $ARG)
+
+run: bonus
+	@clear
+	./$(NAME) -6 2 4 -3 -5 -1
 
 .PHONY: obj update all clean fclean re help
 

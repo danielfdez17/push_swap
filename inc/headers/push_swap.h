@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:31 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:49:22 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:43:59 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,22 @@
 # define DEBUG_MODE false
 # endif
 
-# ifndef MAX_SELECTION_NUMBER
-#  define MAX_SELECTION_NUMBER 50
+# ifndef DEFAULT_CHUNK_SIZE
+#  define DEFAULT_CHUNK_SIZE 40
 # endif
-
-// typedef struct s_stack
-// {
-// 	struct s_stack	*previous;
-// 	struct s_stack	*next;
-// 	int				value;
-// 	int				index;
-// }	t_stack;
-
-// typedef struct s_value
-// {
-// 	int	front;
-// 	int	value;
-// 	int	back;
-// }	t_value;
-
-// typedef struct s_limits
-// {
-// 	long	min;
-// 	long	max;
-// }	t_limits;
 
 // * ARGUMENTS PROCESSING
 bool	process_arguments(int ac, char **av, t_stack *a);
 
 // * ERROR HANDLING
 bool	input_error(char *s);
-bool	duplicate_error(t_stack *stack, int n);
 bool	free_error(t_stack *stack);
 
 // * SORTING ALGORITHMS
 void	sort(t_stack *a, t_stack *b);
-void	selection_sort(t_stack **a, t_stack **b, bool print);
-void	radix_sort(t_stack **a, t_stack **b, bool print);
+void	bucket_sort(t_stack *a, t_stack *b, bool print);
+void	selection_sort(t_stack *a, t_stack *b, bool print);
+void	radix_sort(t_stack *a, t_stack *b, bool print);
 int		*counting_sort(t_stack *stack);
 
 // * SWAP
@@ -70,6 +49,7 @@ int		ss(t_stack *a, t_stack *b, bool print);
 int		pa(t_stack *a, t_stack *b, bool print);
 int		pb(t_stack *a, t_stack *b, bool print);
 void	push_min_to_b(t_stack *a, t_stack *b, bool print);
+void	push_max_to_b(t_stack *a, t_stack *b, bool print);
 
 // * ROTATE
 int		ra(t_stack *a, bool print);
@@ -80,6 +60,11 @@ int		rr(t_stack *a, t_stack *b, bool print);
 int		rra(t_stack *a, bool print);
 int		rrb(t_stack *b, bool print);
 int		rrr(t_stack *a, t_stack *b, bool print);
+
+// * UTILITY FUNCTIONS
+t_elem	*get_min_value(t_stack *stack);
+t_elem	*get_max_value(t_stack *stack);
+void	set_indexes(t_stack *stack);
 
 static inline bool	ft_is_sign(char c)
 {

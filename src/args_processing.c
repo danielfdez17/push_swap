@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args_processing.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/06 09:48:28 by danfern3          #+#    #+#             */
+/*   Updated: 2026/03/06 09:48:30 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static bool	check_duplicates(t_stack *stack)
@@ -52,4 +64,3 @@ bool	process_arguments(int ac, char **av, t_stack *a)
 	}
 	return (check_duplicates(a));
 }
-

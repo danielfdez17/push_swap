@@ -6,11 +6,24 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:40 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:44:56 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:46:49 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	max_in_the_middle(t_stack *stack,
+	t_elem *first, t_elem *third, bool print)
+{
+	if (first->value > third->value)
+		rra(stack, print);
+	else
+	{
+		ra(stack, print);
+		sa(stack, print);
+		rra(stack, print);
+	}
+}
 
 /**
  * Algorithm to sort only 3 elements
@@ -29,16 +42,7 @@ static void	sort_three(t_stack *stack, bool print)
 	if (third == max)
 		sa(stack, print);
 	else if (second == max)
-	{
-		if (first->value > third->value)
-			rra(stack, print);
-		else
-		{
-			ra(stack, print);
-			sa(stack, print);
-			rra(stack, print);
-		}
-	}
+		max_in_the_middle(stack, first, third, print);
 	else
 	{
 		if (second->value < third->value)
@@ -60,25 +64,6 @@ static void	sort_four(t_stack *a, t_stack *b, bool print)
 	pa(a, b, print);
 }
 
-static void	sort_five(t_stack *a, t_stack *b, bool print)
-{
-	while (a->size != 4)
-		push_min_to_b(a, b, print);
-	sort_four(a, b, print);
-	pa(a, b, print);
-}
-
-void	sort_all(t_stack *a, t_stack *b, bool print)
-{
-	(void)a;
-	(void)b;
-	(void)print;
-	// if (a->size <= MAX_SELECTION_NUMBER)
-	// 	selection_sort(a, b, print);
-	// else
-	// 	radix_sort(a, b, print);
-}
-
 void	sort(t_stack *a, t_stack *b)
 {
 	(void)b;
@@ -88,12 +73,6 @@ void	sort(t_stack *a, t_stack *b)
 		sort_three(a, true);
 	else if (a->size == 4)
 		sort_four(a, b, true);
-	else if (a->size == 5)
-		sort_five(a, b, true);
 	else
-		sort_all(a, b, true);
-	// else if (a->size <= MAX_SELECTION_NUMBER)
-	// 	selection_sort(a, b, true);
-	// else
-	// 	radix_sort(a, b, true);
+		bucket_sort(a, b, true);
 }

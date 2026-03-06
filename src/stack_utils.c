@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:49 by danfern3          #+#    #+#             */
-/*   Updated: 2025/11/07 07:50:03 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/06 09:39:09 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ bool	is_stack_sorted(t_stack *stack)
 {
 	t_elem	*ptr;
 
+	if (is_stack_empty(stack))
+		return (true);
 	ptr = stack->top->next;
-	while (ptr) // && ptr != stack->bottom)
+	while (ptr)
 	{
 		if (ptr->prev->value > ptr->value)
 			return (false);
@@ -37,6 +39,9 @@ t_elem	*new_elem(int value)
 	elem->index = -1;
 	elem->next = NULL;
 	elem->prev = NULL;
+	elem->position = -1;
+	elem->front = 0;
+	elem->back = 0;
 	return (elem);
 }
 
@@ -48,11 +53,8 @@ void	free_stack(t_stack *stack)
 	if (!stack)
 		return ;
 	ptr = stack->top;
-	// prev_ptr = ptr->prev;
-	while (ptr)// && ptr != (*stack)->bottom)
+	while (ptr)
 	{
-		// ptr = *stack;
-		// *stack = (*stack)->next;
 		prev_ptr = ptr;
 		ptr = ptr->next;
 		free(prev_ptr);

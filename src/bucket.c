@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   selection.c                                        :+:      :+:    :+:   */
+/*   bucket.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 07:37:24 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/06 09:14:42 by danfern3         ###   ########.fr       */
+/*   Created: 2026/03/06 08:55:17 by danfern3          #+#    #+#             */
+/*   Updated: 2026/03/06 09:43:14 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/**
- * Selection sorting algorithm
- */
-void	selection_sort(t_stack *a, t_stack *b, bool print)
+void	bucket_sort(t_stack *a, t_stack *b, bool print)
 {
-	t_elem	*value;
+	int		chunck_size;
+	int		range;
 
-	while (!is_stack_sorted(a))
+	set_indexes(a);
+	chunck_size = DEFAULT_CHUNK_SIZE;
+	if (a->size <= 100)
+		chunck_size /= 2;
+	range = 0;
+	while (!is_stack_empty(a))
 	{
-		if (a->top)
+		if (a->top->index <= range)
 		{
-			value = get_min_value(a);
-			if (value->front == 1)
-			{
-				sa(a, print);
-				continue ;
-			}
-			while (a->top != value)
-			{
-				if (value->front <= value->back)
-					ra(a, print);
-				else
-					rra(a, print);
-			}
 			pb(a, b, print);
+			rb(b, print);
+			range++;
 		}
+		else if (a->top->index <= range + chunck_size)
+		{
+			pb(a, b, print);
+			range++;
+		}
+		else
+			ra(a, print);
 	}
-	while (b->top)
-		pa(a, b, print);
+	push_max_to_b(a, b, print);
 }
