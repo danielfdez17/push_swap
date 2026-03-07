@@ -6,3 +6,4 @@
 	* ./push_swap "1" "2 4 -1 -29" 0 "23   19"
 - [x] Refactor tester to use both programs
 - [x] Use another algorithm from 5 numbers to the maximum. The current algorithm has been fixed :)
+- [ ] Use glyph icons/symbols in the Makefile
