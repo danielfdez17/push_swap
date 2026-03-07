@@ -76,7 +76,7 @@ BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_SRCS:.c=.o))
 
 # * Compilation
 MYCC = cc
-MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=true
+MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=false
 
 # * Removal
 RM = rm -f

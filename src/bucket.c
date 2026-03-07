@@ -38,7 +38,7 @@ void	bucket_sort(t_stack *a, t_stack *b, bool print)
 		else
 			ra(a, print);
 	}
-	push_max_to_b(a, b, print);
+	push_all_to_a(a, b, print);
 	// todo: fix
 	// while (b->top)
 	// 	pa(a, b, print);

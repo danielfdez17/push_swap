@@ -53,19 +53,22 @@ void	push_min_to_b(t_stack *a, t_stack *b, bool print)
 	pb(a, b, print);
 }
 
-void	push_max_to_b(t_stack *a, t_stack *b, bool print)
+void	push_all_to_a(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*max_elem;
 
-	if (is_stack_empty(a))
-		return ;
-	max_elem = get_max_value(a);
-	while (a->top != max_elem)
+	while (!is_stack_empty(b))
 	{
-		if (max_elem->front <= max_elem->back)
-			ra(a, print);
-		else
-			rra(a, print);
+		if (is_stack_empty(b))
+			return ;
+		max_elem = get_max_value(b);
+		while (b->top != max_elem)
+		{
+			if (max_elem->front <= max_elem->back)
+				rb(b, print);
+			else
+				rrb(b, print);
+		}
+		pa(a, b, print);
 	}
-	pb(a, b, print);
 }

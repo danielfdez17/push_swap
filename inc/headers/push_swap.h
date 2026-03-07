@@ -49,7 +49,7 @@ int		ss(t_stack *a, t_stack *b, bool print);
 int		pa(t_stack *a, t_stack *b, bool print);
 int		pb(t_stack *a, t_stack *b, bool print);
 void	push_min_to_b(t_stack *a, t_stack *b, bool print);
-void	push_max_to_b(t_stack *a, t_stack *b, bool print);
+void	push_all_to_a(t_stack *a, t_stack *b, bool print);
 
 // * ROTATE
 int		ra(t_stack *a, bool print);
