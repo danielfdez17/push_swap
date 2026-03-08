@@ -24,7 +24,7 @@ t_elem	*get_min_value(t_stack *stack)
 	min_value = stack_get_min(stack);
 	ptr = stack->top;
 	ptr->position = 0;
-	while (ptr != min_value)
+	while (ptr->value != min_value->value)
 	{
 		ptr->position++;
 		ptr = ptr->next;
@@ -47,7 +47,7 @@ t_elem	*get_max_value(t_stack *stack)
 	max_value = stack_get_max(stack);
 	ptr = stack->top;
 	ptr->position = 0;
-	while (ptr != max_value)
+	while (ptr->value != max_value->value)
 	{
 		ptr->position++;
 		ptr = ptr->next;

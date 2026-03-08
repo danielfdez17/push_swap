@@ -16,7 +16,7 @@ int	pa(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*elem;
 
-	if (!b)
+	if (!b || is_stack_empty(b))
 		return (0);
 	elem = pop_top(b);
 	push_top(a, elem);
@@ -29,7 +29,7 @@ int	pb(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*elem;
 
-	if (!a)
+	if (!a || is_stack_empty(a))
 		return (0);
 	elem = pop_top(a);
 	push_top(b, elem);
@@ -59,8 +59,6 @@ void	push_all_to_a(t_stack *a, t_stack *b, bool print)
 
 	while (!is_stack_empty(b))
 	{
-		if (is_stack_empty(b))
-			return ;
 		max_elem = get_max_value(b);
 		while (b->top != max_elem)
 		{
