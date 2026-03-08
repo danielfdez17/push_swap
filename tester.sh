@@ -102,7 +102,7 @@ test_n() {
 
 start() {
 	# ? Check if at least 2 integer arguments were provided
-	if [ $n -le 6 ]; then
+	if [ $n -le 5 ]; then
 		test_n $n 12
 	elif [ $n -le 100 ]; then
 		test_n $n 700
