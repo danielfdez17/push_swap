@@ -64,6 +64,16 @@ static void	sort_four(t_stack *a, t_stack *b, bool print)
 	pa(a, b, print);
 }
 
+static void	sort_five(t_stack *a, t_stack *b, bool print)
+{
+	while (a->size > 3)
+		push_min_to_b(a, b, print);
+	if (!is_stack_sorted(a))
+		sort_three(a, print);
+	while (!is_stack_empty(b))
+		pa(a, b, print);
+}
+
 void	sort(t_stack *a, t_stack *b)
 {
 	(void)b;
@@ -73,6 +83,8 @@ void	sort(t_stack *a, t_stack *b)
 		sort_three(a, true);
 	else if (a->size == 4)
 		sort_four(a, b, true);
+	else if (a->size == 5)
+		sort_five(a, b, true);
 	else
 		bucket_sort(a, b, true);
 }
