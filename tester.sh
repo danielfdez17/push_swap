@@ -81,11 +81,11 @@ print_table_separator() {
 print_table_header_separator() {
 	# For: #, Moves, Result, Numbers (with cross junctions)
 	print_left_junction
-	for i in $(seq 1 4); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_cross
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_cross
-	for i in $(seq 1 10); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_cross
 	for i in $(seq 1 40); do print_horizontal_line; done
 	print_right_junction
@@ -94,11 +94,11 @@ print_table_header_separator() {
 
 print_table_top() {
 	print_top_left_corner
-	for i in $(seq 1 4); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_top_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_top_junction
-	for i in $(seq 1 10); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_top_junction
 	for i in $(seq 1 40); do print_horizontal_line; done
 	print_top_right_corner
@@ -106,11 +106,11 @@ print_table_top() {
 
 print_table_bottom() {
 	print_bottom_left_corner
-	for i in $(seq 1 4); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_bottom_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_bottom_junction
-	for i in $(seq 1 10); do print_horizontal_line; done
+	for i in $(seq 1 8); do print_horizontal_line; done
 	print_bottom_junction
 	for i in $(seq 1 40); do print_horizontal_line; done
 	print_bottom_right_corner
@@ -180,11 +180,11 @@ test_n() {
 	# Print table header
 	print_table_top
 	print_vertical_line
-	printf " ${YELLOW}%-2s${NC} " "#"
+	printf " ${YELLOW}%-6s${NC} " "#"
 	print_vertical_line
 	printf " ${YELLOW}%-6s${NC} " "Moves"
 	print_vertical_line
-	printf " ${YELLOW}%-8s${NC} " "Result"
+	printf " ${YELLOW}%-6s${NC} " "Result"
 	print_vertical_line
 	printf " ${YELLOW}%-38s${NC} " "Generated Numbers"
 	print_vertical_line
@@ -225,14 +225,20 @@ test_n() {
 			ok_iterations=$((ok_iterations + 1))
 		fi
 		
+		# Pre-format the content with fixed width
+		num_formatted=$(printf '%-6s' "$i")
+		move_formatted=$(printf '%-6s' "$moves")
+		status_formatted=$(printf '%-6s' "$status_text")
+		numbers_formatted=$(printf '%-38s' "$numbers_display")
+		
 		print_vertical_line
-		printf " %-2s " "$i"
+		printf " %s " "$num_formatted"
 		print_vertical_line
-		printf " ${move_color}%-6s${NC} " "$moves"
+		printf " $move_color%s$NC " "$move_formatted"
 		print_vertical_line
-		printf " ${status_color}%-8s${NC} " "$status_text"
+		printf " $status_color%s$NC " "$status_formatted"
 		print_vertical_line
-		printf " ${BLUE}%-38s${NC} " "$numbers_display"
+		printf " $BLUE%s$NC " "$numbers_formatted"
 		print_vertical_line
 		echo
 	done
@@ -250,38 +256,46 @@ test_n() {
 	# Print summary table
 	print_summary_top
 	print_vertical_line
-	printf " ${BLUE}%-68s${NC} " "SUMMARY FOR $n NUMBERS IN $iterations ITERATIONS"
+	summary_title=$(printf '%-68s' "SUMMARY FOR $n NUMBERS IN $iterations ITERATIONS")
+	printf " $BLUE%s$NC " "$summary_title"
 	print_vertical_line
 	echo
 	print_table_separator 70
 	print_vertical_line
-	printf " ${YELLOW}%-68s${NC} " "PUSH_SWAP RESULTS"
+	pushswap_title=$(printf '%-68s' "PUSH_SWAP RESULTS")
+	printf " $YELLOW%s$NC " "$pushswap_title"
 	print_vertical_line
 	echo
 	print_vertical_line
-	printf "   ${GREEN}%-66s${NC} " "Success: $percentage_ok% ($ok_iterations/$iterations)"
+	success_line=$(printf '%-66s' "Success: $percentage_ok% ($ok_iterations/$iterations)")
+	printf "   $GREEN%s$NC " "$success_line"
 	print_vertical_line
 	echo
 	print_vertical_line
-	printf "   ${RED}%-66s${NC} " "Failure: $percentage_ko% ($bad_iterations/$iterations)"
-	print_vertical_line
-	echo
-	print_table_separator 70
-	print_vertical_line
-	printf " ${YELLOW}%-68s${NC} " "CHECKER RESULTS"
-	print_vertical_line
-	echo
-	print_vertical_line
-	printf "   ${GREEN}%-66s${NC} " "OK: $checker_percentage_ok% ($ok_checker/$iterations)"
-	print_vertical_line
-	echo
-	print_vertical_line
-	printf "   ${RED}%-66s${NC} " "KO: $checker_percentage_ko% ($ko_checker/$iterations)"
+	failure_line=$(printf '%-66s' "Failure: $percentage_ko% ($bad_iterations/$iterations)")
+	printf "   $RED%s$NC " "$failure_line"
 	print_vertical_line
 	echo
 	print_table_separator 70
 	print_vertical_line
-	printf " ${YELLOW}%-68s${NC} " "STATISTICS"
+	checker_title=$(printf '%-68s' "CHECKER RESULTS")
+	printf " $YELLOW%s$NC " "$checker_title"
+	print_vertical_line
+	echo
+	print_vertical_line
+	ok_line=$(printf '%-66s' "OK: $checker_percentage_ok% ($ok_checker/$iterations)")
+	printf "   $GREEN%s$NC " "$ok_line"
+	print_vertical_line
+	echo
+	print_vertical_line
+	ko_line=$(printf '%-66s' "KO: $checker_percentage_ko% ($ko_checker/$iterations)")
+	printf "   $RED%s$NC " "$ko_line"
+	print_vertical_line
+	echo
+	print_table_separator 70
+	print_vertical_line
+	stats_title=$(printf '%-68s' "STATISTICS")
+	printf " $YELLOW%s$NC " "$stats_title"
 	print_vertical_line
 	echo
 	print_vertical_line
