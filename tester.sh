@@ -15,6 +15,118 @@ INFO=$BLUE'[INFO]'
 OK=$GREEN'[OK]'
 ERROR=$RED'[KO]'
 TODO=$ORANGE'[TODO]'
+# ! Glyphs for table formatting thanks to Dylan (https://github.com/Univers42/picine_cpp/blob/main/cpp_module04/ex03/postman.cpp):
+# * Top row (╭━━━╮) - round corners, full-span
+# * Bottom row (╰━━━╯) - round corners, full-span
+# * Merge row (┣━━━┫) - full-span, left/right T junctions
+# * Merge-bottom (╰━━━╯) - alias for kind 3
+# * Column cross (┣━╋━┫) - cross junctions (columns above/below)
+# * Column open (┣━┳━┫) - T-down (columns start below)
+# * Column close (┣━┻━┫) - T-up (columns end above)
+
+print_top_left_corner() {
+	echo -n $YELLOW"╭"$NC
+}
+
+print_top_right_corner() {
+	echo $YELLOW"╮"$NC
+}
+
+print_bottom_left_corner() {
+	echo -n $YELLOW"╰"$NC
+}
+
+print_bottom_right_corner() {
+	echo $YELLOW"╯"$NC
+}
+
+print_horizontal_line() {
+	echo -n $YELLOW"━"$NC
+}
+
+print_vertical_line() {
+	echo -n $YELLOW"┃"$NC
+}
+
+print_left_junction() {
+	echo -n $YELLOW"┣"$NC
+}
+
+print_right_junction() {
+	echo -n $YELLOW"┫"$NC
+}
+
+print_cross() {
+	echo -n $YELLOW"╋"$NC
+}
+
+print_top_junction() {
+	echo -n $YELLOW"┳"$NC
+}
+
+print_bottom_junction() {
+	echo -n $YELLOW"┻"$NC
+}
+
+print_table_separator() {
+	width=$1
+	print_left_junction
+	for i in $(seq 1 $width); do
+		print_horizontal_line
+	done
+	print_right_junction
+	echo
+}
+
+print_table_header_separator() {
+	# For: #, Moves, Result, Numbers (with cross junctions)
+	print_left_junction
+	for i in $(seq 1 4); do print_horizontal_line; done
+	print_cross
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_cross
+	for i in $(seq 1 10); do print_horizontal_line; done
+	print_cross
+	for i in $(seq 1 40); do print_horizontal_line; done
+	print_right_junction
+	echo
+}
+
+print_table_top() {
+	print_top_left_corner
+	for i in $(seq 1 4); do print_horizontal_line; done
+	print_top_junction
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_top_junction
+	for i in $(seq 1 10); do print_horizontal_line; done
+	print_top_junction
+	for i in $(seq 1 40); do print_horizontal_line; done
+	print_top_right_corner
+}
+
+print_table_bottom() {
+	print_bottom_left_corner
+	for i in $(seq 1 4); do print_horizontal_line; done
+	print_bottom_junction
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_bottom_junction
+	for i in $(seq 1 10); do print_horizontal_line; done
+	print_bottom_junction
+	for i in $(seq 1 40); do print_horizontal_line; done
+	print_bottom_right_corner
+}
+
+print_summary_top() {
+	print_top_left_corner
+	for i in $(seq 1 70); do print_horizontal_line; done
+	print_top_right_corner
+}
+
+print_summary_bottom() {
+	print_bottom_left_corner
+	for i in $(seq 1 70); do print_horizontal_line; done
+	print_bottom_right_corner
+}
 
 log_info() {
 	echo $INFO "$1" $NC
@@ -60,44 +172,132 @@ test_n() {
 	total_moves=0
 	max_moves=0
 	min_moves=999999
+	
+	echo
 	log_info "Running $iterations iterations with $n numbers..."
-	echo $YELLOW"MOVEMENTS \t| IS SORTED \t| GENERATED NUMBERS" $NC
+	echo
+	
+	# Print table header
+	print_table_top
+	print_vertical_line
+	printf " ${YELLOW}%-2s${NC} " "#"
+	print_vertical_line
+	printf " ${YELLOW}%-6s${NC} " "Moves"
+	print_vertical_line
+	printf " ${YELLOW}%-8s${NC} " "Result"
+	print_vertical_line
+	printf " ${YELLOW}%-38s${NC} " "Generated Numbers"
+	print_vertical_line
+	echo
+	print_table_header_separator
+	
 	for i in $(seq 1 $iterations); do
 		numbers=$(generate_numbers $n)
 		moves=$(echo $numbers | xargs ./push_swap | wc -l)
 		checker_result=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
 		max_moves=$((moves > max_moves ? moves : max_moves))
 		min_moves=$((moves < min_moves ? moves : min_moves))
+		
 		if [ $checker_result = "OK" ]; then
-			checker_result="$OK OK $NC"
+			status_color=$GREEN
+			status_text="✓ OK"
 			ok_checker=$((ok_checker + 1))
 		else
-			checker_result="$ERROR KO $NC"
+			status_color=$RED
+			status_text="✗ KO"
 			ko_checker=$((ko_checker + 1))
 		fi
+		
 		total_moves=$((total_moves + moves))
-		# ? Check if the number of moves is greater than the limit
+		
+		# Truncate numbers if too long
+		numbers_display=$(echo "$numbers" | cut -c1-38)
+		if [ ${#numbers} -gt 38 ]; then
+			numbers_display="${numbers_display}..."
+		fi
+		
+		# Check if the number of moves is greater than the limit
 		if [ $moves -gt $limit ]; then
-			log_error "$moves moves\t| $checker_result\t|$BLUE numbers: $numbers $NC"
+			move_color=$RED
 			bad_iterations=$((bad_iterations + 1))
 		else
-			log_ok "$moves moves\t| $checker_result\t|$BLUE numbers: $numbers $NC"
+			move_color=$GREEN
 			ok_iterations=$((ok_iterations + 1))
 		fi
+		
+		print_vertical_line
+		printf " %-2s " "$i"
+		print_vertical_line
+		printf " ${move_color}%-6s${NC} " "$moves"
+		print_vertical_line
+		printf " ${status_color}%-8s${NC} " "$status_text"
+		print_vertical_line
+		printf " ${BLUE}%-38s${NC} " "$numbers_display"
+		print_vertical_line
+		echo
 	done
+	
+	print_table_bottom
+	echo
+	
+	# Calculate statistics
 	percentage_ok=$(awk "BEGIN {printf \"%.2f\", ($ok_iterations/$iterations)*100}")
 	percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($bad_iterations/$iterations)*100}")
 	checker_percentage_ok=$(awk "BEGIN {printf \"%.2f\", ($ok_checker/$iterations)*100}")
 	checker_percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($ko_checker/$iterations)*100}")
-	log_info "Summary for $n numbers in $iterations iterations."
-	log_info "=========PUSH_SWAP========="
-	log_info "$GREEN$percentage_ok% OK$NC, $RED$percentage_ko% KO"
-	log_info "=========CHECKER========="
-	log_info "$GREEN$checker_percentage_ok% OK$NC, $RED$checker_percentage_ko% KO"
-	log_info "=========STATISTICS========="
-	log_info "Average moves: $(awk "BEGIN {printf \"%.2f\", $total_moves/$iterations}")"
-	log_info "Max moves: $max_moves; Max moves allowed: $limit"
-	log_info "Min moves: $min_moves"
+	avg_moves=$(awk "BEGIN {printf \"%.2f\", $total_moves/$iterations}")
+	
+	# Print summary table
+	print_summary_top
+	print_vertical_line
+	printf " ${BLUE}%-68s${NC} " "SUMMARY FOR $n NUMBERS IN $iterations ITERATIONS"
+	print_vertical_line
+	echo
+	print_table_separator 70
+	print_vertical_line
+	printf " ${YELLOW}%-68s${NC} " "PUSH_SWAP RESULTS"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   ${GREEN}%-66s${NC} " "Success: $percentage_ok% ($ok_iterations/$iterations)"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   ${RED}%-66s${NC} " "Failure: $percentage_ko% ($bad_iterations/$iterations)"
+	print_vertical_line
+	echo
+	print_table_separator 70
+	print_vertical_line
+	printf " ${YELLOW}%-68s${NC} " "CHECKER RESULTS"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   ${GREEN}%-66s${NC} " "OK: $checker_percentage_ok% ($ok_checker/$iterations)"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   ${RED}%-66s${NC} " "KO: $checker_percentage_ko% ($ko_checker/$iterations)"
+	print_vertical_line
+	echo
+	print_table_separator 70
+	print_vertical_line
+	printf " ${YELLOW}%-68s${NC} " "STATISTICS"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Average moves: $avg_moves"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Max moves: $max_moves (limit: $limit)"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Min moves: $min_moves"
+	print_vertical_line
+	echo
+	print_summary_bottom
+	echo
 }
 
 start() {
