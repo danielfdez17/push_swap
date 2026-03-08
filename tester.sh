@@ -7,15 +7,18 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+MAGENTA='\033[1;35m'
 BLUE='\033[0;36m'
 ORANGE='\033[0;33m'
+BOLD='\033[1m'
 NC='\033[0m' # ? No Color
 WARNING=$YELLOW'[WARNING]'
 INFO=$BLUE'[INFO]'
 OK=$GREEN'[OK]'
 ERROR=$RED'[KO]'
 TODO=$ORANGE'[TODO]'
-# ! Glyphs for table formatting thanks to Dylan (https://github.com/Univers42/picine_cpp/blob/main/cpp_module04/ex03/postman.cpp):
+
 # * Top row (╭━━━╮) - round corners, full-span
 # * Bottom row (╰━━━╯) - round corners, full-span
 # * Merge row (┣━━━┫) - full-span, left/right T junctions
@@ -25,47 +28,47 @@ TODO=$ORANGE'[TODO]'
 # * Column close (┣━┻━┫) - T-up (columns end above)
 
 print_top_left_corner() {
-	echo -n $YELLOW"╭"$NC
+	echo -n $ORANGE"╭"$NC
 }
 
 print_top_right_corner() {
-	echo $YELLOW"╮"$NC
+	echo $ORANGE"╮"$NC
 }
 
 print_bottom_left_corner() {
-	echo -n $YELLOW"╰"$NC
+	echo -n $ORANGE"╰"$NC
 }
 
 print_bottom_right_corner() {
-	echo $YELLOW"╯"$NC
+	echo $ORANGE"╯"$NC
 }
 
 print_horizontal_line() {
-	echo -n $YELLOW"━"$NC
+	echo -n $ORANGE"━"$NC
 }
 
 print_vertical_line() {
-	echo -n $YELLOW"┃"$NC
+	echo -n $ORANGE"┃"$NC
 }
 
 print_left_junction() {
-	echo -n $YELLOW"┣"$NC
+	echo -n $ORANGE"┣"$NC
 }
 
 print_right_junction() {
-	echo -n $YELLOW"┫"$NC
+	echo -n $ORANGE"┫"$NC
 }
 
 print_cross() {
-	echo -n $YELLOW"╋"$NC
+	echo -n $ORANGE"╋"$NC
 }
 
 print_top_junction() {
-	echo -n $YELLOW"┳"$NC
+	echo -n $ORANGE"┳"$NC
 }
 
 print_bottom_junction() {
-	echo -n $YELLOW"┻"$NC
+	echo -n $ORANGE"┻"$NC
 }
 
 print_table_separator() {
@@ -87,7 +90,7 @@ print_table_header_separator() {
 	print_cross
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_cross
-	for i in $(seq 1 40); do print_horizontal_line; done
+	for i in $(seq 1 43); do print_horizontal_line; done
 	print_right_junction
 	echo
 }
@@ -100,7 +103,7 @@ print_table_top() {
 	print_top_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_top_junction
-	for i in $(seq 1 40); do print_horizontal_line; done
+	for i in $(seq 1 43); do print_horizontal_line; done
 	print_top_right_corner
 }
 
@@ -112,7 +115,7 @@ print_table_bottom() {
 	print_bottom_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_bottom_junction
-	for i in $(seq 1 40); do print_horizontal_line; done
+	for i in $(seq 1 43); do print_horizontal_line; done
 	print_bottom_right_corner
 }
 
@@ -141,7 +144,7 @@ log_error() {
 }
 
 log_warning() {
-	echo $WARNING "$1" $NC
+	echo $MAGENTA "$1" $NC
 }
 
 log_todo() {
@@ -149,6 +152,7 @@ log_todo() {
 }
 
 clear
+log_info "Glyphs for table formatting thanks to Dylan (https://github.com/Univers42/picine_cpp/blob/main/cpp_module04/ex03/postman.cpp)"
 log_warning "Making sure ./push_swap and ./checker are up to date"
 make bonus
 
@@ -180,13 +184,13 @@ test_n() {
 	# Print table header
 	print_table_top
 	print_vertical_line
-	printf " ${YELLOW}%-6s${NC} " "#"
+	printf " ${BLUE}%-6s${NC} " "#"
 	print_vertical_line
-	printf " ${YELLOW}%-6s${NC} " "Moves"
+	printf " ${BLUE}%-6s${NC} " "Moves"
 	print_vertical_line
-	printf " ${YELLOW}%-6s${NC} " "Result"
+	printf " ${BLUE}%-6s${NC} " "Result"
 	print_vertical_line
-	printf " ${YELLOW}%-38s${NC} " "Generated Numbers"
+	printf " ${BLUE}%-41s${NC} " "Generated Numbers"
 	print_vertical_line
 	echo
 	print_table_header_separator
@@ -200,11 +204,11 @@ test_n() {
 		
 		if [ $checker_result = "OK" ]; then
 			status_color=$GREEN
-			status_text="✓ OK"
+			status_text="OK"
 			ok_checker=$((ok_checker + 1))
 		else
 			status_color=$RED
-			status_text="✗ KO"
+			status_text="KO"
 			ko_checker=$((ko_checker + 1))
 		fi
 		
@@ -229,7 +233,8 @@ test_n() {
 		num_formatted=$(printf '%-6s' "$i")
 		move_formatted=$(printf '%-6s' "$moves")
 		status_formatted=$(printf '%-6s' "$status_text")
-		numbers_formatted=$(printf '%-38s' "$numbers_display")
+		numbers_limit=${#numbers_display}
+		numbers_formatted=$(printf '%-41s' "$numbers_display")
 		
 		print_vertical_line
 		printf " %s " "$num_formatted"
