@@ -55,18 +55,16 @@ void	push_min_to_b(t_stack *a, t_stack *b, bool print)
 
 void	push_all_to_a(t_stack *a, t_stack *b, bool print)
 {
-	t_elem	*max_elem;
+	int	cost_a;
+	int	cost_b;
 
 	while (!is_stack_empty(b))
 	{
-		max_elem = get_max_value(b);
-		while (b->top != max_elem)
-		{
-			if (max_elem->front <= max_elem->back)
-				rb(b, print);
-			else
-				rrb(b, print);
-		}
+		cost_a = 0;
+		cost_b = 0;
+		get_best_move(a, b, &cost_a, &cost_b);
+		exec_rotations(a, b, &cost_a, &cost_b);
 		pa(a, b, print);
 	}
+	align_min_on_top(a, print);
 }

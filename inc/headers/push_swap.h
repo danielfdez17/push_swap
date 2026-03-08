@@ -158,6 +158,46 @@ int		rb(t_stack *b, bool print);
  */
 int		rr(t_stack *a, t_stack *b, bool print);
 
+/**
+ * Calculates the cost of rotating a stack to bring an element to the top
+ * @param pos The position of the element in the stack (0-based index)
+ * @param size The size of the stack
+ * @returns The cost of rotating the stack to bring the element to the top (positive for
+ */
+int		rotation_cost(int pos, int size);
+
+/**
+ * Rotates stack a n times
+ * @param a The first stack
+ * @param cost The number of times to rotate
+ * @param print Whether to print the operations performed
+ */
+void	rotate_a_n_times(t_stack *a, int cost, bool print);
+
+/**
+ * Rotates stack b n times
+ * @param b The second stack
+ * @param cost The number of times to rotate
+ * @param print Whether to print the operations performed
+ */
+void	rotate_b_n_times(t_stack *b, int cost, bool print);
+
+/**
+ * Executes the rotations needed to move elements between stacks
+ * @param a The first stack
+ * @param b The second stack
+ * @param cost_a Pointer to the cost of rotating stack a
+ * @param cost_b Pointer to the cost of rotating stack b
+ */
+void	exec_rotations(t_stack *a, t_stack *b, int *cost_a, int *cost_b);
+
+/**
+ * Aligns the minimum element on the top of stack a
+ * @param a The first stack
+ * @param print Whether to print the operations performed
+ */
+void	align_min_on_top(t_stack *a, bool print);
+
 // * REVERSE ROTATE
 /**
  * Reverses the order of elements in stack a (the last element becomes the first one)
@@ -200,6 +240,15 @@ t_elem	*get_max_value(t_stack *stack);
  * @param stack The stack to set the indexes for
  */
 void	set_indexes(t_stack *stack);
+
+/**
+ * Finds the best move to transfer an element from stack b to stack a
+ * @param a The first stack
+ * @param b The second stack
+ * @param cost_a Pointer to store the cost of rotating stack a
+ * @param cost_b Pointer to store the cost of rotating stack b
+ */
+void	get_best_move(t_stack *a, t_stack *b, int *cost_a, int *cost_b);
 
 /**
  * Checks if a character is a sign (+ or -)

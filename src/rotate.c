@@ -52,3 +52,12 @@ int	rr(t_stack *a, t_stack *b, bool print)
 		ft_printf("rr\n");
 	return (movs);
 }
+
+int	rotation_cost(int pos, int size)
+{
+	if (size <= 0)
+		return (0);
+	if (pos <= size / 2)
+		return (pos);
+	return (-(size - pos));
+}

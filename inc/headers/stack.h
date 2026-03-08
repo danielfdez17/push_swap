@@ -21,6 +21,15 @@ typedef struct s_stack
 	t_elem	*bottom;
 }	t_stack;
 
+typedef struct	s_best_move
+{
+	t_elem	*elem;
+	int		current_a;
+	int		current_b;
+	int		best_total;
+	int		total;
+}	t_best_move;
+
 bool	is_stack_sorted(t_stack *stack);
 t_elem	*new_elem(int value);
 void	free_stack(t_stack *stack);

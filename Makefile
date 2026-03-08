@@ -32,6 +32,7 @@ REBUILT = $(YELLOW)Rebuilt $(RESET)
 # * Sources files
 PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS =	args_processing.c \
+					best_move.c \
 					bucket.c \
 					counting.c \
 					errors.c \
@@ -39,6 +40,7 @@ PUSH_SWAP_SRCS =	args_processing.c \
 					push.c \
 					radix.c \
 					reveverse_rotate.c \
+					rotate_utils.c \
 					rotate.c \
 					selection.c \
 					sort.c \
@@ -48,12 +50,14 @@ PUSH_SWAP_SRCS =	args_processing.c \
 					utils.c
 
 PUSH_SWAP_BONUS_SRCS =	args_processing.c \
+						best_move.c \
 						errors.c \
 						executer_bonus.c \
 						main_bonus.c \
 						moves_bonus.c \
 						push.c \
 						reveverse_rotate.c \
+						rotate_utils.c \
 						rotate.c \
 						stack_utils.c \
 						stack.c \

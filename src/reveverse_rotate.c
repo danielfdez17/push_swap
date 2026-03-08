@@ -47,7 +47,7 @@ int	rrr(t_stack *a, t_stack *b, bool print)
 {
 	int	movs;
 
-	movs = rra(a, 0) + rrb(b, 0);
+	movs = rra(a, false) + rrb(b, false);
 	if (movs > 0 && print)
 		ft_printf("rrr\n");
 	return (movs);
