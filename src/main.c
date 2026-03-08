@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 		print_stack(&a);
 		print_stack(&b);
 	}
-	if (DEBUG_MODE && !is_stack_sorted(&a))
+	if (DEBUG_MODE && (!is_stack_sorted(&a) || !is_stack_empty(&b)))
 	{
 		ft_printf("Error: stack not sorted\n");
 		print_stack(&a);

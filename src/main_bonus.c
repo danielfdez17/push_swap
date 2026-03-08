@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	if (ac == 1 || (ac == 2 && !av[1][0]) || !process_arguments(ac, av, &a))
 		return (0);
 	read_moves(&a, &b);
-	if (!is_stack_sorted(&a))
+	if (!is_stack_sorted(&a) || !is_stack_empty(&b))
 		ft_printf("KO\n");
 	else
 		ft_printf("OK\n");
