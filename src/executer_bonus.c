@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "checker_bonus.h"
 
 bool	execute_move(t_stack *a, t_stack *b, char *move)
 {

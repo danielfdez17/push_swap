@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+/**
+ * Performs a swap operation on the given stack. This operation swaps the
+ * values of the first two elements.
+ * If the stack is empty or has only one element, the function does
+ * nothing and returns 0.
+ * @param stack The stack to perform the swap operation on
+ * @return The number of operations performed (1 if the operation
+ * was performed, 0 otherwise)
+ */
 static int	swap(t_stack *stack)
 {
 	if (!stack || stack->size <= 1)

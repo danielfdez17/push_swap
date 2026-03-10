@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+/**
+ * Finds the position of the target element in stack a
+ * @param a The stack to search in
+ * @return The position of the target element
+ */
 static int	find_target_pos_in_a_helper(t_stack *a)
 {
 	t_elem	*ptr;

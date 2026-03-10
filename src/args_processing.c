@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+/**
+ * Checks for duplicate numbers in the stack
+ * @param stack The stack to check for duplicates
+ * @return true if no duplicates are found, false otherwise
+ */
 static bool	check_duplicates(t_stack *stack)
 {
 	t_elem	*current;
@@ -36,6 +41,13 @@ static bool	check_duplicates(t_stack *stack)
 	return (true);
 }
 
+/**
+ * Processes the command line arguments and populates the stack
+ * @param ac The number of command line arguments
+ * @param av The array of command line arguments
+ * @param a The stack to be populated
+ * @return true if the arguments are valid, false otherwise
+ */
 bool	process_arguments(int ac, char **av, t_stack *a)
 {
 	char	**numbers;

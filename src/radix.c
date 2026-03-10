@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Assigns an index to each node of @param stack using counting sort algorithm.
- * @example: stack = [-2, 5, 3, 0] --> index of each value = [0, 3, 2, 1]
- */
 void	set_indexes(t_stack *stack)
 {
 	int		*sorted;
@@ -39,45 +35,4 @@ void	set_indexes(t_stack *stack)
 		++i;
 	}
 	free(sorted);
-}
-
-/**
- * Auxiliary function to reduce number of lines
- */
-static void	radix_aux(t_stack *a, t_stack *b, int i, bool print)
-{
-	int	index;
-
-	index = a->top->index;
-	if (((index >> i) & 1) == 0)
-		pb(a, b, print);
-	else
-		ra(a, print);
-}
-
-/**
- * Binary radix sort implementation
- */
-void	radix_sort(t_stack *a, t_stack *b, bool print)
-{
-	int	max_bits;
-	int	max_num;
-	int	i;
-	int	j;
-
-	max_bits = 0;
-	max_num = a->size - 1;
-	set_indexes(a);
-	while (max_num >> max_bits)
-		++max_bits;
-	i = 0;
-	while (i < max_bits)
-	{
-		j = -1;
-		while (++j < a->size)
-			radix_aux(a, b, i, print);
-		while (b->top)
-			pa(a, b, print);
-		++i;
-	}
 }

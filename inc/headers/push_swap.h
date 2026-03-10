@@ -65,20 +65,6 @@ void	sort(t_stack *a, t_stack *b);
  */
 void	bucket_sort(t_stack *a, t_stack *b, bool print);
 /**
- * Sorts the stack using the selection sort algorithm
- * @param a The first stack
- * @param b The second stack
- * @param print Whether to print the operations performed
- */
-void	selection_sort(t_stack *a, t_stack *b, bool print);
-/**
- * Sorts the stack using the radix sort algorithm
- * @param a The first stack
- * @param b The second stack
- * @param print Whether to print the operations performed
- */
-void	radix_sort(t_stack *a, t_stack *b, bool print);
-/**
  * Sorts the stack using the counting sort algorithm
  * @param stack The stack to sort
  * @returns A pointer to the sorted array
@@ -110,6 +96,13 @@ int		sb(t_stack *b, bool print);
 int		ss(t_stack *a, t_stack *b, bool print);
 
 // * PUSH
+/**
+ * Pushes the top element of stack b to stack a
+ * @param a The first stack
+ * @param b The second stack
+ * @param print Whether to print the operations performed
+ * @returns the number of operations performed (1 if the operation was performed, 0 otherwise
+ */
 int		pa(t_stack *a, t_stack *b, bool print);
 /**
  * Pushes the top element of stack a to stack b

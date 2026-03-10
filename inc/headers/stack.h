@@ -30,14 +30,58 @@ typedef struct	s_best_move
 	int		total;
 }	t_best_move;
 
+/**
+ * Checks if the stack is sorted
+ * @param stack The stack to check
+ * @return true if the stack is sorted, false otherwise
+ */
 bool	is_stack_sorted(t_stack *stack);
+/**
+ * Creates a new element with the given value
+ * @param value The value of the new element
+ * @return A pointer to the new element
+ */
 t_elem	*new_elem(int value);
+/**
+ * Frees the memory allocated for the stack and its elements
+ * @param stack The stack to free
+ */
 void	free_stack(t_stack *stack);
+/**
+ * Pushes an element to the bottom of the stack
+ * @param stack The stack to push the element to
+ * @param elem The element to push
+ */
 void	push_bottom(t_stack *stack, t_elem *elem);
+/**
+ * Pushes an element to the top of the stack
+ * @param stack The stack to push the element to
+ * @param elem The element to push
+ */
 void	push_top(t_stack *stack, t_elem *elem);
+/**
+ * Removes and returns the element at the top of the stack
+ * @param stack The stack to pop the element from
+ * @return The popped element, or NULL if the stack is empty
+ */
 t_elem	*pop_top(t_stack *stack);
+/**
+ * Removes and returns the element at the bottom of the stack
+ * @param stack The stack to pop the element from
+ * @return The popped element, or NULL if the stack is empty
+ */
 t_elem	*pop_bottom(t_stack *stack);
+/**
+ * Returns the maximum element in the stack
+ * @param stack The stack to search
+ * @return The maximum element, or NULL if the stack is empty
+ */
 t_elem	*stack_get_max(t_stack *stack);
+/**
+ * Returns the minimum element in the stack
+ * @param stack The stack to search
+ * @return The minimum element, or NULL if the stack is empty
+ */
 t_elem	*stack_get_min(t_stack *stack);
 
 /**

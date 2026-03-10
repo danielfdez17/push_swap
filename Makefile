@@ -42,7 +42,6 @@ PUSH_SWAP_SRCS =	args_processing.c \
 					reveverse_rotate.c \
 					rotate_utils.c \
 					rotate.c \
-					selection.c \
 					sort.c \
 					stack_utils.c \
 					stack.c \

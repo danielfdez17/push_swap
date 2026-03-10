@@ -75,10 +75,6 @@ static void	sort_values(t_elem *elem, int *sorted,
 	}
 }
 
-/**
- * @returns the sorted array of the values of @param stack
- * using previous functions.
- */
 int	*counting_sort(t_stack *stack)
 {
 	int			*accumulates;

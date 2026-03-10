@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * @returns the minimum value of the @param stack 
- * with its distance to both first and last element of @param stack
- */
 t_elem	*get_min_value(t_stack *stack)
 {
 	t_elem	*min_value;
@@ -35,10 +31,6 @@ t_elem	*get_min_value(t_stack *stack)
 	return (min_value);
 }
 
-/**
- * @returns the maximum value of the @param stack 
- * with its distance to both first and last element of @param stack
- */
 t_elem	*get_max_value(t_stack *stack)
 {
 	t_elem	*max_value;

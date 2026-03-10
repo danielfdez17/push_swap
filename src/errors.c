@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Checks if the string @param s contains syntax errors.
- * If no error are found, @returns false. Otherwise @returns true
- */
 bool	input_error(char *s)
 {
 	int	i;
@@ -36,27 +32,6 @@ bool	input_error(char *s)
 	return (false);
 }
 
-/**
- * Checks if the value of @param n is already stored in the @param stack.
- * If so, @returns true. Otherwisre @returns false
- */
-// bool	duplicate_error(t_stack *stack, int n)
-// {
-// 	if (!stack)
-// 		return (false);
-// 	while (stack)
-// 	{
-// 		if (stack->value == n)
-// 			return (true);
-// 		stack = stack->next;
-// 	}
-// 	return (false);
-// }
-
-/**
- * It frees the @param stack, prints the string "Error\n" and @returns false 
- * to indicate the @param stack could not have been initialized.
- */
 bool	free_error(t_stack *stack)
 {
 	free_stack(stack);

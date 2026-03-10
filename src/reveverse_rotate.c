@@ -12,6 +12,14 @@
 
 #include "push_swap.h"
 
+/**
+ * Performs a reverse rotate operation on the given stack. This operation
+ * moves the last element of the stack to the top. If the stack is empty 
+ * or has only one element, the function does nothing and returns 0.
+ * @param stack The stack to perform the reverse rotate operation on
+ * @return The number of operations performed (1 if the operation
+ * was performed, 0 otherwise)
+ */
 static int	reverse_rotate(t_stack *stack)
 {
 	t_elem	*last;
