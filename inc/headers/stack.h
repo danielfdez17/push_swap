@@ -101,7 +101,7 @@ static inline void	init_stack(t_stack *stack)
 static inline int	stack_size(t_stack *stack)
 {
 	if (!stack)
-		return (-1);
+		return (0);
 	return (stack->size);
 }
 

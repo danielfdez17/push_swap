@@ -12,6 +12,12 @@
 
 #include "push_swap.h"
 
+/**
+ * Main function for the push swap program
+ * @param ac The number of arguments
+ * @param av The array of arguments
+ * @returns 0 on success, 1 on failure
+ */
 int	main(int ac, char **av)
 {
 	t_stack	a;

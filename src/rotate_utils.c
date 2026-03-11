@@ -58,7 +58,7 @@ void	exec_rotations(t_stack *a, t_stack *b, int *cost_a, int *cost_b)
 	rotate_b_n_times(b, *cost_b, true);
 }
 
-void	align_min_on_top(t_stack *a, bool print)
+void	bring_min_to_top(t_stack *a, bool print)
 {
 	t_elem	*ptr;
 	int		pos;

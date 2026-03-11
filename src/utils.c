@@ -30,22 +30,3 @@ t_elem	*get_min_value(t_stack *stack)
 	min_value->back = stack->size - min_value->position;
 	return (min_value);
 }
-
-t_elem	*get_max_value(t_stack *stack)
-{
-	t_elem	*max_value;
-	t_elem	*ptr;
-
-	max_value = stack_get_max(stack);
-	ptr = stack->top;
-	ptr->position = 0;
-	while (ptr->value != max_value->value)
-	{
-		ptr->position++;
-		ptr = ptr->next;
-	}
-	max_value->position = ptr->position;
-	max_value->front = max_value->position;
-	max_value->back = stack->size - max_value->position;
-	return (max_value);
-}

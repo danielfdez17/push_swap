@@ -66,5 +66,5 @@ void	push_all_to_a(t_stack *a, t_stack *b, bool print)
 		exec_rotations(a, b, &cost_a, &cost_b);
 		pa(a, b, print);
 	}
-	align_min_on_top(a, print);
+	bring_min_to_top(a, print);
 }

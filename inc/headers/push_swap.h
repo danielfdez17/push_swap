@@ -43,12 +43,6 @@ bool	process_arguments(int ac, char **av, t_stack *a);
  * @returns true if the input is valid, false otherwise
  */
 bool	input_error(char *s);
-/**
- * Checks if there are duplicate values in the stack
- * @param stack The stack to check for duplicates
- * @returns true if there are duplicates, false otherwise
- */
-bool	free_error(t_stack *stack);
 
 // * SORTING ALGORITHMS
 /**
@@ -185,11 +179,11 @@ void	rotate_b_n_times(t_stack *b, int cost, bool print);
 void	exec_rotations(t_stack *a, t_stack *b, int *cost_a, int *cost_b);
 
 /**
- * Aligns the minimum element on the top of stack a
+ * Brings the minimum element to the top of stack a
  * @param a The first stack
  * @param print Whether to print the operations performed
  */
-void	align_min_on_top(t_stack *a, bool print);
+void	bring_min_to_top(t_stack *a, bool print);
 
 // * REVERSE ROTATE
 /**
@@ -222,12 +216,6 @@ int		rrr(t_stack *a, t_stack *b, bool print);
  * @returns A pointer to the minimum element of the stack with its distance to both first and last element of the stack
  */
 t_elem	*get_min_value(t_stack *stack);
-/**
- * Returns the maximum value of the stack with its distance to both first and last element of the stack
- * @param stack The stack to get the maximum value from
- * @returns A pointer to the maximum element of the stack with its distance to both first and last element of the stack
- */
-t_elem	*get_max_value(t_stack *stack);
 /**
  * Sets the index of each element in the stack based on its value (the smallest value gets index 0, the second smallest gets index 1, and so on)
  * @param stack The stack to set the indexes for

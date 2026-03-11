@@ -31,10 +31,3 @@ bool	input_error(char *s)
 		return (true);
 	return (false);
 }
-
-bool	free_error(t_stack *stack)
-{
-	free_stack(stack);
-	ft_printf("Error\n");
-	return (false);
-}
