@@ -91,9 +91,10 @@ LIBFT = ./inc/libft/libft.a
 MAKEFLAGS += --no-print-directory
 
 # ! RULES
-# ? Compiles the whole program/library
+# ? 🧩 Compiles the whole program/library
 all: update obj $(NAME)
 
+# ? 🔨 Compiles the bonus program
 bonus: update obj $(BONUS_NAME) all
 
 # ? Links a .c (and .h if needed) to its .o file
@@ -106,12 +107,12 @@ $(BONUS_OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-# ? Creates the objects directory if it doesn't exist
+# ? 📁 Creates the objects directory if it doesn't exist
 obj:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(BONUS_OBJ_DIR)
 
-# ? Updates the submodules
+# ? 🔄 Updates the submodules
 update:
 	@git submodule update --init --recursive
 
@@ -123,7 +124,7 @@ $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
 	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
 	@echo "$(BONUS) $(BUILT)"
 
-# ? Removes the object files
+# ? 🧹 Removes the object files
 clean:
 	@$(RM) $(OBJS)
 	@$(RM) $(BONUS_OBJS)
@@ -131,47 +132,53 @@ clean:
 	@echo "$(PUSH_SWAP) $(OBJS_REMOVED)"
 
 
-# ? Removes both object and executable files
+# ? 🗑️ Removes both object and executable files
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(BONUS_NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean $(MAKEFLAGS)
 	@echo "$(PUSH_SWAP) $(REMOVED)"
 
-# ? Rebuilds the program/library
+# ? 🔁 Rebuilds the program/library
 re: fclean all
 	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
 	@echo "$(PUSH_SWAP) $(REBUILT)"
 
+# ? 🔁 Rebuilds the bonus program
 rebonus: fclean bonus
 	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
 	@echo "$(BONUS) $(REBUILT)"
 
+# ? 🧪 Checks the code with norminette
 norminette:
 	@clear
 	@$(MAKE) -C $(LIBFT_DIR) norminette $(MAKEFLAGS)
 	@norminette $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"
 
-help:
-	@echo "Usage: make [target]"
-	@echo "Targets:"
-	@echo "  🧩  all         - Compiles the whole program"
-	@echo "  📁  obj         - Creates the objects directory if it doesn't exist"
-	@echo "  🧹  clean       - Removes the object files"
-	@echo "  🗑️  fclean      - Removes both object and executable files"
-	@echo "  🔁  re          - Rebuilds the program"
-	@echo "  🔄  update      - Updates the submodules"
-	@echo "  🧪  norminette  - Checks the code with norminette"
-	@echo "  ❓  help        - Displays this help message"
-
+# ? 🧪 Runs the tests
 tests: all
 	@echo "Running tests..."
 	@$(shell ARG='4 67 3 87 23'; ./$(NAME) $ARG | ./$(BONUS_NAME) $ARG)
 	@$(shell ARG='4 67 3 87 23'; ./push_swap $ARG | ./checker $ARG)
 
+# ? 🧪 Runs the program with a test case
 run: bonus
 	@clear
 	./$(NAME) -6 2 4 -3 -5 -1
+
+# ? ❓ Displays this help message
+help:
+	@awk '\
+		BEGIN { blue = "\033[0;34m"; green = "\033[0;32m"; reset = "\033[0m"; yellow = "\033[0;33m"; print yellow "Usage: make [target]"; print "Targets:" } \
+		/^# \?/ { desc = substr($$0, 5); next } \
+		/^$$/ { desc = ""; next } \
+		/^[a-zA-Z0-9][a-zA-Z0-9_.-]*:/ { \
+			target = $$1; \
+			sub(/:.*/, "", target); \
+			if (target !~ /^\./) \
+				printf "  " blue "%-12s" reset green "%s" reset "\n", target, desc; \
+			desc = ""; \
+		}' $(firstword $(MAKEFILE_LIST))
 
 .PHONY: obj update all clean fclean re help tests run
 
