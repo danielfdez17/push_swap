@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bucket.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daniel <daniel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 08:55:17 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 07:15:47 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/13 11:20:41 by daniel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	bucket_sort(t_stack *a, t_stack *b, bool print)
 {
-	int		chunck_size;
+	int		chunk_size;
 	int		range;
 
 	set_indexes(a);
-	chunck_size = DEFAULT_CHUNK_SIZE;
+	chunk_size = DEFAULT_CHUNK_SIZE;
 	if (a->size <= 100)
-		chunck_size /= 2;
+		chunk_size /= 2;
 	range = 0;
 	while (!is_stack_empty(a))
 	{
@@ -30,7 +30,7 @@ void	bucket_sort(t_stack *a, t_stack *b, bool print)
 			rb(b, print);
 			range++;
 		}
-		else if (a->top->index <= range + chunck_size)
+		else if (a->top->index <= range + chunk_size)
 		{
 			pb(a, b, print);
 			range++;

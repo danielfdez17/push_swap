@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   selection.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daniel <daniel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 07:10:18 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 07:15:43 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/13 08:57:08 by daniel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/**
- * Selection sorting algorithm
- */
 void	selection_sort(t_stack *a, t_stack *b, bool print)
 {
 	t_elem	*value;
@@ -24,11 +21,11 @@ void	selection_sort(t_stack *a, t_stack *b, bool print)
 		if (a->top)
 		{
 			value = get_min_value(a);
-			if (value->front == 1)
-			{
-				sa(a, print);
-				continue ;
-			}
+			// if (value->front == 1)
+			// {
+			// 	sa(a, print);
+			// 	continue ;
+			// }
 			while (a->top != value)
 			{
 				if (value->front <= value->back)
@@ -39,6 +36,6 @@ void	selection_sort(t_stack *a, t_stack *b, bool print)
 			pb(a, b, print);
 		}
 	}
-	while (b->top)
+	while (!is_stack_empty(b))
 		pa(a, b, print);
 }
