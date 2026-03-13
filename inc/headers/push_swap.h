@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:31 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/06 09:43:59 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/13 07:44:54 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@
 # include "stack.h"
 
 # ifndef DEBUG_MODE
-# define DEBUG_MODE false
+#  define DEBUG_MODE false
+# endif
+
+# ifndef SORT_ALGO
+#  define SORT_ALGO 0
 # endif
 
 # ifndef DEFAULT_CHUNK_SIZE
-#  define DEFAULT_CHUNK_SIZE 40
+#  define DEFAULT_CHUNK_SIZE 70
 # endif
 
 // * ARGUMENTS PROCESSING
@@ -32,13 +36,15 @@
  * @param ac The number of arguments
  * @param av The arguments
  * @param a The stack to fill with the values
- * @returns true if the arguments are valid and the stack is filled, false otherwise
+ * @returns true if the arguments are valid and the stack is filled,
+ * false otherwise
  */
 bool	process_arguments(int ac, char **av, t_stack *a);
 
 // * ERROR HANDLING
 /**
- * Checks if the input is valid (only digits, optional sign at the beginning, and within the range of int)
+ * Checks if the input is valid (only digits, optional sign at the beginning,
+ * and within the range of int)
  * @param s The string to check
  * @returns true if the input is valid, false otherwise
  */
@@ -51,13 +57,22 @@ bool	input_error(char *s);
  * @param b The second stack
  */
 void	sort(t_stack *a, t_stack *b);
-/**
+/** 
  * Sorts the stack using the bucket sort algorithm
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
  */
 void	bucket_sort(t_stack *a, t_stack *b, bool print);
+
+/**
+ * Sorts the stack using the selection sort algorithm
+ * @param a The first stack
+ * @param b The second stack
+ * @param print Whether to print the operations performed
+ */
+void	selection_sort(t_stack *a, t_stack *b, bool print);
+
 /**
  * Sorts the stack using the counting sort algorithm
  * @param stack The stack to sort
@@ -70,14 +85,16 @@ int		*counting_sort(t_stack *stack);
  * Swaps the first two elements of the stack
  * @param a The first stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise)
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		sa(t_stack *a, bool print);
 /**
  * Swaps the first two elements of the stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise)
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		sb(t_stack *b, bool print);
 /**
@@ -85,7 +102,8 @@ int		sb(t_stack *b, bool print);
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (2 if both stacks were swapped, 1 if only one stack was swapped, 0 otherwise)
+ * @returns the number of operations performed
+ * (2 if both stacks were swapped, 1 if only one stack was swapped, 0 otherwise)
  */
 int		ss(t_stack *a, t_stack *b, bool print);
 
@@ -95,7 +113,8 @@ int		ss(t_stack *a, t_stack *b, bool print);
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise
+ * @returns the number of operations performed 
+ * 1 if the operation was performed, 0 otherwise)
  */
 int		pa(t_stack *a, t_stack *b, bool print);
 /**
@@ -103,7 +122,8 @@ int		pa(t_stack *a, t_stack *b, bool print);
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		pb(t_stack *a, t_stack *b, bool print);
 /**
@@ -126,14 +146,16 @@ void	push_all_to_a(t_stack *a, t_stack *b, bool print);
  * Rotates stack a (the first element becomes the last one)
  * @param a The first stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise
  */
 int		ra(t_stack *a, bool print);
 /**
  * Rotates stack b (the first element becomes the last one)
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise)
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		rb(t_stack *b, bool print);
 /**
@@ -141,7 +163,8 @@ int		rb(t_stack *b, bool print);
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (2 if both stacks were rotated, 1 if only one stack was rotated, 0 otherwise)
+ * @returns the number of operations performed (2 if both stacks were rotated,
+ * 1 if only one stack was rotated, 0 otherwise)
  */
 int		rr(t_stack *a, t_stack *b, bool print);
 
@@ -149,7 +172,8 @@ int		rr(t_stack *a, t_stack *b, bool print);
  * Calculates the cost of rotating a stack to bring an element to the top
  * @param pos The position of the element in the stack (0-based index)
  * @param size The size of the stack
- * @returns The cost of rotating the stack to bring the element to the top (positive for
+ * @returns The cost of rotating the stack to bring the element to the top
+ * (positive for clockwise rotations, negative for counter-clockwise rotations)
  */
 int		rotation_cost(int pos, int size);
 
@@ -187,37 +211,46 @@ void	bring_min_to_top(t_stack *a, bool print);
 
 // * REVERSE ROTATE
 /**
- * Reverses the order of elements in stack a (the last element becomes the first one)
+ * Reverses the order of elements in stack a
+ * (the last element becomes the first one)
  * @param a The first stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise)
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		rra(t_stack *a, bool print);
 /**
- * Reverses the order of elements in stack b (the last element becomes the first one)
+ * Reverses the order of elements in stack b
+ * (the last element becomes the first one)
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (1 if the operation was performed, 0 otherwise)
+ * @returns the number of operations performed
+ * (1 if the operation was performed, 0 otherwise)
  */
 int		rrb(t_stack *b, bool print);
 /**
- * Reverses the order of elements in both stacks a and b (the last element becomes the first one)
+ * Reverses the order of elements in both stacks a and b
+ * (the last element becomes the first one)
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
- * @returns the number of operations performed (2 if both stacks were reversed, 1 if only one stack was reversed, 0 otherwise)
+ * @returns the number of operations performed (2 if both stacks were reversed,
+ * 1 if only one stack was reversed, 0 otherwise)
  */
 int		rrr(t_stack *a, t_stack *b, bool print);
 
 // * UTILITY FUNCTIONS
 /**
- * Returns the minimum value of the stack with its distance to both first and last element of the stack
+ * Returns the minimum value of the stack with its distance to both first
+ * and last element of the stack
  * @param stack The stack to get the minimum value from
- * @returns A pointer to the minimum element of the stack with its distance to both first and last element of the stack
+ * @returns A pointer to the minimum element of the stack with its distance
+ * to both first and last element of the stack
  */
 t_elem	*get_min_value(t_stack *stack);
 /**
- * Sets the index of each element in the stack based on its value (the smallest value gets index 0, the second smallest gets index 1, and so on)
+ * Sets the index of each element in the stack based on its value
+ * (the smallest value gets index 0, the second smallest gets index 1, and so on)
  * @param stack The stack to set the indexes for
  */
 void	set_indexes(t_stack *stack);

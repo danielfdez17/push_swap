@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/13 07:19:05 by danfern3          #+#    #+#             */
+/*   Updated: 2026/03/13 07:19:06 by danfern3         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STACK_H
 # define STACK_H
 
@@ -21,7 +33,7 @@ typedef struct s_stack
 	t_elem	*bottom;
 }	t_stack;
 
-typedef struct	s_best_move
+typedef struct s_best_move
 {
 	t_elem	*elem;
 	int		current_a;
@@ -118,6 +130,7 @@ static inline t_elem	*stack_top(t_stack *stack)
 		return (NULL);
 	return (stack->top);
 }
+
 static inline t_elem	*stack_bottom(t_stack *stack)
 {
 	if (!stack)

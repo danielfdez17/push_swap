@@ -6,7 +6,7 @@
 #    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2026/03/06 19:24:18 by danfern3         ###   ########.fr        #
+#    Updated: 2026/03/13 07:47:22 by danfern3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ PUSH_SWAP_SRCS =	args_processing.c \
 					reveverse_rotate.c \
 					rotate_utils.c \
 					rotate.c \
+					selection.c \
 					sort.c \
 					stack_utils.c \
 					stack.c \
@@ -72,6 +73,7 @@ BONUS_SRCS = $(PUSH_SWAP_BONUS_SRCS)
 
 # * Includes
 HEADERS = -I ./inc/headers -I ./inc/libft/inc/headers/
+INCLUDES_DIR = ./inc/
 
 # * Creating object files
 OBJS = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_SRCS:.c=.o))
@@ -79,7 +81,7 @@ BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_SRCS:.c=.o))
 
 # * Compilation
 MYCC = cc
-MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D DEBUG_MODE=false
+MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D SORT_ALGO=1 -D DEBUG_MODE=false
 
 # * Removal
 RM = rm -f
@@ -153,7 +155,7 @@ rebonus: fclean bonus
 norminette:
 	@clear
 	@$(MAKE) -C $(LIBFT_DIR) norminette $(MAKEFLAGS)
-	@norminette $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"
+	@norminette $(INCLUDES_DIR) $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"
 
 # ? 🧪 Runs the tests
 tests: all
@@ -164,7 +166,7 @@ tests: all
 # ? 🧪 Runs the program with a test case
 run: bonus
 	@clear
-	./$(NAME) -6 2 4 -3 -5 -1
+	./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`
 
 # ? ❓ Displays this help message
 help:

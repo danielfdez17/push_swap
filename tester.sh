@@ -154,7 +154,7 @@ log_todo() {
 clear
 log_info "Glyphs for table formatting thanks to Dylan (https://github.com/Univers42/picine_cpp/blob/main/cpp_module04/ex03/postman.cpp)"
 log_warning "Making sure ./push_swap and ./checker are up to date"
-make bonus
+make rebonus
 
 generate_numbers() {
 	if [ -z "$1" ]; then

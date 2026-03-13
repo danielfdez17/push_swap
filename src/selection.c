@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bucket.c                                           :+:      :+:    :+:   */
+/*   selection.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/06 08:55:17 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 07:15:47 by danfern3         ###   ########.fr       */
+/*   Created: 2026/03/13 07:10:18 by danfern3          #+#    #+#             */
+/*   Updated: 2026/03/13 07:15:43 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	bucket_sort(t_stack *a, t_stack *b, bool print)
+/**
+ * Selection sorting algorithm
+ */
+void	selection_sort(t_stack *a, t_stack *b, bool print)
 {
-	int		chunck_size;
-	int		range;
+	t_elem	*value;
 
-	set_indexes(a);
-	chunck_size = DEFAULT_CHUNK_SIZE;
-	if (a->size <= 100)
-		chunck_size /= 2;
-	range = 0;
-	while (!is_stack_empty(a))
+	while (!is_stack_sorted(a))
 	{
-		if (a->top->index <= range)
+		if (a->top)
 		{
+			value = get_min_value(a);
+			if (value->front == 1)
+			{
+				sa(a, print);
+				continue ;
+			}
+			while (a->top != value)
+			{
+				if (value->front <= value->back)
+					ra(a, print);
+				else
+					rra(a, print);
+			}
 			pb(a, b, print);
-			rb(b, print);
-			range++;
 		}
-		else if (a->top->index <= range + chunck_size)
-		{
-			pb(a, b, print);
-			range++;
-		}
-		else
-			ra(a, print);
 	}
-	push_all_to_a(a, b, print);
+	while (b->top)
+		pa(a, b, print);
 }
