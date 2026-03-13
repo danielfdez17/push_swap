@@ -2,7 +2,7 @@
 
 # **Description**
 
-This project consists of sorting a random integer sequence in the less amount of movements as possible.
+This project consists of sorting a random integer sequence in the fewest movements possible.
 
 The available movements are
 
@@ -34,20 +34,20 @@ git clone https://github.com/danielfdez17/push_swap.git && cd push_swap && make 
 
 There is a `tester.sh` to benchmark the sorting algorithm.
 
-1. Give the appropiate permissions to the tester: `chmod +x tester.sh`
-2. Execute the tester with at least integer params: `./tester.sh 100 10`. If it does not work, try with: `sh tester.sh 100 10`
-    - The first param indicates the number of times the ./push_swap will be called
-    - The second param indicates the random generated number
-    - From the third param on, they will be dismissed
+1. Give the appropriate permissions to the tester: `chmod +x tester.sh`
+2. Execute the tester with at least two integer parameters: `./tester.sh 100 10`. If it does not work, try: `sh tester.sh 100 10`
+    - The first parameter indicates the number of times `./push_swap` will be called
+    - The second parameter indicates the random number range
+    - From the third parameter on, values are ignored
 
 #### `single_test.sh`
 
-There is also another test to check only if the random integer sequence is sorted with the output of the `push_swap` program.
+There is also another test to check whether the random integer sequence is sorted using the output of the `push_swap` program.
 
-1. Give the appropiate permissions to the tester: `chmod +x single_test.sh`
-2. Execute the tester with at least integer params: `./single_test.sh "45 -100 95 0"`. If it does not work, try with: `sh single_test.sh "45 -100 95 0"`
-    - The only first param indicates the integer sequence to be sorted
-    - From the second param on, they will be dismissed
+1. Give the appropriate permissions to the tester: `chmod +x single_test.sh`
+2. Execute the tester with at least one integer sequence parameter: `./single_test.sh "45 -100 95 0"`. If it does not work, try: `sh single_test.sh "45 -100 95 0"`
+    - The first parameter indicates the integer sequence to be sorted
+    - From the second parameter on, values are ignored
 
 # **Resources**
 

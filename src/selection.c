@@ -6,7 +6,7 @@
 /*   By: daniel <daniel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 07:10:18 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 08:57:08 by daniel           ###   ########.fr       */
+/*   Updated: 2026/03/13 11:54:03 by daniel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ void	selection_sort(t_stack *a, t_stack *b, bool print)
 		if (a->top)
 		{
 			value = get_min_value(a);
-			// if (value->front == 1)
-			// {
-			// 	sa(a, print);
-			// 	continue ;
-			// }
 			while (a->top != value)
 			{
 				if (value->front <= value->back)
