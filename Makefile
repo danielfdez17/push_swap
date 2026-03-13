@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
+#    By: daniel <daniel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2026/03/13 07:47:22 by danfern3         ###   ########.fr        #
+#    Updated: 2026/03/13 08:14:31 by daniel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ obj:
 
 # ? 🔄 Updates the submodules
 update:
-	@git submodule update --init --recursive
+	@git submodule update --init --recursive --remote
 
 $(NAME): $(OBJS) $(LIBFT)
 	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME)
