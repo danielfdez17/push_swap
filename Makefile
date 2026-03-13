@@ -94,7 +94,7 @@ MAKEFLAGS += --no-print-directory
 
 # ! RULES
 # ? 🧩 Compiles the whole program/library
-all: update obj $(NAME)
+all: banner update obj $(NAME) banner
 
 # ? 🔨 Compiles the bonus program
 bonus: update obj $(BONUS_NAME) all
@@ -181,6 +181,24 @@ help:
 				printf "  " blue "%-12s" reset green "%s" reset "\n", target, desc; \
 			desc = ""; \
 		}' $(firstword $(MAKEFILE_LIST))
+
+
+define BANNER
+	@echo ""
+	@echo "$(BLUE)"
+	@echo "╔══════════════════════════════════════════════════════════╗"
+	@echo "║  ____  _   _ ____  _   _   ____ __        ___    ____    ║"
+	@echo "║ |  _ \| | | / ___|| | | | / ___|\\ \      / / \  |  _ \   ║"
+	@echo "║ | |_) | | | \___ \| |_| | \___ \\ \ \ /\ / / _ \ | |_) |  ║"
+	@echo "║ |  __/| |_| |___) |  _  |  ___) | \ V  V / ___ \|  __/   ║"
+	@echo "║ |_|    \___/|____/|_| |_| |____/   \_/\_/_/   \_\_|      ║"
+	@echo "║                                                          ║"
+	@echo "╚══════════════════════════════════════════════════════════╝"
+	@echo "$(RESET)"
+endef
+
+banner:
+	$(BANNER)
 
 .PHONY: obj update all clean fclean re help tests run
 
