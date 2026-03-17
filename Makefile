@@ -29,6 +29,18 @@ OBJS_REMOVED = $(RED)Object files removed $(RESET)
 REMOVED = $(RED)Removed $(RESET)
 REBUILT = $(YELLOW)Rebuilt $(RESET)
 
+# * Timer helper
+define RUN_AND_LOG
+	@start_ms=$$(date +%s%3N); \
+	$(1); status=$$?; \
+	end_ms=$$(date +%s%3N); \
+	elapsed_ms=$$((end_ms - start_ms)); \
+	if [ $$status -eq 0 ]; then \
+		printf "%b [%sms]\n" "$(2)" "$$elapsed_ms"; \
+	fi; \
+	exit $$status
+endef
+
 # * Sources files
 PUSH_SWAP_DIR = ./src/
 PUSH_SWAP_SRCS =	args_processing.c \
@@ -90,14 +102,23 @@ RM = rm -f
 LIBFT_DIR = ./inc/libft/
 LIBFT = ./inc/libft/libft.a
 
-MAKEFLAGS += --no-print-directory
+NOPRINT += --no-print-directory
 
 # ! RULES
 # ? 🧩 Compiles the whole program/library
-all: banner update obj $(NAME) banner
+all: $(OBJ_DIR)
+	@build_plan="$$($(MAKE) -s -n $(NAME) $(NOPRINT) 2>&1)"; status=$$?; \
+	if [ $$status -ne 0 ]; then \
+		printf "%s\n" "$$build_plan"; \
+		exit $$status; \
+	elif [ -n "$$build_plan" ]; then \
+		$(MAKE) $(NAME) $(NOPRINT); \
+	else \
+		printf "%b\n" "$(PUSH_SWAP) $(CYAN)Everything is up to date$(RESET)"; \
+	fi
 
 # ? 🔨 Compiles the bonus program
-bonus: update obj $(BONUS_NAME) all
+bonus: $(OBJ_DIR) $(BONUS_NAME) all
 
 # ? Links a .c (and .h if needed) to its .o file
 $(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
@@ -110,67 +131,53 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
 # ? 📁 Creates the objects directory if it doesn't exist
-obj:
+$(OBJ_DIR) $(BONUS_OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(BONUS_OBJ_DIR)
 
 # ? 🔄 Updates the submodules
 update:
-	@git submodule update --init --recursive --remote
+	$(call RUN_AND_LOG,git submodule update --init --recursive --remote --merge,$(GREEN)Submodules updated.$(RESET))
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME)
-	@echo "$(PUSH_SWAP) $(BUILT)"
+	$(call RUN_AND_LOG,$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME),$(PUSH_SWAP) $(BUILT))
 
 $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
-	@$(MYCC) $(MYCFLAGS) $(HEADERS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
-	@echo "$(BONUS) $(BUILT)"
+	$(call RUN_AND_LOG,$(MYCC) $(MYCFLAGS) $(HEADERS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME),$(BONUS) $(BUILT))
 
 # ? 🧹 Removes the object files
 clean:
-	@$(RM) $(OBJS)
-	@$(RM) $(BONUS_OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean $(MAKEFLAGS)
-	@echo "$(PUSH_SWAP) $(OBJS_REMOVED)"
+	$(call RUN_AND_LOG,$(RM) $(OBJS); $(RM) $(BONUS_OBJS); $(MAKE) -C $(LIBFT_DIR) clean $(NOPRINT),$(PUSH_SWAP) $(OBJS_REMOVED))
 
 
 # ? 🗑️ Removes both object and executable files
-fclean: clean
-	@$(RM) $(NAME)
-	@$(RM) $(BONUS_NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean $(MAKEFLAGS)
-	@echo "$(PUSH_SWAP) $(REMOVED)"
+fclean:
+	$(call RUN_AND_LOG,$(MAKE) clean $(NOPRINT); $(RM) $(NAME); $(RM) $(BONUS_NAME); $(MAKE) -C $(LIBFT_DIR) fclean $(NOPRINT),$(PUSH_SWAP) $(REMOVED))
 
 # ? 🔁 Rebuilds the program/library
-re: fclean all
-	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
-	@echo "$(PUSH_SWAP) $(REBUILT)"
+re: #fclean all
+	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) all $(NOPRINT); $(MAKE) -C $(LIBFT_DIR) all $(NOPRINT),$(PUSH_SWAP) $(REBUILT))
 
 # ? 🔁 Rebuilds the bonus program
-rebonus: fclean bonus
-	@$(MAKE) -C $(LIBFT_DIR) re $(MAKEFLAGS)
-	@echo "$(BONUS) $(REBUILT)"
+rebonus: #fclean bonus
+	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) bonus $(NOPRINT); $(MAKE) -C $(LIBFT_DIR) all $(NOPRINT),$(BONUS) $(REBUILT))
 
 # ? 🧪 Checks the code with norminette
 norminette:
-	@clear
-	@$(MAKE) -C $(LIBFT_DIR) norminette $(MAKEFLAGS)
-	@norminette $(INCLUDES_DIR) $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"
+	$(call RUN_AND_LOG,clear; $(MAKE) -C $(LIBFT_DIR) norminette $(NOPRINT); norminette $(INCLUDES_DIR) $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)",$(PUSH_SWAP) $(GREEN)Norminette checked$(RESET))
 
 # ? 🧪 Runs the tests
-tests: all
-	@echo "Running tests..."
-	@$(shell ARG='4 67 3 87 23'; ./$(NAME) $ARG | ./$(BONUS_NAME) $ARG)
-	@$(shell ARG='4 67 3 87 23'; ./push_swap $ARG | ./checker $ARG)
+tests: #bonus
+	$(call RUN_AND_LOG,$(MAKE) bonus $(NOPRINT); ARG='4 67 3 87 23'; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG; ARG='4 67 3 87 23'; ./push_swap $$ARG | ./checker $$ARG,$(PUSH_SWAP) $(GREEN)Tests finished$(RESET))
 
 # ? 🧪 Runs the program with a test case
-run: bonus
-	@clear
-	./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`
+run: #bonus
+	$(call RUN_AND_LOG,$(MAKE) bonus $(NOPRINT); clear; ./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`,$(PUSH_SWAP) $(GREEN)Run finished$(RESET))
 
 # ? ❓ Displays this help message
 help:
-	@awk '\
+	@start_ms=$$(date +%s%3N); \
+	awk '\
 		BEGIN { blue = "\033[0;34m"; green = "\033[0;32m"; reset = "\033[0m"; yellow = "\033[0;33m"; print yellow "Usage: make [target]"; print "Targets:" } \
 		/^# \?/ { desc = substr($$0, 5); next } \
 		/^$$/ { desc = ""; next } \
@@ -180,26 +187,29 @@ help:
 			if (target !~ /^\./) \
 				printf "  " blue "%-12s" reset green "%s" reset "\n", target, desc; \
 			desc = ""; \
-		}' $(firstword $(MAKEFILE_LIST))
+		}' $(firstword $(MAKEFILE_LIST)); \
+	end_ms=$$(date +%s%3N); \
+	elapsed_ms=$$((end_ms - start_ms)); \
+	printf "$(BLUE)[help]$(RESET) Displayed [%sms]\n" "$$elapsed_ms"
 
 
-define BANNER
-	@echo ""
-	@echo "$(BLUE)"
-	@echo "╔══════════════════════════════════════════════════════════╗"
-	@echo "║  ____  _   _ ____  _   _   ____ __        ___    ____    ║"
-	@echo "║ |  _ \| | | / ___|| | | | / ___|\\ \      / / \  |  _ \   ║"
-	@echo "║ | |_) | | | \___ \| |_| | \___ \\ \ \ /\ / / _ \ | |_) |  ║"
-	@echo "║ |  __/| |_| |___) |  _  |  ___) | \ V  V / ___ \|  __/   ║"
-	@echo "║ |_|    \___/|____/|_| |_| |____/   \_/\_/_/   \_\_|      ║"
-	@echo "║                                                          ║"
-	@echo "╚══════════════════════════════════════════════════════════╝"
-	@echo "$(RESET)"
-endef
+# define BANNER
+# 	@echo ""
+# 	@echo "$(BLUE)"
+# 	@echo "╔══════════════════════════════════════════════════════════╗"
+# 	@echo "║  ____  _   _ ____  _   _   ____ __        ___    ____    ║"
+# 	@echo "║ |  _ \| | | / ___|| | | | / ___|\\ \      / / \  |  _ \   ║"
+# 	@echo "║ | |_) | | | \___ \| |_| | \___ \\ \ \ /\ / / _ \ | |_) |  ║"
+# 	@echo "║ |  __/| |_| |___) |  _  |  ___) | \ V  V / ___ \|  __/   ║"
+# 	@echo "║ |_|    \___/|____/|_| |_| |____/   \_/\_/_/   \_\_|      ║"
+# 	@echo "║                                                          ║"
+# 	@echo "╚══════════════════════════════════════════════════════════╝"
+# 	@echo "$(RESET)"
+# endef
 
-banner:
-	$(BANNER)
+# banner:
+# 	$(BANNER)
 
 .PHONY: obj update all clean fclean re help tests run
 
-.DEFAULT: all
+.DEFAULT_GOAL := all
