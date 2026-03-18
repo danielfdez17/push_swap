@@ -36,77 +36,102 @@ define RUN_AND_LOG
 	end_ms=$$(date +%s%3N); \
 	elapsed_ms=$$((end_ms - start_ms)); \
 	if [ $$status -eq 0 ]; then \
-		printf "%b [%sms]\n" "$(2)" "$$elapsed_ms"; \
+		printf "%b [%sms]\n" "$(strip $(2))" "$$elapsed_ms"; \
 	fi; \
 	exit $$status
 endef
 
+# * Compiler and flags
+MYCC = cc
+WARNING_FLAGS = -Wall -Wextra -Werror
+DEBUG_FLAGS = -g3 -fsanitize=address
+PUSHSWAP_FLAGS = -D SORT_ALGO=0 -D DEBUG_MODE=false
+CPPFLAGS = -I./inc/headers -I./inc/libft/inc -MMD -MP
+
+# * Build type (make BUILD_TYPE=debug for debug mode)
+BUILD_TYPE ?= release
+
+ifeq ($(BUILD_TYPE),debug)
+	OPT_FLAGS = -g3 -ggdb -O0 # Optimize for debugging, not for speed
+else
+	OPT_FLAGS = -O2 # Optimize for speed, but not at the cost of debuggability
+endif
+
+CFLAGS = $(WARNING_FLAGS) $(OPT_FLAGS) $(PUSHSWAP_FLAGS)
+
+# * Removal
+RM = rm -rf
+
+NOPRINT += --no-print-directory
+
 # * Sources files
-PUSH_SWAP_DIR = ./src/
-PUSH_SWAP_SRCS =	args_processing.c \
-					best_move.c \
-					bucket.c \
-					counting.c \
-					errors.c \
-					main.c \
-					push.c \
-					radix.c \
-					reveverse_rotate.c \
-					rotate_utils.c \
-					rotate.c \
-					selection.c \
-					sort.c \
-					stack_utils.c \
-					stack.c \
-					swap.c \
-					utils.c
+PUSH_SWAP_SOURCES_DIR = ./src/
+PUSH_SWAP_SRCS =	\
+					src/args_processing.c \
+					src/best_move.c \
+					src/bucket.c \
+					src/counting.c \
+					src/errors.c \
+					src/main.c \
+					src/push.c \
+					src/radix.c \
+					src/reverse_rotate.c \
+					src/rotate_utils.c \
+					src/rotate.c \
+					src/selection.c \
+					src/sort.c \
+					src/stack_utils.c \
+					src/stack.c \
+					src/swap.c \
+					src/utils.c
 
-PUSH_SWAP_BONUS_SRCS =	args_processing.c \
-						best_move.c \
-						errors.c \
-						executer_bonus.c \
-						main_bonus.c \
-						moves_bonus.c \
-						push.c \
-						reveverse_rotate.c \
-						rotate_utils.c \
-						rotate.c \
-						stack_utils.c \
-						stack.c \
-						swap.c \
-						utils.c
-
-# * Objects dir
-OBJ_DIR = ./src/obj/
-BONUS_OBJ_DIR = ./src/bonus_obj/
+PUSH_SWAP_BONUS_SRCS =	\
+						src/args_processing.c \
+						src/best_move.c \
+						src/errors.c \
+						src/executer_bonus.c \
+						src/main_bonus.c \
+						src/moves_bonus.c \
+						src/push.c \
+						src/reverse_rotate.c \
+						src/rotate_utils.c \
+						src/rotate.c \
+						src/stack_utils.c \
+						src/stack.c \
+						src/swap.c \
+						src/utils.c
 
 SRCS = $(PUSH_SWAP_SRCS)
 BONUS_SRCS = $(PUSH_SWAP_BONUS_SRCS)
 
-# * Includes
-HEADERS = -I ./inc/headers -I ./inc/libft/inc/headers/
-INCLUDES_DIR = ./inc/
+# * Include files
+INCLUDES_DIR = ./inc/headers
 
 # * Creating object files
-OBJS = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_SRCS:.c=.o))
-BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR), $(BONUS_SRCS:.c=.o))
-
-# * Compilation
-MYCC = cc
-MYCFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -D SORT_ALGO=1 -D DEBUG_MODE=false
-
-# * Removal
-RM = rm -f
+OBJ_DIR = obj
+BONUS_OBJ_DIR = obj_bonus
+OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+BONUS_OBJS = $(addprefix $(BONUS_OBJ_DIR)/,$(BONUS_SRCS:.c=.o))
+DEPS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.d))
+DEPS += $(addprefix $(BONUS_OBJ_DIR)/,$(BONUS_SRCS:.c=.d))
+-include $(DEPS)
 
 # * LIBFT
 LIBFT_DIR = ./inc/libft/
 LIBFT = ./inc/libft/libft.a
 
-NOPRINT += --no-print-directory
-
 # ! RULES
+# ? Links a .c (and .h if needed) to its .o file
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(MYCC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(BONUS_OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(MYCC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
 # ? 🧩 Compiles the whole program/library
-all: $(OBJ_DIR)
+all:
 	@build_plan="$$($(MAKE) -s -n $(NAME) $(NOPRINT) 2>&1)"; status=$$?; \
 	if [ $$status -ne 0 ]; then \
 		printf "%s\n" "$$build_plan"; \
@@ -118,61 +143,58 @@ all: $(OBJ_DIR)
 	fi
 
 # ? 🔨 Compiles the bonus program
-bonus: $(OBJ_DIR) $(BONUS_NAME) all
-
-# ? Links a .c (and .h if needed) to its .o file
-$(OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
-	@$(MYCC) $(MYCFLAGS) $(HEADERS) -c $< -o $@
-
-$(BONUS_OBJ_DIR)%.o: $(PUSH_SWAP_DIR)%.c
-	@$(MYCC) $(MYCFLAGS) $(HEADERS) -c $< -o $@
+bonus:
+	@build_plan="$$($(MAKE) -s -n $(BONUS_NAME) $(NOPRINT) 2>&1)"; status=$$?; \
+	if [ $$status -ne 0 ]; then \
+		printf "%s\n" "$$build_plan"; \
+		exit $$status; \
+	elif [ -n "$$build_plan" ]; then \
+		$(MAKE) $(BONUS_NAME) $(NOPRINT); \
+	else \
+		printf "%b\n" "$(BONUS) $(CYAN)Everything is up to date$(RESET)"; \
+	fi
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-# ? 📁 Creates the objects directory if it doesn't exist
-$(OBJ_DIR) $(BONUS_OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(BONUS_OBJ_DIR)
-
 # ? 🔄 Updates the submodules
 update:
-	$(call RUN_AND_LOG,git submodule update --init --recursive --remote --merge,$(GREEN)Submodules updated.$(RESET))
+	$(call RUN_AND_LOG,echo "$(BLUE)Updating submodules...$(RESET)"; git submodule update --init --recursive --remote; echo -n "$(GREEN)Submodules updated!$(RESET)","")
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(call RUN_AND_LOG,$(MYCC) $(MYCFLAGS) $(HEADERS) $(OBJS) $(LIBFT) -o $(NAME),$(PUSH_SWAP) $(BUILT))
+$(NAME): $(LIBFT) $(OBJS)
+	$(call RUN_AND_LOG,$(MYCC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LIBFT) -o $@,$(PUSH_SWAP) $(BUILT))
 
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
-	$(call RUN_AND_LOG,$(MYCC) $(MYCFLAGS) $(HEADERS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME),$(BONUS) $(BUILT))
+$(BONUS_NAME): $(LIBFT) $(BONUS_OBJS)
+	$(call RUN_AND_LOG,$(MYCC) $(CFLAGS) $(CPPFLAGS) $(BONUS_OBJS) $(LIBFT) -o $@,$(BONUS) $(BUILT))
 
 # ? 🧹 Removes the object files
 clean:
-	$(call RUN_AND_LOG,$(RM) $(OBJS); $(RM) $(BONUS_OBJS); $(MAKE) -C $(LIBFT_DIR) clean $(NOPRINT),$(PUSH_SWAP) $(OBJS_REMOVED))
+	$(call RUN_AND_LOG,$(MAKE) -C $(LIBFT_DIR) clean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR),$(PUSH_SWAP) $(OBJS_REMOVED))
 
 
 # ? 🗑️ Removes both object and executable files
 fclean:
-	$(call RUN_AND_LOG,$(MAKE) clean $(NOPRINT); $(RM) $(NAME); $(RM) $(BONUS_NAME); $(MAKE) -C $(LIBFT_DIR) fclean $(NOPRINT),$(PUSH_SWAP) $(REMOVED))
+	$(call RUN_AND_LOG,$(MAKE) -C $(LIBFT_DIR) fclean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR) $(NAME) $(BONUS_NAME),$(PUSH_SWAP) $(REMOVED))
 
 # ? 🔁 Rebuilds the program/library
-re: #fclean all
-	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) all $(NOPRINT); $(MAKE) -C $(LIBFT_DIR) all $(NOPRINT),$(PUSH_SWAP) $(REBUILT))
+re:
+	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) all $(NOPRINT),$(PUSH_SWAP) $(REBUILT))
 
 # ? 🔁 Rebuilds the bonus program
-rebonus: #fclean bonus
-	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) bonus $(NOPRINT); $(MAKE) -C $(LIBFT_DIR) all $(NOPRINT),$(BONUS) $(REBUILT))
+rebonus:
+	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) bonus $(NOPRINT),$(BONUS) $(REBUILT))
 
 # ? 🧪 Checks the code with norminette
 norminette:
-	$(call RUN_AND_LOG,clear; $(MAKE) -C $(LIBFT_DIR) norminette $(NOPRINT); norminette $(INCLUDES_DIR) $(PUSH_SWAP_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)",$(PUSH_SWAP) $(GREEN)Norminette checked$(RESET))
+	$(call RUN_AND_LOG,clear; $(MAKE) -C $(LIBFT_DIR) norminette $(NOPRINT); norminette $(INCLUDES_DIR) $(PUSH_SWAP_SOURCES_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)",$(PUSH_SWAP) $(BLUE)Norminette checked!$(RESET))
 
 # ? 🧪 Runs the tests
-tests: #bonus
-	$(call RUN_AND_LOG,$(MAKE) bonus $(NOPRINT); ARG='4 67 3 87 23'; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG; ARG='4 67 3 87 23'; ./push_swap $$ARG | ./checker $$ARG,$(PUSH_SWAP) $(GREEN)Tests finished$(RESET))
+tests:
+	$(call RUN_AND_LOG,clear; echo "Running tests..."; ARG='4 67 3 87 23'; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG; ARG='4 67 3 87 23'; ./push_swap $$ARG | ./checker $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
 
 # ? 🧪 Runs the program with a test case
-run: #bonus
-	$(call RUN_AND_LOG,$(MAKE) bonus $(NOPRINT); clear; ./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`,$(PUSH_SWAP) $(GREEN)Run finished$(RESET))
+run:
+	$(call RUN_AND_LOG,clear; echo "Running program..."; ./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`; echo "Running bonus..."; ./$(BONUS_NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`,$(PUSH_SWAP) $(GREEN)Run completed!$(RESET))
 
 # ? ❓ Displays this help message
 help:
@@ -210,6 +232,6 @@ help:
 # banner:
 # 	$(BANNER)
 
-.PHONY: obj update all clean fclean re help tests run
+.PHONY: obj update all bonus clean fclean re rebonus help tests run
 
 .DEFAULT_GOAL := all
