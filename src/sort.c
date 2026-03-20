@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:37:40 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 07:44:23 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/20 16:57:10 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ static void	sort_five(t_stack *a, t_stack *b, bool print)
  */
 void	sort(t_stack *a, t_stack *b)
 {
-	(void)b;
 	if (a->size == 2)
 		sa(a, true);
 	else if (a->size == 3)
@@ -121,8 +120,6 @@ void	sort(t_stack *a, t_stack *b)
 		sort_four(a, b, true);
 	else if (a->size == 5)
 		sort_five(a, b, true);
-	else if (SORT_ALGO == 0)
-		bucket_sort(a, b, true);
-	else if (SORT_ALGO == 1)
-		selection_sort(a, b, true);
+	else
+		sort_algorithm(a, b, true);
 }

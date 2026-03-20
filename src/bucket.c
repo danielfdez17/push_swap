@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bucket.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daniel <daniel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 08:55:17 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 11:20:41 by daniel           ###   ########.fr       */
+/*   Updated: 2026/03/20 16:57:28 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	bucket_sort(t_stack *a, t_stack *b, bool print)
+// void	bucket_sort(t_stack *a, t_stack *b, bool print)
+void	sort_algorithm(t_stack *a, t_stack *b, bool print)
 {
 	int		chunk_size;
 	int		range;

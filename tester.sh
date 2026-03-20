@@ -90,6 +90,8 @@ print_table_header_separator() {
 	print_cross
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_cross
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_cross
 	for i in $(seq 1 43); do print_horizontal_line; done
 	print_right_junction
 	echo
@@ -103,12 +105,16 @@ print_table_top() {
 	print_top_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_top_junction
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_top_junction
 	for i in $(seq 1 43); do print_horizontal_line; done
 	print_top_right_corner
 }
 
 print_table_bottom() {
 	print_bottom_left_corner
+	for i in $(seq 1 8); do print_horizontal_line; done
+	print_bottom_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
 	print_bottom_junction
 	for i in $(seq 1 8); do print_horizontal_line; done
@@ -179,6 +185,9 @@ test_n() {
 	
 	echo
 	log_info "Running $iterations iterations with $n numbers..."
+	total_time=0
+	max_time=0
+	min_time=999999999
 	echo
 	
 	# Print table header
@@ -190,6 +199,8 @@ test_n() {
 	print_vertical_line
 	printf " ${BLUE}%-6s${NC} " "Result"
 	print_vertical_line
+	printf " ${BLUE}%-6s${NC} " "Time"
+	print_vertical_line
 	printf " ${BLUE}%-41s${NC} " "Generated Numbers"
 	print_vertical_line
 	echo
@@ -197,10 +208,20 @@ test_n() {
 	
 	for i in $(seq 1 $iterations); do
 		numbers=$(generate_numbers $n)
-		moves=$(echo $numbers | xargs ./push_swap | wc -l)
-		checker_result=$(echo $numbers | xargs ./push_swap | ./checker $numbers)
+		# Measure time for push_swap (and checker) using milliseconds
+		start_ms=$(date +%s%3N)
+		output=$(echo $numbers | xargs ./push_swap)
+		moves=$(echo "$output" | wc -l)
+		checker_result=$(echo "$output" | ./checker $numbers)
+		end_ms=$(date +%s%3N)
+		elapsed_ms=$((end_ms - start_ms))
+		time_formatted=$(awk "BEGIN {printf \"%.2f\", $elapsed_ms}")
 		max_moves=$((moves > max_moves ? moves : max_moves))
 		min_moves=$((moves < min_moves ? moves : min_moves))
+
+		total_time=$((total_time + elapsed_ms))
+		max_time=$((elapsed_ms > max_time ? elapsed_ms : max_time))
+		min_time=$((elapsed_ms < min_time ? elapsed_ms : min_time))
 		
 		if [ $checker_result = "OK" ]; then
 			status_color=$GREEN
@@ -241,6 +262,8 @@ test_n() {
 		print_vertical_line
 		printf " $move_color%s$NC " "$move_formatted"
 		print_vertical_line
+		printf " $BLUE%sms$NC " "$time_formatted"
+		print_vertical_line
 		printf " $status_color%s$NC " "$status_formatted"
 		print_vertical_line
 		printf " $BLUE%s$NC " "$numbers_formatted"
@@ -256,6 +279,7 @@ test_n() {
 	percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($bad_iterations/$iterations)*100}")
 	checker_percentage_ok=$(awk "BEGIN {printf \"%.2f\", ($ok_checker/$iterations)*100}")
 	checker_percentage_ko=$(awk "BEGIN {printf \"%.2f\", ($ko_checker/$iterations)*100}")
+	avg_time=$(awk "BEGIN {printf \"%.2f\", $total_time/$iterations}")
 	avg_moves=$(awk "BEGIN {printf \"%.2f\", $total_moves/$iterations}")
 	
 	# Print summary table
@@ -305,6 +329,18 @@ test_n() {
 	echo
 	print_vertical_line
 	printf "   %-66s " "Average moves: $avg_moves"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Average time: ${avg_time}ms (avg over $iterations iterations)"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Max time: ${max_time}ms"
+	print_vertical_line
+	echo
+	print_vertical_line
+	printf "   %-66s " "Min time: ${min_time}ms"
 	print_vertical_line
 	echo
 	print_vertical_line

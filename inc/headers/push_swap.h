@@ -6,7 +6,7 @@
 /*   By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 07:36:31 by danfern3          #+#    #+#             */
-/*   Updated: 2026/03/13 07:44:54 by danfern3         ###   ########.fr       */
+/*   Updated: 2026/03/20 17:02:17 by danfern3         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	sort(t_stack *a, t_stack *b);
  * @param b The second stack
  * @param print Whether to print the operations performed
  */
-void	bucket_sort(t_stack *a, t_stack *b, bool print);
+void	sort_algorithm(t_stack *a, t_stack *b, bool print);
+// void	bucket_sort(t_stack *a, t_stack *b, bool print);
 
 /**
  * Sorts the stack using the selection sort algorithm
@@ -71,7 +72,7 @@ void	bucket_sort(t_stack *a, t_stack *b, bool print);
  * @param b The second stack
  * @param print Whether to print the operations performed
  */
-void	selection_sort(t_stack *a, t_stack *b, bool print);
+// void	selection_sort(t_stack *a, t_stack *b, bool print);
 
 /**
  * Sorts the stack using the counting sort algorithm

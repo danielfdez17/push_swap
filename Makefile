@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: daniel <daniel@student.42.fr>              +#+  +:+       +#+         #
+#    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2026/03/13 08:14:31 by daniel           ###   ########.fr        #
+#    Updated: 2026/03/20 16:53:54 by danfern3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,12 @@ endef
 MYCC = cc
 WARNING_FLAGS = -Wall -Wextra -Werror
 DEBUG_FLAGS = -g3 -fsanitize=address
-PUSHSWAP_FLAGS = -D SORT_ALGO=0 -D DEBUG_MODE=false
+PUSHSWAP_FLAGS = -D DEBUG_MODE=false
 CPPFLAGS = -I./inc/headers -I./inc/libft/inc -MMD -MP
 
 # * Build type (make BUILD_TYPE=debug for debug mode)
 BUILD_TYPE ?= release
+SORT_ALGO ?= 0
 
 ifeq ($(BUILD_TYPE),debug)
 	OPT_FLAGS = -g3 -ggdb -O0 # Optimize for debugging, not for speed
@@ -69,7 +70,6 @@ PUSH_SWAP_SOURCES_DIR = ./src/
 PUSH_SWAP_SRCS =	\
 					src/args_processing.c \
 					src/best_move.c \
-					src/bucket.c \
 					src/counting.c \
 					src/errors.c \
 					src/main.c \
@@ -78,12 +78,18 @@ PUSH_SWAP_SRCS =	\
 					src/reverse_rotate.c \
 					src/rotate_utils.c \
 					src/rotate.c \
-					src/selection.c \
 					src/sort.c \
 					src/stack_utils.c \
 					src/stack.c \
 					src/swap.c \
 					src/utils.c
+
+ifeq ($(SORT_ALGO),0)
+	PUSH_SWAP_SRCS += src/bucket.c
+else
+	PUSH_SWAP_SRCS += src/selection.c
+endif
+
 
 PUSH_SWAP_BONUS_SRCS =	\
 						src/args_processing.c \
