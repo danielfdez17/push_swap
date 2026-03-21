@@ -30,3 +30,28 @@ t_elem	*get_min_value(t_stack *stack)
 	min_value->back = stack->size - min_value->position;
 	return (min_value);
 }
+
+void	set_indexes(t_stack *stack)
+{
+	int		*sorted;
+	int		i;
+	t_elem	*ptr;
+
+	i = 0;
+	sorted = counting_sort(stack);
+	while (i < stack->size)
+	{
+		ptr = stack->top;
+		while (ptr)
+		{
+			if (ptr->value == sorted[i])
+			{
+				ptr->index = i;
+				break ;
+			}
+			ptr = ptr->next;
+		}
+		++i;
+	}
+	free(sorted);
+}

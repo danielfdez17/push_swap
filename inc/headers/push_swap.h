@@ -58,13 +58,13 @@ bool	input_error(char *s);
  */
 void	sort(t_stack *a, t_stack *b);
 /** 
- * Sorts the stack using the bucket sort algorithm
+ * Sorts the stack using a specific sort algorithm:
+ * bucket sort, selection sort, radix sort
  * @param a The first stack
  * @param b The second stack
  * @param print Whether to print the operations performed
  */
 void	sort_algorithm(t_stack *a, t_stack *b, bool print);
-// void	bucket_sort(t_stack *a, t_stack *b, bool print);
 
 /**
  * Sorts the stack using the selection sort algorithm
