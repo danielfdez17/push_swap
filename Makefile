@@ -50,7 +50,6 @@ CPPFLAGS = -I./inc/headers -I./inc/libft/inc -MMD -MP
 
 # * Build type (make BUILD_TYPE=debug for debug mode)
 BUILD_TYPE ?= release
-SORT_ALGO ?= 0
 
 ifeq ($(BUILD_TYPE),debug)
 	OPT_FLAGS = -g3 -ggdb -O0 # Optimize for debugging, not for speed
@@ -74,7 +73,6 @@ PUSH_SWAP_SRCS =	\
 					src/errors.c \
 					src/main.c \
 					src/push.c \
-					src/radix.c \
 					src/reverse_rotate.c \
 					src/rotate_utils.c \
 					src/rotate.c \
@@ -84,8 +82,12 @@ PUSH_SWAP_SRCS =	\
 					src/swap.c \
 					src/utils.c
 
+SORT_ALGO ?= 0
+
 ifeq ($(SORT_ALGO),0)
 	PUSH_SWAP_SRCS += src/bucket.c
+else ifeq ($(SORT_ALGO),1)
+	PUSH_SWAP_SRCS += src/radix.c
 else
 	PUSH_SWAP_SRCS += src/selection.c
 endif
@@ -94,6 +96,7 @@ endif
 PUSH_SWAP_BONUS_SRCS =	\
 						src/args_processing.c \
 						src/best_move.c \
+						src/counting.c \
 						src/errors.c \
 						src/executer_bonus.c \
 						src/main_bonus.c \
@@ -149,7 +152,7 @@ all:
 	fi
 
 # ? 🔨 Compiles the bonus program
-bonus:
+bonus: all
 	@build_plan="$$($(MAKE) -s -n $(BONUS_NAME) $(NOPRINT) 2>&1)"; status=$$?; \
 	if [ $$status -ne 0 ]; then \
 		printf "%s\n" "$$build_plan"; \
@@ -196,11 +199,9 @@ norminette:
 
 # ? 🧪 Runs the tests
 tests:
-	$(call RUN_AND_LOG,clear; echo "Running tests..."; ARG='4 67 3 87 23'; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG; ARG='4 67 3 87 23'; ./push_swap $$ARG | ./checker $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
+	$(call RUN_AND_LOG,clear; ARG=`seq -10 10 | shuf | head -n 10 | tr "\n" " "`;echo "Running tests with $$ARG"; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
 
-# ? 🧪 Runs the program with a test case
-run:
-	$(call RUN_AND_LOG,clear; echo "Running program..."; ./$(NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`; echo "Running bonus..."; ./$(BONUS_NAME) `seq -10 10 | shuf | head -n 10 | tr "\n" " "`,$(PUSH_SWAP) $(GREEN)Run completed!$(RESET))
+SAMPLE_INPUT = `seq -10 10 | shuf | head -n 10 | tr "\n" " "`
 
 # ? ❓ Displays this help message
 help:

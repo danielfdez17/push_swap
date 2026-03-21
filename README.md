@@ -53,7 +53,8 @@ There is also another test to check whether the random integer sequence is sorte
 
 ### Use of AI
 - To check the syntax of the project files (source, headers, and docs files)
-- To help me 
+- To help me refactor the programs compilation
+- To help me achieve bucket sort best move calcs
 
 ### Useful links
 - https://www.programiz.com/dsa/bucket-sort
