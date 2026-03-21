@@ -197,9 +197,9 @@ test_n() {
 	print_vertical_line
 	printf " ${BLUE}%-6s${NC} " "Moves"
 	print_vertical_line
-	printf " ${BLUE}%-6s${NC} " "Result"
-	print_vertical_line
 	printf " ${BLUE}%-6s${NC} " "Time"
+	print_vertical_line
+	printf " ${BLUE}%-6s${NC} " "Result"
 	print_vertical_line
 	printf " ${BLUE}%-41s${NC} " "Generated Numbers"
 	print_vertical_line
@@ -215,7 +215,8 @@ test_n() {
 		checker_result=$(echo "$output" | ./checker $numbers)
 		end_ms=$(date +%s%3N)
 		elapsed_ms=$((end_ms - start_ms))
-		time_formatted=$(awk "BEGIN {printf \"%.2f\", $elapsed_ms}")
+		time_formatted=$(awk "BEGIN {printf \"%.f\", $elapsed_ms}")
+		time_formatted=$(printf "%2s%s" "$time_formatted" "ms")
 		max_moves=$((moves > max_moves ? moves : max_moves))
 		min_moves=$((moves < min_moves ? moves : min_moves))
 
@@ -254,6 +255,7 @@ test_n() {
 		num_formatted=$(printf '%-6s' "$i")
 		move_formatted=$(printf '%-6s' "$moves")
 		status_formatted=$(printf '%-6s' "$status_text")
+		time_formatted=$(printf '%-6s' "$time_formatted")
 		numbers_limit=${#numbers_display}
 		numbers_formatted=$(printf '%-41s' "$numbers_display")
 		
@@ -262,7 +264,7 @@ test_n() {
 		print_vertical_line
 		printf " $move_color%s$NC " "$move_formatted"
 		print_vertical_line
-		printf " $BLUE%sms$NC " "$time_formatted"
+		printf " $BLUE%s$NC " "$time_formatted"
 		print_vertical_line
 		printf " $status_color%s$NC " "$status_formatted"
 		print_vertical_line
