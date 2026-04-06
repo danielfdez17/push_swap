@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "headers",
+			"path": "inc",
+		},
+		{
+			"name": "sources",
+			"path": "src",
+		},
+		{
+			"name": "root",
+			"path": ".",
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/obj**": true,
+			"**/inc": true,
+			"**/src": true,
+			"LICENSE": true,
+		}
+	}
+}
