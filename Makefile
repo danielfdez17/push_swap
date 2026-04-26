@@ -10,6 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
+# SHELL := /usr/bin/bash
+# .SHELLFLAGS := -ec
+
 # * Program name
 NAME = push_swap
 BONUS_NAME = checker
@@ -167,7 +170,7 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
 # ? 🔄 Updates the submodules
-update:
+update-submodules:
 	$(call RUN_AND_LOG,echo "$(BLUE)Updating submodules...$(RESET)"; git submodule update --init --recursive --remote; echo -n "$(GREEN)Submodules updated!$(RESET)","")
 
 $(NAME): $(LIBFT) $(OBJS)
@@ -199,9 +202,12 @@ norminette:
 
 # ? 🧪 Runs the tests
 tests:
-	$(call RUN_AND_LOG,clear; ARG=`seq -10 10 | shuf | head -n 10 | tr "\n" " "`;echo "Running tests with $$ARG"; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
+	$(call RUN_AND_LOG,clear; $(MAKE) -s bonus; ARG=`seq -10 10 | shuf | head -n 10 | tr "\n" " "`;echo "Running tests with $$ARG"; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
 
-SAMPLE_INPUT = `seq -10 10 | shuf | head -n 10 | tr "\n" " "`
+.PHONY: run_push_swap_tester
+# ? 🧪 Runs a single test with random arguments
+run_push_swap_tester:
+	bash ./vendor/scripts/42/push_swap/push_swap_tester.sh 100 500
 
 # ? ❓ Displays this help message
 help:
@@ -214,7 +220,7 @@ help:
 			target = $$1; \
 			sub(/:.*/, "", target); \
 			if (target !~ /^\./) \
-				printf "  " blue "%-12s" reset green "%s" reset "\n", target, desc; \
+				printf "  " blue "%-20s" reset green "%s" reset "\n", target, desc; \
 			desc = ""; \
 		}' $(firstword $(MAKEFILE_LIST)); \
 	end_ms=$$(date +%s%3N); \
@@ -239,6 +245,6 @@ help:
 # banner:
 # 	$(BANNER)
 
-.PHONY: obj update all bonus clean fclean re rebonus help tests run
+.PHONY: obj update-submodules all bonus clean fclean re rebonus help tests run
 
 .DEFAULT_GOAL := all
