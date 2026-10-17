@@ -6,25 +6,35 @@
 #    By: danfern3 <danfern3@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 09:34:42 by danfern3          #+#    #+#              #
-#    Updated: 2026/03/20 16:53:54 by danfern3         ###   ########.fr        #
+#    Updated: 2026/10/17 13:13:29 by danfern3         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# SHELL := /usr/bin/bash
-# .SHELLFLAGS := -ec
+SHELL := /usr/bin/bash
+.SHELLFLAGS := -ec
 
 # * Program name
 NAME = push_swap
 BONUS_NAME = checker
 
 # * Utils
-RED = \033[0;31m
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-BLUE = \033[0;34m
-MAGENTA = \033[0;35m
-CYAN = \033[0;36m
-RESET = \033[0m
+GREEN := $(shell printf '\033[0;32m')
+YELLOW := $(shell printf '\033[0;33m')
+RESET := $(shell printf '\033[0m')
+MAGENTA := $(shell printf '\033[0;35m')
+CYAN := $(shell printf '\033[0;36m')
+RED := $(shell printf '\033[0;31m')
+SUCCESS := $(GREEN)✓
+FAIL := $(RED)✗
+INFO := $(CYAN)ℹ
+WARN := $(YELLOW)⚠
+
+PRINT_BANNER := ./scripts/bash/print_banner.sh
+PRINT_SUCCESS := ./scripts/bash/print_success.sh
+PRINT_FAIL := ./scripts/bash/print_fail.sh
+PRINT_INFO := ./scripts/bash/print_info.sh
+PRINT_WARN := ./scripts/bash/print_warning.sh
+
 PUSH_SWAP = $(MAGENTA)[$(NAME)]$(RESET)
 BONUS = $(CYAN)[$(BONUS_NAME)]$(RESET)
 BUILT = $(GREEN)Built$(RESET)
@@ -32,17 +42,8 @@ OBJS_REMOVED = $(RED)Object files removed $(RESET)
 REMOVED = $(RED)Removed $(RESET)
 REBUILT = $(YELLOW)Rebuilt $(RESET)
 
-# * Timer helper
-define RUN_AND_LOG
-	@start_ms=$$(date +%s%3N); \
-	$(1); status=$$?; \
-	end_ms=$$(date +%s%3N); \
-	elapsed_ms=$$((end_ms - start_ms)); \
-	if [ $$status -eq 0 ]; then \
-		printf "%b [%sms]\n" "$(strip $(2))" "$$elapsed_ms"; \
-	fi; \
-	exit $$status
-endef
+# * Time a command and print a message on success
+RUN_AND_LOG := ./scripts/bash/run_and_log.sh
 
 # * Compiler and flags
 MYCC = cc
@@ -142,8 +143,9 @@ $(BONUS_OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(MYCC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-# ? 🧩 Compiles the whole program/library
-all:
+# ── Push Swap
+.PHONY: all
+all: ## Compiles the whole program
 	@build_plan="$$($(MAKE) -s -n $(NAME) $(NOPRINT) 2>&1)"; status=$$?; \
 	if [ $$status -ne 0 ]; then \
 		printf "%s\n" "$$build_plan"; \
@@ -154,8 +156,8 @@ all:
 		printf "%b\n" "$(PUSH_SWAP) $(CYAN)Everything is up to date$(RESET)"; \
 	fi
 
-# ? 🔨 Compiles the bonus program
-bonus: all
+.PHONY: bonus
+bonus: all ## Compiles the bonus program
 	@build_plan="$$($(MAKE) -s -n $(BONUS_NAME) $(NOPRINT) 2>&1)"; status=$$?; \
 	if [ $$status -ne 0 ]; then \
 		printf "%s\n" "$$build_plan"; \
@@ -166,85 +168,96 @@ bonus: all
 		printf "%b\n" "$(BONUS) $(CYAN)Everything is up to date$(RESET)"; \
 	fi
 
-$(LIBFT):
+.PHONY: $(LIBFT)
+$(LIBFT): ## Compiles the libft library
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-# ? 🔄 Updates the submodules
-update-submodules:
-	$(call RUN_AND_LOG,echo "$(BLUE)Updating submodules...$(RESET)"; git submodule update --init --recursive --remote; echo -n "$(GREEN)Submodules updated!$(RESET)","")
-
+.PHONY: $(NAME)
 $(NAME): $(LIBFT) $(OBJS)
-	$(call RUN_AND_LOG,$(MYCC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LIBFT) -o $@,$(PUSH_SWAP) $(BUILT))
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(BUILT)" -c '$(MYCC) $(CFLAGS) $(CPPFLAGS) $(OBJS) $(LIBFT) -o $@'
 
+.PHONY: $(BONUS_NAME)
 $(BONUS_NAME): $(LIBFT) $(BONUS_OBJS)
-	$(call RUN_AND_LOG,$(MYCC) $(CFLAGS) $(CPPFLAGS) $(BONUS_OBJS) $(LIBFT) -o $@,$(BONUS) $(BUILT))
 
-# ? 🧹 Removes the object files
-clean:
-	$(call RUN_AND_LOG,$(MAKE) -C $(LIBFT_DIR) clean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR),$(PUSH_SWAP) $(OBJS_REMOVED))
+	@$(RUN_AND_LOG) -m "$(BONUS) $(BUILT)" -c '$(MYCC) $(CFLAGS) $(CPPFLAGS) $(BONUS_OBJS) $(LIBFT) -o $@'
 
+.PHONY: clean
+clean: ## Removes the object files
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(OBJS_REMOVED)" -c '$(MAKE) -C $(LIBFT_DIR) clean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR)'
 
-# ? 🗑️ Removes both object and executable files
-fclean:
-	$(call RUN_AND_LOG,$(MAKE) -C $(LIBFT_DIR) fclean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR) $(NAME) $(BONUS_NAME),$(PUSH_SWAP) $(REMOVED))
+.PHONY: fclean
+fclean: ## Removes both object and executable files
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(REMOVED)" -c '$(MAKE) -C $(LIBFT_DIR) fclean $(NOPRINT); $(RM) $(OBJ_DIR) $(BONUS_OBJ_DIR) $(NAME) $(BONUS_NAME)'
 
-# ? 🔁 Rebuilds the program/library
-re:
-	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) all $(NOPRINT),$(PUSH_SWAP) $(REBUILT))
+.PHONY: re
+re: ## Rebuilds the program/library
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(REBUILT)" -c '$(MAKE) fclean $(NOPRINT); $(MAKE) all $(NOPRINT)'
 
-# ? 🔁 Rebuilds the bonus program
-rebonus:
-	$(call RUN_AND_LOG,$(MAKE) fclean $(NOPRINT); $(MAKE) bonus $(NOPRINT),$(BONUS) $(REBUILT))
+.PHONY: rebonus
+rebonus: ## Rebuilds the bonus program
+	@$(RUN_AND_LOG) -m "$(BONUS) $(REBUILT)" -c '$(MAKE) fclean $(NOPRINT); $(MAKE) bonus $(NOPRINT)'
 
-# ? 🧪 Checks the code with norminette
-norminette:
-	$(call RUN_AND_LOG,clear; $(MAKE) -C $(LIBFT_DIR) norminette $(NOPRINT); norminette $(INCLUDES_DIR) $(PUSH_SWAP_SOURCES_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)",$(PUSH_SWAP) $(BLUE)Norminette checked!$(RESET))
+.PHONY: norminette
+norminette: ## Checks the code with norminette
+	@$(PRINT_BANNER) "Checking code with Norminette"
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(BLUE)Norminette checked!$(RESET)" -c '$(MAKE) -C $(LIBFT_DIR) norminette $(NOPRINT); norminette $(INCLUDES_DIR) $(PUSH_SWAP_SOURCES_DIR) | grep Error || echo "$(PUSH_SWAP) $(GREEN)Norminette passed!$(RESET)"'
+	@$(PRINT_SUCCESS) "Norminette checked successfully!"
 
-# ? 🧪 Runs the tests
-tests:
-	$(call RUN_AND_LOG,clear; $(MAKE) -s bonus; ARG=`seq -10 10 | shuf | head -n 10 | tr "\n" " "`;echo "Running tests with $$ARG"; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG,$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET))
+.PHONY: tests
+tests: ## Runs the tests
+	@$(RUN_AND_LOG) -m "$(PUSH_SWAP) $(GREEN)Tests completed!$(RESET)" -c 'clear; $(MAKE) -s bonus; ARG=`seq -10 10 | shuf | head -n 10 | tr "\n" " "`;echo "Running tests with $$ARG"; ./$(NAME) $$ARG | ./$(BONUS_NAME) $$ARG'
 
 .PHONY: run_push_swap_tester
-# ? 🧪 Runs a single test with random arguments
-run_push_swap_tester:
-	bash ./vendor/scripts/42/push_swap/push_swap_tester.sh 100 500
+run_push_swap_tester: ## Runs a single test with random arguments
+	bash ./scripts/42/push_swap/push_swap_tester.sh 100 500
 
-# ? ❓ Displays this help message
-help:
-	@start_ms=$$(date +%s%3N); \
-	awk '\
-		BEGIN { blue = "\033[0;34m"; green = "\033[0;32m"; reset = "\033[0m"; yellow = "\033[0;33m"; print yellow "Usage: make [target]"; print "Targets:" } \
-		/^# \?/ { desc = substr($$0, 5); next } \
-		/^$$/ { desc = ""; next } \
-		/^[a-zA-Z0-9][a-zA-Z0-9_.-]*:/ { \
-			target = $$1; \
-			sub(/:.*/, "", target); \
-			if (target !~ /^\./) \
-				printf "  " blue "%-20s" reset green "%s" reset "\n", target, desc; \
-			desc = ""; \
-		}' $(firstword $(MAKEFILE_LIST)); \
-	end_ms=$$(date +%s%3N); \
-	elapsed_ms=$$((end_ms - start_ms)); \
-	printf "$(BLUE)[help]$(RESET) Displayed [%sms]\n" "$$elapsed_ms"
+.PHONY: help
+# ── Utils
+help: ## Show available targets
+	@$(PRINT_BANNER) "Available Makefile Targets"
+	@LC_ALL=C.UTF-8 awk '\
+		function trim(s) { \
+			sub(/^[[:space:]]+/, "", s); \
+			sub(/[[:space:]]+$$/, "", s); \
+			return s \
+		} \
+		/^# ──[[:space:]]+/ { \
+			title = $$0; \
+			sub(/^# ──[[:space:]]+/, "", title); \
+			sub(/[[:space:]]*─+[[:space:]]*$$/, "", title); \
+			title = trim(title); \
+			n++; kind[n] = "section"; text[n] = title; \
+			next \
+		} \
+		/^[a-zA-Z_-]+:.*## / { \
+			name = $$0; sub(/:.*/, "", name); \
+			msg = $$0; sub(/^[^#]*## /, "", msg); \
+			n++; kind[n] = "target"; names[n] = name; msgs[n] = msg; \
+			if (length(name) > name_width) name_width = length(name); \
+			next \
+		} \
+		END { \
+			for (i = 1; i <= n; i++) \
+				if (kind[i] == "target") { \
+					line = 2 + name_width + 1 + length(msgs[i]); \
+					if (line > line_width) line_width = line \
+				} \
+			for (i = 1; i <= n; i++) \
+				if (kind[i] == "section") { \
+					label = "── " text[i] " "; \
+					pad = line_width - length(label); \
+					if (pad < 1) pad = 1; \
+					dashes = ""; \
+					for (j = 0; j < pad; j++) dashes = dashes "─"; \
+					printf "%s%s\n", label, dashes \
+				} else \
+					printf "  $(CYAN)%-*s$(RESET) %s\n", name_width, names[i], msgs[i] \
+		}' Makefile
 
-
-# define BANNER
-# 	@echo ""
-# 	@echo "$(BLUE)"
-# 	@echo "╔══════════════════════════════════════════════════════════╗"
-# 	@echo "║  ____  _   _ ____  _   _   ____ __        ___    ____    ║"
-# 	@echo "║ |  _ \| | | / ___|| | | | / ___|\\ \      / / \  |  _ \   ║"
-# 	@echo "║ | |_) | | | \___ \| |_| | \___ \\ \ \ /\ / / _ \ | |_) |  ║"
-# 	@echo "║ |  __/| |_| |___) |  _  |  ___) | \ V  V / ___ \|  __/   ║"
-# 	@echo "║ |_|    \___/|____/|_| |_| |____/   \_/\_/_/   \_\_|      ║"
-# 	@echo "║                                                          ║"
-# 	@echo "╚══════════════════════════════════════════════════════════╝"
-# 	@echo "$(RESET)"
-# endef
-
-# banner:
-# 	$(BANNER)
-
-.PHONY: obj update-submodules all bonus clean fclean re rebonus help tests run
+.PHONY: update-submodules
+update-submodules: ## Update git submodules
+	@$(PRINT_BANNER) "Updating Git Submodules"
+	@git submodule update --init --recursive --remote
+	@$(PRINT_SUCCESS) "Git submodules updated successfully!"
 
 .DEFAULT_GOAL := all
