@@ -22,10 +22,56 @@ The available movements are
 
 # **Instructions**
 
-Clone the project and build it
+## Clone the project and build it
 
 ```bash
-git clone https://github.com/danielfdez17/push_swap.git && cd push_swap && make bonus
+git clone https://github.com/danielfdez17/push_swap.git && cd push_swap
+```
+
+## Choose the compilation mode
+
+### Build for fast execution
+```bash
+make all || make bonus
+```
+
+> Note: by default it's built for speed, so you can omit the BUILD_TYPE param
+
+### Build for debugging
+```bash
+make all BUILD_TYPE=debug || make bonus BUILD_TYPE=debug
+```
+
+## Choose the algorithm
+
+### Bucket sort
+```bash
+make all || make all SORT_ALGO=0
+```
+
+```bash
+make bonus || make bonus SORT_ALGO=0
+```
+
+> Note: by default bucket sort is chosen 
+
+### Radix sort
+```bash
+make all SORT_ALGO=1
+```
+
+```bash
+make bonus SORT_ALGO=1
+```
+
+### Selection sort
+### Radix sort
+```bash
+make all SORT_ALGO=2
+```
+
+```bash
+make bonus SORT_ALGO=2
 ```
 
 ## Testers
@@ -53,7 +99,7 @@ There is also another test to check whether the random integer sequence is sorte
 
 ### Use of AI
 - To check the syntax of the project files (source, headers, and docs files)
-- To help me refactor the programs compilation
+- To help me refactor the programs' compilation
 - To help me achieve bucket sort best move calcs
 
 ### Useful links
