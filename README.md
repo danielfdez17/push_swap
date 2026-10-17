@@ -65,7 +65,6 @@ make bonus SORT_ALGO=1
 ```
 
 ### Selection sort
-### Radix sort
 ```bash
 make all SORT_ALGO=2
 ```
