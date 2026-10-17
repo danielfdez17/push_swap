@@ -1,6 +1,6 @@
-[submodule "inc/libft"]
-	path = inc/libft
-	url = https://github.com/danielfdez17/libft.git
 [submodule "scripts"]
 	path = scripts
-	url = https://github.com/danielfdez17/scripts.git
+	url = git@github.com:danielfdez17/scripts
+[submodule "inc/libft"]
+	path = inc/libft
+	url = git@github.com:danielfdez17/libft
